@@ -6,9 +6,9 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab1; //lagarto
-    public GameObject enemyPrefab2; //aguila
+    public GameObject enemyPrefab2; //fenec
     
-    //public GameObject enemyPrefab3; //fenec
+    public GameObject enemyPrefab3; //aguila
     private int waveCounter = 1;
     public int timeBetweenWaves = 30;
     // Start is called before the first frame update
@@ -92,7 +92,22 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void wave3(){
-        
+        int x1,y1,x2,y2,x3,y3;
+        x1 = -13; y1 = 0;
+        x2 = 13; y2 = 0;
+        x3 = 0; y3 = 10;
+        Vector3 pos1 = new Vector3(x1,y1,0);
+        Vector3 pos2 = new Vector3(x2,y2,0);
+        Vector3 pos3 = new Vector3(x3,y3,0);
+        GameObject e1 = Instantiate(enemyPrefab3, pos1, Quaternion.identity);
+        e1.transform.localScale = new Vector3(3,3,3);
+        GameObject e2 = Instantiate(enemyPrefab3, pos2, Quaternion.identity);
+        e2.transform.localScale = new Vector3(3,3,3);
+        GameObject e3 = Instantiate(enemyPrefab2, pos3, Quaternion.identity);
+        e3.transform.localScale = new Vector3(3,3,3);
+        spawnRandomEnemy(enemyPrefab1);
+        spawnRandomEnemy(enemyPrefab1);
+        spawnRandomEnemy(enemyPrefab1);
     }
 
     private bool distanceLessThan(Vector3 pos1, int x2, int y2){ 

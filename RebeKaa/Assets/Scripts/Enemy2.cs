@@ -11,30 +11,13 @@ public class Enemy2 : MonoBehaviour
     private float xBorderLimit, yBorderLimit;
     public float rotationInterval = 2f;  // Intervalo de rotación en segundos
     private float timeSinceLastRotation;
+    private float cont = 0;
 
 
     void Start()
     {
         // Inicializar la dirección de movimiento 
-        int rnd = UnityEngine.Random.Range(0, 4);
-        switch (rnd){
-            case 0:
-                moveDirection = Vector2.up;
-                changeOrientation(rnd);
-                break;
-            case 1:
-                moveDirection = Vector2.down;
-                changeOrientation(rnd);
-                break;
-            case 2:
-                moveDirection = Vector2.left;
-                changeOrientation(rnd);
-                break;
-            case 3:
-                moveDirection = Vector2.right;
-                changeOrientation(rnd);
-                break;
-        }
+        moveDirection = Vector2.up;
 
         xBorderLimit = 36;
         yBorderLimit = 17;
@@ -49,7 +32,14 @@ public class Enemy2 : MonoBehaviour
         timeSinceLastRotation += Time.deltaTime;
         if (timeSinceLastRotation >= rotationInterval)
         {
+            if(cont%2 == 0){
+                speed *= 2;
+            }
+            else{
+                speed /= 2;
+            }
             RotateEnemy();
+            cont++;
             timeSinceLastRotation = 0f;
         }
         var newPos = transform.position;
@@ -76,9 +66,6 @@ public class Enemy2 : MonoBehaviour
         // Rotar al enemigo un ángulo aleatorio
         int randomAngle = UnityEngine.Random.Range(0, 3);
         currentRotation = (randomAngle*90f)%360f;
-        
-        // Mantener la rotación dentro de los 360 grados
-        //if (currentRotation >= 360f) currentRotation -= 360f;
 
         // Aplicar la rotación al transform
         changeOrientation(randomAngle);

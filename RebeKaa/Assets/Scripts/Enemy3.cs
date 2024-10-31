@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy1 : MonoBehaviour{
+public class Enemy3 : MonoBehaviour
+{
     public float speed = 5f;  // Velocidad de movimiento
     public float rotationSpeed = 90f;  // Velocidad de rotación en grados por segundo
     private Vector2 moveDirection;  // Dirección de movimiento en 2D
@@ -51,12 +50,13 @@ public class Enemy1 : MonoBehaviour{
         newPos.y = yBorderLimit-1;
         transform.position = newPos;
     }
-
     void RotateEnemy()
     {
         // Rotar al enemigo un ángulo aleatorio
-        int randomAngle = UnityEngine.Random.Range(0, 4);
+        int randomAngle = UnityEngine.Random.Range(0, 3);
         currentRotation = (randomAngle*90f)%360f;
+
+        // Aplicar la rotación al transform
 
         if (randomAngle == 1){
             sprite.sprite = spriteL;
@@ -64,7 +64,7 @@ public class Enemy1 : MonoBehaviour{
         if (randomAngle == 3){
             sprite.sprite = spriteR;
         }
-        
+
         // Actualizar la dirección de movimiento según el ángulo de rotación actual
         float radians = currentRotation * Mathf.Deg2Rad;
         if(currentRotation == 0){
