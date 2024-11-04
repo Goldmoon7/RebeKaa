@@ -9,15 +9,15 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab2; //fenec
     
     public GameObject enemyPrefab3; //aguila
-    private int waveCounter = 1;
-    public int timeBetweenWaves = 30;
-    // Start is called before the first frame update
+    private int waveCounter = 1; //contador de oleadas
+    public int timeBetweenWaves = 30; //tiempo entre oleadas
+
     void Start()
     {
-        InvokeRepeating("spawnWave",0f,timeBetweenWaves);
+        InvokeRepeating("SpawnWave",0f,timeBetweenWaves);
     }
 
-    private void spawnRandomEnemy(GameObject enemy) {
+    private void SpawnRandomEnemy(GameObject enemy) { //Spawnea un enemigo pasado como parámetro en uno de los bordes del mapa
         int x;
         x = UnityEngine.Random.Range(1,4);
         switch (x){
@@ -40,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void spawnWave(){
+    private void SpawnWave(){ //Spawneo de waves en orden en función del contador
         switch (waveCounter){
             case 1:
                 wave1();
@@ -61,6 +61,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    //WAVES
     private void wave1(){
         int x1,y1,x2,y2,x3,y3;
         x1 = -13; y1 = 0;
@@ -75,7 +76,7 @@ public class EnemySpawner : MonoBehaviour
         e2.transform.localScale = new Vector3(3,3,3);
         GameObject e3 = Instantiate(enemyPrefab1, pos3, Quaternion.identity);
         e3.transform.localScale = new Vector3(3,3,3);
-        spawnRandomEnemy(enemyPrefab1);
+        SpawnRandomEnemy(enemyPrefab1);
     }
     private void wave2(){
         int x1,y1,x2,y2;
@@ -87,8 +88,8 @@ public class EnemySpawner : MonoBehaviour
         e1.transform.localScale = new Vector3(3,3,3);
         GameObject e2 = Instantiate(enemyPrefab2, pos2, Quaternion.identity);
         e2.transform.localScale = new Vector3(3,3,3);
-        spawnRandomEnemy(enemyPrefab1);
-        spawnRandomEnemy(enemyPrefab1);
+        SpawnRandomEnemy(enemyPrefab1);
+        SpawnRandomEnemy(enemyPrefab1);
     }
 
     private void wave3(){
@@ -105,16 +106,17 @@ public class EnemySpawner : MonoBehaviour
         e2.transform.localScale = new Vector3(3,3,3);
         GameObject e3 = Instantiate(enemyPrefab2, pos3, Quaternion.identity);
         e3.transform.localScale = new Vector3(3,3,3);
-        spawnRandomEnemy(enemyPrefab1);
-        spawnRandomEnemy(enemyPrefab1);
-        spawnRandomEnemy(enemyPrefab1);
+        SpawnRandomEnemy(enemyPrefab1);
+        SpawnRandomEnemy(enemyPrefab1);
+        SpawnRandomEnemy(enemyPrefab1);
     }
+    //FIN DE WAVES
 
-    private bool distanceLessThan(Vector3 pos1, int x2, int y2){ 
-        //Por si se quiere spawnear enemigos alejados del jugador
-        float x1 = pos1.x;
-        float y1 = pos1.y;
-        return (Math.Sqrt(Math.Pow(x2-x1,2) +
-                    Math.Pow(y2-y1,2)) < 8) ? true : false;
-    }
+    // private bool distanceLessThan(Vector3 pos1, int x2, int y2){ 
+    //     //Por si se quiere spawnear enemigos alejados del jugador
+    //     float x1 = pos1.x;
+    //     float y1 = pos1.y;
+    //     return (Math.Sqrt(Math.Pow(x2-x1,2) +
+    //                 Math.Pow(y2-y1,2)) < 8) ? true : false;
+    // }
 }

@@ -21,10 +21,10 @@ public class Enemy1 : MonoBehaviour{
     {
         // Inicializar la dirección de movimiento 
         moveDirection = Vector2.up;
-        
+        // Bordes del mapa
         xBorderLimit = 36;
         yBorderLimit = 17;
-
+        //Inicializar el sprite
         sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -37,7 +37,7 @@ public class Enemy1 : MonoBehaviour{
         timeSinceLastRotation += Time.deltaTime;
         if (timeSinceLastRotation >= rotationInterval)
         {
-            RotateEnemy();
+            RotateEnemy(1);
             timeSinceLastRotation = 0f;
         }
         var newPos = transform.position;
@@ -52,21 +52,23 @@ public class Enemy1 : MonoBehaviour{
         transform.position = newPos;
     }
 
-    void RotateEnemy()
+    public void RotateEnemy(int spt)
     {
         // Rotar al enemigo un ángulo aleatorio
         int randomAngle = UnityEngine.Random.Range(0, 4);
         currentRotation = (randomAngle*90f)%360f;
-
-        if (randomAngle == 1){
-            sprite.sprite = spriteL;
-        }
-        if (randomAngle == 3){
-            sprite.sprite = spriteR;
+        
+        //Cambiar sprite dependiendo de la orientación
+        if(spt == 1){
+            if (randomAngle == 1){
+                sprite.sprite = spriteL;
+            }
+            if (randomAngle == 3){
+                sprite.sprite = spriteR;
+            }
         }
         
         // Actualizar la dirección de movimiento según el ángulo de rotación actual
-        float radians = currentRotation * Mathf.Deg2Rad;
         if(currentRotation == 0){
             moveDirection = new Vector2(0,1);
         }
@@ -79,5 +81,13 @@ public class Enemy1 : MonoBehaviour{
         else if(currentRotation == 270){
             moveDirection = new Vector2(1,0);
         }
+    }
+
+    public Vector2 GetMoveDirection(){
+        return moveDirection;
+    }
+
+    public float GetCurrentRotation(){
+        return currentRotation;
     }
 }

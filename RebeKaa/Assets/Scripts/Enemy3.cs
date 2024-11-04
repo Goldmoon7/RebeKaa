@@ -20,10 +20,10 @@ public class Enemy3 : MonoBehaviour
     {
         // Inicializar la dirección de movimiento 
         moveDirection = Vector2.up;
-        
+        // Bordes del mapa
         xBorderLimit = 36;
         yBorderLimit = 17;
-
+        // Inicializar sprite
         sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -31,8 +31,6 @@ public class Enemy3 : MonoBehaviour
     {
         // Mover el enemigo en la dirección de movimiento
         transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
-
-        // Ejemplo: rotar el enemigo cuando presionamos la barra espaciadora
         timeSinceLastRotation += Time.deltaTime;
         if (timeSinceLastRotation >= rotationInterval)
         {
@@ -53,11 +51,10 @@ public class Enemy3 : MonoBehaviour
     void RotateEnemy()
     {
         // Rotar al enemigo un ángulo aleatorio
-        int randomAngle = UnityEngine.Random.Range(0, 3);
+        int randomAngle = UnityEngine.Random.Range(0, 4);
         currentRotation = (randomAngle*90f)%360f;
 
         // Aplicar la rotación al transform
-
         if (randomAngle == 1){
             sprite.sprite = spriteL;
         }

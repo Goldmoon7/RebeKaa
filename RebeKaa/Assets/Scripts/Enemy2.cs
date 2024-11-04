@@ -11,14 +11,14 @@ public class Enemy2 : MonoBehaviour
     private float xBorderLimit, yBorderLimit;
     public float rotationInterval = 2f;  // Intervalo de rotación en segundos
     private float timeSinceLastRotation;
-    private float cont = 0;
+    private float cont = 0; //Contador para cambio de velocidad
 
 
     void Start()
     {
         // Inicializar la dirección de movimiento 
         moveDirection = Vector2.up;
-
+        // Bordes del mapa
         xBorderLimit = 36;
         yBorderLimit = 17;
     }
@@ -27,11 +27,10 @@ public class Enemy2 : MonoBehaviour
     {
         // Mover el enemigo en la dirección de movimiento
         transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
-
-        // Ejemplo: rotar el enemigo cuando presionamos la barra espaciadora
         timeSinceLastRotation += Time.deltaTime;
         if (timeSinceLastRotation >= rotationInterval)
         {
+            // Cambio de velocidad
             if(cont%2 == 0){
                 speed *= 2;
             }
@@ -54,7 +53,7 @@ public class Enemy2 : MonoBehaviour
         transform.position = newPos;
     }
 
-    void changeOrientation(int i){
+    public void ChangeOrientation(int i){
         currentRotation = (i*90f)%360f;
         Vector3 aux = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y, currentRotation);
         Quaternion q = new Quaternion();
@@ -64,11 +63,11 @@ public class Enemy2 : MonoBehaviour
     void RotateEnemy()
     {
         // Rotar al enemigo un ángulo aleatorio
-        int randomAngle = UnityEngine.Random.Range(0, 3);
+        int randomAngle = UnityEngine.Random.Range(0, 4);
         currentRotation = (randomAngle*90f)%360f;
 
         // Aplicar la rotación al transform
-        changeOrientation(randomAngle);
+        ChangeOrientation(randomAngle);
 
         // Actualizar la dirección de movimiento según el ángulo de rotación actual
         float radians = currentRotation * Mathf.Deg2Rad;
@@ -84,5 +83,13 @@ public class Enemy2 : MonoBehaviour
         else if(currentRotation == 270){
             moveDirection = new Vector2(1,0);
         }
+    }
+
+    public Vector2 GetMoveDirection(){
+        return moveDirection;
+    }
+
+    public float GetCurrentRotation(){
+        return currentRotation;
     }
 }
