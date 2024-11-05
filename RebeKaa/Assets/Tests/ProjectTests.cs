@@ -8,6 +8,10 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.TestTools.Utils;
+using UnityEngine.UIElements;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 [TestFixture]
 public class ProjectTests 
@@ -116,6 +120,29 @@ public class ProjectTests
 
     //SNAKE TESTS
 
+    [Test]
+
+    public void SnakeRotateTest(){
+        Snake s1;
+        GameObject s = new GameObject("Kaa");
+        s1 = s.AddComponent<Snake>();
+        UnityEngine.Vector3 v = s1.transform.position;
+        int everythingOK = 0;
+        
+        s1.Rotate(s,v);
+        int currRotHor = s1.currentHorizDir;
+        int currRotVer = s1.currentVertDir;
+        UnityEngine.Quaternion dir = s1.transform.rotation;
+        Vector3 locScale = s1.transform.localScale;
+        
+        if(currRotHor != 0 && (dir != Quaternion.Euler(new Vector3(0,0,90)) || locScale != new Vector3(1, -currRotHor, 1))){
+            everythingOK = 1;
+        }
+        else if(currRotHor == 0 && (dir != Quaternion.Euler(new Vector3(0,0,180)) || locScale != new Vector3(1, -currRotVer, 1))){
+        }
+
+        Assert.That(everythingOK, Is.EqualTo(0));
+    }
 
 
 

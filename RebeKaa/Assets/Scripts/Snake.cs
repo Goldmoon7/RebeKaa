@@ -15,8 +15,8 @@ public class Snake : MonoBehaviour
     private int makeBiggerTrigger;
     public GameObject bodyPrefab,tail;
     List<GameObject> body;
-    private int currentHorizDir;
-    private int currentVertDir;
+    public int currentHorizDir;
+    public int currentVertDir;
     private int SCORE;
 
     // Start is called before the first frame update
@@ -109,7 +109,7 @@ public class Snake : MonoBehaviour
 
 
     //hacer el metodo auxiliar
-    private void Rotate(GameObject go, Vector3 direction) {
+    public void Rotate(GameObject go, Vector3 direction) {
         
         if (currentHorizDir != 0) {
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
