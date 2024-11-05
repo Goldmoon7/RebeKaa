@@ -130,8 +130,8 @@ public class ProjectTests
         int everythingOK = 0;
         
         s1.Rotate(s,v);
-        int currRotHor = s1.currentHorizDir;
-        int currRotVer = s1.currentVertDir;
+        int currRotHor = s1.getCurrentHorizDir();
+        int currRotVer = s1.getCurrentVertDir();
         UnityEngine.Quaternion dir = s1.transform.rotation;
         Vector3 locScale = s1.transform.localScale;
         

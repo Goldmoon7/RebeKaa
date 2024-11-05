@@ -15,8 +15,8 @@ public class Snake : MonoBehaviour
     private int makeBiggerTrigger;
     public GameObject bodyPrefab,tail;
     List<GameObject> body;
-    public int currentHorizDir;
-    public int currentVertDir;
+    private int currentHorizDir;
+    private int currentVertDir;
     private int SCORE;
 
     // Start is called before the first frame update
@@ -135,6 +135,16 @@ public class Snake : MonoBehaviour
     private void UpdateScoreText() {
         GameObject go = GameObject.FindGameObjectWithTag("Score");
         go.GetComponent<Text>().text = "PUNTOS: " + SCORE;
+    }
+
+    //Getter del atributo currentHorizDir
+    public int getCurrentHorizDir(){
+        return this.currentHorizDir;
+    }
+
+    //Getter del atributo currentVertDir
+    public int getCurrentVertDir(){
+        return this.currentVertDir;
     }
 }
 
