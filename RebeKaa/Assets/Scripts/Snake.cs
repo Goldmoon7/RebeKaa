@@ -95,7 +95,7 @@ public class Snake : MonoBehaviour
         }
     }
 
-    private void makeBigger() {
+    public void makeBigger() {
         Vector3 pos = body[body.Count-1].transform.position;
         GameObject newSegment = Instantiate(bodyPrefab,pos,Quaternion.identity);
         body.Insert(body.Count-1,newSegment);
@@ -145,6 +145,15 @@ public class Snake : MonoBehaviour
     //Getter del atributo currentVertDir
     public int getCurrentVertDir(){
         return this.currentVertDir;
+    }
+
+    //getter del vector posición
+    public Vector3 getPosition(){
+        return this.position;
+    }
+
+    public List<GameObject> getBody(){
+        return this.body;
     }
 }
 

@@ -139,9 +139,25 @@ public class ProjectTests
             everythingOK = 1;
         }
         else if(currRotHor == 0 && (dir != Quaternion.Euler(new Vector3(0,0,180)) || locScale != new Vector3(1, -currRotVer, 1))){
+            everythingOK = 1;
         }
 
         Assert.That(everythingOK, Is.EqualTo(0));
+    }
+
+    [Test]
+
+    public void SnakeMakeBiggerTest(){
+        Snake s1;
+        GameObject s = new GameObject("Kaa");
+        s1 = s.AddComponent<Snake>();
+        int everythingOK = 0;
+
+        s1.makeBigger();
+
+        Vector3 pos = s1.getPosition();
+        if(pos != s1.getBody()[body.Count-1].transform.position)
+
     }
 
 
