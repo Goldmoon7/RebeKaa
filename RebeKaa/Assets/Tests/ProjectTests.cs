@@ -5,6 +5,7 @@ using System.Drawing.Printing;
 using System.Numerics;
 using JetBrains.Annotations;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -65,10 +66,57 @@ public class ProjectTests
 
     }
     //SPAWNER TESTS
+    
+    [Test]
+    public void SpawnRandomEnemyTest(){
+        EnemySpawner e;
+        GameObject g = new GameObject("EnemySpawner");
+        e = g.AddComponent<EnemySpawner>();
 
+        GameObject g1;
+        string[] search = AssetDatabase.FindAssets("Lagarto");
+        string prefabPath = AssetDatabase.GUIDToAssetPath(search[0]);
+        g1 = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+        
 
+        int everythingOK = 0;
+
+        e.SpawnRandomEnemy(g1);
+
+        GameObject e1 = GameObject.FindWithTag("Enemy");
+
+        UnityEngine.Vector3 v = e1.transform.position;
+        if(v != new UnityEngine.Vector3(0,14,0) && v != new UnityEngine.Vector3(0,-14,0)
+            && v != new UnityEngine.Vector3(33,0,0) && v != new UnityEngine.Vector3(-33,0,0)){
+                everythingOK = 1;
+        }
+
+        Assert.That(everythingOK, Is.EqualTo(0));
+
+    }
+
+    [Test]
+    public void SpawnFruitTest(){
+        FruitSpawner e;
+        GameObject g = new GameObject("FruitSpawner");
+        e = g.AddComponent<FruitSpawner>();
+        int everythingOK = 0;
+
+        e.SpawnFruit();
+
+        GameObject e1 = GameObject.FindWithTag("Fruit");
+
+        if(e1 == null){
+            everythingOK = 1;
+        }
+
+        Assert.That(everythingOK, Is.EqualTo(0));
+
+    }
 
     //SNAKE TESTS
+
+
 
 
 }

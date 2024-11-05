@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
         InvokeRepeating("SpawnWave",0f,timeBetweenWaves);
     }
 
-    private void SpawnRandomEnemy(GameObject enemy) { //Spawnea un enemigo pasado como parámetro en uno de los bordes del mapa
+    public void SpawnRandomEnemy(GameObject enemy) { //Spawnea un enemigo pasado como parámetro en uno de los bordes del mapa
         int x;
         x = UnityEngine.Random.Range(1,4);
         switch (x){
@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
                 e1.transform.localScale = new Vector3(3,3,3);
                 break;
             case 2:
-                GameObject e2 = Instantiate(enemy, new Vector3(0,14,0), Quaternion.identity);
+                GameObject e2 = Instantiate(enemy, new Vector3(0,-14,0), Quaternion.identity);
                 e2.transform.localScale = new Vector3(3,3,3);
                 break;
             case 3:
@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
                 e3.transform.localScale = new Vector3(3,3,3);
                 break;
             case 4:
-                GameObject e4 = Instantiate(enemy, new Vector3(33,0,0), Quaternion.identity);
+                GameObject e4 = Instantiate(enemy, new Vector3(-33,0,0), Quaternion.identity);
                 e4.transform.localScale = new Vector3(3,3,3);
                 break;
         }
