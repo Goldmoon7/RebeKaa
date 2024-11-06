@@ -151,13 +151,22 @@ public class ProjectTests
         Snake s1;
         GameObject s = new GameObject("Kaa");
         s1 = s.AddComponent<Snake>();
+        s1.instanciar();
+        s1.instanciarCola();
+        List<GameObject> body = s1.getBody();
+        body.Add(s1.getTail());
+        body.Add(s1.getTail());
+        
         int everythingOK = 0;
 
         s1.makeBigger();
 
         Vector3 pos = s1.getPosition();
-        if(pos != s1.getBody()[body.Count-1].transform.position)
-
+        if(pos != s1.getBody()[s1.size()-1].transform.position){
+            everythingOK = 1;
+        }
+        
+        Assert.That(everythingOK, Is.EqualTo(0));
     }
 
 

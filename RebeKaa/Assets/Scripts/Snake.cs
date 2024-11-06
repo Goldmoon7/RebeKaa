@@ -155,5 +155,21 @@ public class Snake : MonoBehaviour
     public List<GameObject> getBody(){
         return this.body;
     }
+
+    public int size(){
+        return this.body.Count;
+    }
+
+    public GameObject getTail(){
+        return this.tail;
+    }
+
+    public GameObject instanciar(){
+        return Instantiate(bodyPrefab,position,Quaternion.identity);
+    }
+
+    public GameObject instanciarCola(){
+        return Instantiate(tail,position,Quaternion.identity);
+    }
 }
 
