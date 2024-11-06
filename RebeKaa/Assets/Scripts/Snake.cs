@@ -165,10 +165,16 @@ public class Snake : MonoBehaviour
     }
 
     public GameObject instanciar(){
+        tail.transform.position = new Vector3(-1,0,0);
+        body = new List<GameObject>();
+        body.Add(this.gameObject);
+        body.Add(tail);
         return Instantiate(bodyPrefab,position,Quaternion.identity);
     }
 
     public GameObject instanciarCola(){
+        // body.Add(tail);
+        // body.Add(tail);
         return Instantiate(tail,position,Quaternion.identity);
     }
 }

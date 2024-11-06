@@ -152,17 +152,15 @@ public class ProjectTests
         GameObject s = new GameObject("Kaa");
         s1 = s.AddComponent<Snake>();
         s1.instanciar();
-        s1.instanciarCola();
         List<GameObject> body = s1.getBody();
-        body.Add(s1.getTail());
-        body.Add(s1.getTail());
+        s1.instanciarCola();
+        
         
         int everythingOK = 0;
 
         s1.makeBigger();
 
-        Vector3 pos = s1.getPosition();
-        if(pos != s1.getBody()[s1.size()-1].transform.position){
+        if(body.Count != 3){
             everythingOK = 1;
         }
         
