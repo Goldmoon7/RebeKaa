@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: -3617049834318134546}
   m_Layer: 0
   m_Name: aguilaFrontal
-  m_TagString: Enemy
+  m_TagString: Aguila
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

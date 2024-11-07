@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Snake : MonoBehaviour
 {
@@ -18,10 +19,25 @@ public class Snake : MonoBehaviour
     private int currentHorizDir;
     private int currentVertDir;
     private int SCORE;
+    private int frutasComidas;
+    private int nivelAguila = 10;
+    private int nivelFenec = 5;
+    private int nivelCamaleon = 2;
+    public static int makeSmallerTrigger;
 
     // Start is called before the first frame update
     void Start()
     {
+        this.transform.position = new Vector3(0.5f,0.5f,0);
+        tail.transform.position = new Vector3(this.transform.position.x-1,0.5f,0);
+        body = new List<GameObject>();
+        body.Add(this.gameObject);
+        body.Add(tail);
+        currentHorizDir = 0;
+        currentVertDir = 0;
+        SCORE = 0;
+        frutasComidas = 0;
+        /*
         tail.transform.position = new Vector3(-1,0,0);
         body = new List<GameObject>();
         body.Add(this.gameObject);
@@ -29,6 +45,7 @@ public class Snake : MonoBehaviour
         currentHorizDir = 0;
         currentVertDir = 0;
         SCORE = 0;
+        */
     }
 
     // Update is called once per frame
@@ -55,7 +72,10 @@ public class Snake : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             makeBiggerTrigger = 1;
-            //makeBigger();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L)) {
+            makeSmallerTrigger = 1;
         }
 
     }
@@ -63,8 +83,12 @@ public class Snake : MonoBehaviour
     {
         if (makeBiggerTrigger == 1) {
             makeBigger();
-            makeBiggerTrigger = 0;
         }
+
+        if (makeSmallerTrigger == 1) {
+            makeSmaller();
+        }
+
         Vector3 tailPosBefore = tail.transform.position;
         for(int i = body.Count - 1; i > 0; i--) {
             body[i].transform.position = body[i-1].transform.position;
@@ -99,10 +123,14 @@ public class Snake : MonoBehaviour
         Vector3 pos = body[body.Count-1].transform.position;
         GameObject newSegment = Instantiate(bodyPrefab,pos,Quaternion.identity);
         body.Insert(body.Count-1,newSegment);
+        makeBiggerTrigger = 0;
     }
 
     private void makeSmaller() {
-        //body.RemoveLast();
+        GameObject segment = body.ElementAt<GameObject>(body.Count-2);
+        body.RemoveAt(body.Count-2);
+        Destroy(segment);
+        makeSmallerTrigger = 0;
     }
 
     //falta la direccion de la cola
@@ -121,7 +149,7 @@ public class Snake : MonoBehaviour
     }
 
     private void OnTriggerEnter2D (Collider2D collider) {
-        if (collider.gameObject.CompareTag("Body") || collider.gameObject.CompareTag("Wall") ||
+        if (collider.gameObject.CompareTag("Body") || /*collider.gameObject.CompareTag("Wall") ||*/
             collider.gameObject.CompareTag("Enemy")) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         } else if (collider.gameObject.CompareTag("Fruit")) {
@@ -129,6 +157,25 @@ public class Snake : MonoBehaviour
             UpdateScoreText();
             Destroy(collider.gameObject);
             makeBiggerTrigger = 1;
+            frutasComidas++;
+        } else if (collider.gameObject.CompareTag("Lagarto")) {
+            if (SCORE < nivelCamaleon) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            } else {
+                Destroy(collider.gameObject);
+            }
+        } else if (collider.gameObject.CompareTag("Fenec")) {
+            if (SCORE < nivelFenec) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            } else {
+                Destroy(collider.gameObject);
+            }
+        } else if (collider.gameObject.CompareTag("Aguila")) {
+            if (SCORE < nivelAguila) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            } else {
+                Destroy(collider.gameObject);
+            }
         }
     }
 

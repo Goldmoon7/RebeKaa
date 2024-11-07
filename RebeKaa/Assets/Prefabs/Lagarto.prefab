@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1251542366998875566}
   m_Layer: 0
   m_Name: Lagarto
-  m_TagString: Enemy
+  m_TagString: Lagarto
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
