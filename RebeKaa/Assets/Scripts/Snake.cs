@@ -19,6 +19,7 @@ public class Snake : MonoBehaviour
     private int currentHorizDir;
     private int currentVertDir;
     private int SCORE;
+    private int VIDAS;
     private int frutasComidas;
     private int nivelAguila = 10;
     private int nivelFenec = 5;
@@ -37,6 +38,7 @@ public class Snake : MonoBehaviour
         currentVertDir = 0;
         SCORE = 0;
         frutasComidas = 0;
+        VIDAS = 6;
         /*
         tail.transform.position = new Vector3(-1,0,0);
         body = new List<GameObject>();
@@ -153,9 +155,9 @@ public class Snake : MonoBehaviour
     }
 
     private void OnTriggerEnter2D (Collider2D collider) {
-        if (collider.gameObject.CompareTag("Body") || /*collider.gameObject.CompareTag("Wall") ||*/
-            collider.gameObject.CompareTag("Enemy")) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (collider.gameObject.CompareTag("Body") /*|| collider.gameObject.CompareTag("Wall")*/) {
+                VIDAS--;
+                ShouldIDie();
         } else if (collider.gameObject.CompareTag("Fruit")) {
             SCORE++;
             UpdateScoreText();
@@ -164,22 +166,34 @@ public class Snake : MonoBehaviour
             frutasComidas++;
         } else if (collider.gameObject.CompareTag("Lagarto")) {
             if (SCORE < nivelCamaleon) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                VIDAS--;
+                ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
             }
         } else if (collider.gameObject.CompareTag("Fenec")) {
             if (SCORE < nivelFenec) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                VIDAS--;
+                ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
             }
         } else if (collider.gameObject.CompareTag("Aguila")) {
             if (SCORE < nivelAguila) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                VIDAS--;
+                ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
             }
+        }
+    }
+
+    private void ShouldIDie()  {
+        Debug.Log("vidas: " + VIDAS);
+        if (VIDAS > 0) {
+            makeSmallerTrigger = 1;
+        } else {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
