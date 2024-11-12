@@ -82,11 +82,15 @@ public class Snake : MonoBehaviour
     void FixedUpdate()
     {
         if (makeBiggerTrigger == 1) {
+            SCORE++;
             makeBigger();
+            UpdateScoreText();
         }
 
         if (makeSmallerTrigger == 1) {
+            SCORE--;
             makeSmaller();
+            UpdateScoreText();
         }
 
         Vector3 tailPosBefore = tail.transform.position;
