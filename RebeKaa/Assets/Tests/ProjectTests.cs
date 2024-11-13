@@ -6,6 +6,7 @@ using System.Numerics;
 using JetBrains.Annotations;
 using NUnit.Framework;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.TestTools.Utils;
@@ -166,6 +167,48 @@ public class ProjectTests
         
         Assert.That(everythingOK, Is.EqualTo(0));
     }
+
+    [Test]
+
+    public void SnakeMakeSmallerTest(){
+        Snake s1;
+        GameObject s = new GameObject("Kaa");
+        s1 = s.AddComponent<Snake>();
+        s1.instanciar();
+        List<GameObject> body = s1.getBody();
+        s1.instanciarCola();
+        
+        
+        int everythingOK = 0;
+
+        s1.makeSmaller();
+
+        if(body.Count != 1){
+            everythingOK = 1;
+        }
+        
+        Assert.That(everythingOK, Is.EqualTo(0));
+    }
+
+    /* Solo deja en play mode
+    [Test]
+
+    public void SnakeShouldIDieTest(){
+        EditorSceneManager.OpenScene("Assets/Scenes/Definitivo.unity");
+        Snake s1;
+        GameObject s = new GameObject("Kaa");
+        s1 = s.AddComponent<Snake>();
+        int vidas = s1. getVidas();
+        int everythingOK = 0;
+        s1.ShouldIDie();
+
+        if(vidas != 5){
+            everythingOK = 1;
+        }
+
+        Assert.That(everythingOK, Is.EqualTo(0));
+    }
+    */
 
 
 

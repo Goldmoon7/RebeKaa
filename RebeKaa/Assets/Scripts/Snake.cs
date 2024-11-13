@@ -132,10 +132,10 @@ public class Snake : MonoBehaviour
         makeBiggerTrigger = 0;
     }
 
-    private void makeSmaller() {
+    public void makeSmaller() {
         GameObject segment = body.ElementAt<GameObject>(body.Count-2);
         body.RemoveAt(body.Count-2);
-        Destroy(segment);
+        DestroyImmediate(segment);
         makeSmallerTrigger = 0;
     }
 
@@ -188,7 +188,7 @@ public class Snake : MonoBehaviour
         }
     }
 
-    private void ShouldIDie()  {
+    public void ShouldIDie()  {
         Debug.Log("vidas: " + VIDAS);
         if (VIDAS > 0) {
             makeSmallerTrigger = 1;
@@ -221,14 +221,6 @@ public class Snake : MonoBehaviour
         return this.body;
     }
 
-    public int size(){
-        return this.body.Count;
-    }
-
-    public GameObject getTail(){
-        return this.tail;
-    }
-
     public GameObject instanciar(){
         tail.transform.position = new Vector3(-1,0,0);
         body = new List<GameObject>();
@@ -241,6 +233,10 @@ public class Snake : MonoBehaviour
         // body.Add(tail);
         // body.Add(tail);
         return Instantiate(tail,position,Quaternion.identity);
+    }
+
+    public int getVidas(){
+        return this.VIDAS;
     }
 }
 
