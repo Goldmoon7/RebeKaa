@@ -14,8 +14,10 @@ public class Snake : MonoBehaviour
     private Vector3 position;
     private int rotationTrigger;
     private int makeBiggerTrigger;
-    public GameObject bodyPrefab,tail;
+    public GameObject bodyPrefab, tail, heartPrefab;
+    public Sprite conVida, sinVida;
     List<GameObject> body;
+    GameObject[] hearts;
     private int currentHorizDir;
     private int currentVertDir;
     private int SCORE;
@@ -39,15 +41,8 @@ public class Snake : MonoBehaviour
         SCORE = 0;
         frutasComidas = 0;
         VIDAS = 6;
-        /*
-        tail.transform.position = new Vector3(-1,0,0);
-        body = new List<GameObject>();
-        body.Add(this.gameObject);
-        body.Add(tail);
-        currentHorizDir = 0;
-        currentVertDir = 0;
-        SCORE = 0;
-        */
+        hearts = new GameObject[3];
+        CreateLives();
     }
 
     // Update is called once per frame
@@ -139,6 +134,8 @@ public class Snake : MonoBehaviour
         GameObject segment = body.ElementAt<GameObject>(body.Count-2);
         body.RemoveAt(body.Count-2);
         DestroyImmediate(segment);
+        SpriteRenderer sr = hearts[VIDAS/2].GetComponent<SpriteRenderer>();
+        sr.sprite = sinVida;
         makeSmallerTrigger = 0;
     }
 
@@ -160,7 +157,6 @@ public class Snake : MonoBehaviour
     private void OnTriggerEnter2D (Collider2D collider) {
         if (collider.gameObject.CompareTag("Body")) {
                 VIDAS--;
-                this.transform.position = new Vector3(0,0,0);
                 ShouldIDie();
         } else if (collider.gameObject.CompareTag("Fruit")) {
             SCORE++;
@@ -171,7 +167,6 @@ public class Snake : MonoBehaviour
         } else if (collider.gameObject.CompareTag("Lagarto")) {
             if (SCORE < nivelCamaleon) {
                 VIDAS--;
-                this.transform.position = new Vector3(0,0,0);
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
@@ -179,7 +174,6 @@ public class Snake : MonoBehaviour
         } else if (collider.gameObject.CompareTag("Fenec")) {
             if (SCORE < nivelFenec) {
                 VIDAS--;
-                this.transform.position = new Vector3(0,0,0);
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
@@ -187,20 +181,42 @@ public class Snake : MonoBehaviour
         } else if (collider.gameObject.CompareTag("Aguila")) {
             if (SCORE < nivelAguila) {
                 VIDAS--;
-                this.transform.position = new Vector3(0,0,0);
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
             }
-        } else if (collider.gameObject.CompareTag("Wall")){
-            VIDAS--;
-            this.transform.position = new Vector3(0,0,0);
+        } else if (collider.gameObject.CompareTag("HorizWall")){
+            VIDAS -= 2;
             ShouldIDie();
+            int horizontalDir = 0;
+            if (this.transform.position.x < 0) {
+                horizontalDir = 1;
+            } else {
+                horizontalDir = -1;
+            }
+
+            position = horizontalDir*Vector3.right;
+            rotationTrigger = 1;
+            currentHorizDir = horizontalDir;
+            currentVertDir = 0;
+
+        } else if (collider.gameObject.CompareTag("VertWall")) {
+            VIDAS -= 2;
+            ShouldIDie();
+            int verticalDir = 0;
+            if (this.transform.position.y < 0) {
+                verticalDir = 1;
+            } else {
+                verticalDir = -1;
+            }
+            position = verticalDir*Vector3.up;
+            rotationTrigger = 1;
+            currentVertDir = verticalDir;
+            currentHorizDir = 0;
         }
     }
 
     public void ShouldIDie()  {
-        Debug.Log("vidas: " + VIDAS);
         if (VIDAS > 0) {
             makeSmallerTrigger = 1;
         } else {
@@ -211,6 +227,13 @@ public class Snake : MonoBehaviour
     private void UpdateScoreText() {
         GameObject go = GameObject.FindGameObjectWithTag("Score");
         go.GetComponent<Text>().text = "PUNTOS: " + SCORE;
+    }
+
+    public void CreateLives() {
+        for (int i = 0; i < hearts.Length; i++) {
+            Vector3 pos = new Vector3(-31+i*5,19,0);
+            hearts[i] = Instantiate(heartPrefab,pos,Quaternion.identity);
+        }
     }
 
     //Getter del atributo currentHorizDir
