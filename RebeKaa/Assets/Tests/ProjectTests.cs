@@ -88,7 +88,13 @@ public class ProjectTests
 
         e.SpawnRandomEnemy(g1);
 
-        GameObject e1 = GameObject.FindWithTag("Enemy");
+        GameObject e1 = GameObject.FindWithTag("Lagarto");
+        if(e1 == null){
+            e1 = GameObject.FindWithTag("Aguila");
+        }
+        else if(e1 == null){
+            e1 = GameObject.FindWithTag("Fenec");
+        }
 
         UnityEngine.Vector3 v = e1.transform.position;
         if(v != new UnityEngine.Vector3(0,14,0) && v != new UnityEngine.Vector3(0,-14,0)
