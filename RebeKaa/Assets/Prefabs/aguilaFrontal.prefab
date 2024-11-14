@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2273273654927879384}
   - component: {fileID: 5211700517193446656}
-  - component: {fileID: 1057149313578688146}
   - component: {fileID: 5445231253077169278}
   - component: {fileID: 3170650799931105862}
   - component: {fileID: 5594726077128093335}
@@ -18,9 +17,10 @@ GameObject:
   - component: {fileID: 5367677829597854789}
   - component: {fileID: 1881886351173932663}
   - component: {fileID: 7943081830316258213}
+  - component: {fileID: -3617049834318134546}
   m_Layer: 0
   m_Name: aguilaFrontal
-  m_TagString: Enemy
+  m_TagString: Aguila
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,21 +92,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!114 &1057149313578688146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4217264886846421689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3994be2a0a4cb1547bc482c85fb88b69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  rotationSpeed: 60
-  rotationInterval: 2
 --- !u!58 &5445231253077169278
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -344,3 +329,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3617049834318134546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4217264886846421689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b07e6d8ab7b0b40b245f76e9dae2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  rotationSpeed: 90
+  rotationInterval: 2

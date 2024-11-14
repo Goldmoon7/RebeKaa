@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy1 : MonoBehaviour{
+public class Enemy2 : MonoBehaviour
+{
     public float speed = 5f;  // Velocidad de movimiento
     public float rotationSpeed = 90f;  // Velocidad de rotación en grados por segundo
     private Vector2 moveDirection;  // Dirección de movimiento en 2D
@@ -12,9 +11,7 @@ public class Enemy1 : MonoBehaviour{
     private float xBorderLimit, yBorderLimit;
     public float rotationInterval = 2f;  // Intervalo de rotación en segundos
     private float timeSinceLastRotation;
-    private SpriteRenderer sprite;
-    public Sprite spriteR;
-    public Sprite spriteL;
+    private float cont = 0; //Contador para cambio de velocidad
 
 
     void Start()
@@ -24,20 +21,24 @@ public class Enemy1 : MonoBehaviour{
         // Bordes del mapa
         xBorderLimit = 36;
         yBorderLimit = 17;
-        //Inicializar el sprite
-        sprite = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
         // Mover el enemigo en la dirección de movimiento
         transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
-
-        // Ejemplo: rotar el enemigo cuando presionamos la barra espaciadora
         timeSinceLastRotation += Time.deltaTime;
         if (timeSinceLastRotation >= rotationInterval)
         {
-            RotateEnemy(1);
+            // Cambio de velocidad
+            if(cont%2 == 0){
+                speed *= 2;
+            }
+            else{
+                speed /= 2;
+            }
+            RotateEnemy();
+            cont++;
             timeSinceLastRotation = 0f;
         }
         var newPos = transform.position;
@@ -52,23 +53,24 @@ public class Enemy1 : MonoBehaviour{
         transform.position = newPos;
     }
 
-    public void RotateEnemy(int spt)
+    public void ChangeOrientation(int i){
+        currentRotation = (i*90f)%360f;
+        Vector3 aux = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y, currentRotation);
+        Quaternion q = new Quaternion();
+        q.eulerAngles = aux;
+        transform.rotation = q;
+    }
+    void RotateEnemy()
     {
         // Rotar al enemigo un ángulo aleatorio
         int randomAngle = UnityEngine.Random.Range(0, 4);
         currentRotation = (randomAngle*90f)%360f;
-        
-        //Cambiar sprite dependiendo de la orientación
-        if(spt == 1){
-            if (randomAngle == 1){
-                sprite.sprite = spriteL;
-            }
-            if (randomAngle == 3){
-                sprite.sprite = spriteR;
-            }
-        }
-        
+
+        // Aplicar la rotación al transform
+        ChangeOrientation(randomAngle);
+
         // Actualizar la dirección de movimiento según el ángulo de rotación actual
+        float radians = currentRotation * Mathf.Deg2Rad;
         if(currentRotation == 0){
             moveDirection = new Vector2(0,1);
         }

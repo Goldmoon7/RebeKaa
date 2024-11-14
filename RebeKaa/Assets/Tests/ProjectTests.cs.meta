@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 0f6b63013757e8c4291825b8a2111bed
+guid: 84a1c86a667f6a44b931214d59dcfb99
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - fruitPrefab: {fileID: 263890192697235102, guid: 2df7da7daa9af4f40b2adae24b84febd, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

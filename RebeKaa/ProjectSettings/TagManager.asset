@@ -11,6 +11,10 @@ TagManager:
   - Wall
   - Score
   - Enemy
+  - Fenec
+  - Camaleon
+  - Lagarto
+  - Aguila
   layers:
   - Default
   - TransparentFX

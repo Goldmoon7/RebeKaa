@@ -11,7 +11,7 @@ public class FruitSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("spawnFruit",0f,10);
+        InvokeRepeating("SpawnFruit",0f,10);
     }
 
     // Update is called once per frame
@@ -20,10 +20,10 @@ public class FruitSpawner : MonoBehaviour
         
     }
 
-    private void spawnFruit() {
+    public void SpawnFruit() {
         int x = Random.Range(-xlimit,xlimit);
         int y = Random.Range(-ylimit,ylimit);
         Vector3 pos = new Vector3(x,y,0);
-        GameObject newSegment = Instantiate(fruitPrefab, pos, Quaternion.identity);
+        Instantiate(fruitPrefab, pos, Quaternion.identity);
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7555148195936689311}
   - component: {fileID: 4624227374316545435}
   - component: {fileID: 706861193165839400}
+  - component: {fileID: -4318933560074088410}
   m_Layer: 0
   m_Name: Body
   m_TagString: Body
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.6340555, y: -1.8015088, z: 0}
-  m_LocalScale: {x: 0.95, y: 0.95, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -130,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-4318933560074088410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6010595244568473450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b00a377c160ef0a499707b10b6a5d47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
