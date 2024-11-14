@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnRandomEnemy(GameObject enemy) { //Spawnea un enemigo pasado como parámetro en uno de los bordes del mapa
         int x;
-        x = UnityEngine.Random.Range(1,4);
+        x = UnityEngine.Random.Range(1,5);
         switch (x){
             case 1:
                 GameObject e1 = Instantiate(enemy, new Vector3(0,14,0), Quaternion.identity);

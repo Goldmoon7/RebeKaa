@@ -91,8 +91,10 @@ public class Snake : MonoBehaviour
 
         if (makeSmallerTrigger == 1) {
             SCORE--;
-            makeSmaller();
-            UpdateScoreText();
+            if(body.Count > 2){
+                makeSmaller();
+                UpdateScoreText();
+            }
         }
 
         Vector3 tailPosBefore = tail.transform.position;
@@ -116,10 +118,10 @@ public class Snake : MonoBehaviour
         if(rotationTrigger != 0) {
             if (currentHorizDir != 0) {
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
-                transform.localScale = new Vector3(1,-currentHorizDir,1);
+                transform.localScale = new Vector3(1,-currentHorizDir,0);
             } else {
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,-180));
-                transform.localScale = new Vector3(1,-currentVertDir,1);
+                transform.localScale = new Vector3(1,-currentVertDir,0);
             }
             rotationTrigger = 0;
         }
@@ -128,6 +130,7 @@ public class Snake : MonoBehaviour
     public void makeBigger() {
         Vector3 pos = body[body.Count-1].transform.position;
         GameObject newSegment = Instantiate(bodyPrefab,pos,Quaternion.identity);
+        newSegment.transform.localScale = new Vector3(1,1,0);
         body.Insert(body.Count-1,newSegment);
         makeBiggerTrigger = 0;
     }
@@ -155,8 +158,9 @@ public class Snake : MonoBehaviour
     }
 
     private void OnTriggerEnter2D (Collider2D collider) {
-        if (collider.gameObject.CompareTag("Body") /*|| collider.gameObject.CompareTag("Wall")*/) {
+        if (collider.gameObject.CompareTag("Body")) {
                 VIDAS--;
+                this.transform.position = new Vector3(0,0,0);
                 ShouldIDie();
         } else if (collider.gameObject.CompareTag("Fruit")) {
             SCORE++;
@@ -167,6 +171,7 @@ public class Snake : MonoBehaviour
         } else if (collider.gameObject.CompareTag("Lagarto")) {
             if (SCORE < nivelCamaleon) {
                 VIDAS--;
+                this.transform.position = new Vector3(0,0,0);
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
@@ -174,6 +179,7 @@ public class Snake : MonoBehaviour
         } else if (collider.gameObject.CompareTag("Fenec")) {
             if (SCORE < nivelFenec) {
                 VIDAS--;
+                this.transform.position = new Vector3(0,0,0);
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
@@ -181,10 +187,15 @@ public class Snake : MonoBehaviour
         } else if (collider.gameObject.CompareTag("Aguila")) {
             if (SCORE < nivelAguila) {
                 VIDAS--;
+                this.transform.position = new Vector3(0,0,0);
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
             }
+        } else if (collider.gameObject.CompareTag("Wall")){
+            VIDAS--;
+            this.transform.position = new Vector3(0,0,0);
+            ShouldIDie();
         }
     }
 
