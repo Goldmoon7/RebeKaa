@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -889,7 +889,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 136, y: 111}
+  m_AnchoredPosition: {x: 279, y: 182}
   m_SizeDelta: {x: 290.1709, y: 50.3435}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1450175976
@@ -1112,6 +1112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitPrefab: {fileID: 263890192697235102, guid: 2df7da7daa9af4f40b2adae24b84febd, type: 3}
+  timeBetweenSpawns: 8
 --- !u!114 &1925019938
 MonoBehaviour:
   m_ObjectHideFlags: 0
