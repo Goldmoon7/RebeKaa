@@ -6,12 +6,13 @@ public class FruitSpawner : MonoBehaviour
 {
 
     public GameObject fruitPrefab;
+    public int timeBetweenSpawns = 8;
     private int xlimit = 35;
     private int ylimit = 16;
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnFruit",0f,10);
+        InvokeRepeating("SpawnFruit",0f,timeBetweenSpawns);
     }
 
     // Update is called once per frame

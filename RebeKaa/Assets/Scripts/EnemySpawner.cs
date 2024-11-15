@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     
     public GameObject enemyPrefab3; //aguila
     private int waveCounter = 1; //contador de oleadas
-    public int timeBetweenWaves = 30; //tiempo entre oleadas
+    public int timeBetweenWaves = 40; //tiempo entre oleadas
 
     void Start()
     {

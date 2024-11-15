@@ -171,6 +171,7 @@ public class Snake : MonoBehaviour
                 VIDAS--;
                 ShouldIDie();
             } else {
+                
                 Destroy(collider.gameObject);
             }
         } else if (collider.gameObject.CompareTag("Fenec")) {
