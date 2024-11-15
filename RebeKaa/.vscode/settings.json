@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "RebeKaa.sln"
+    "dotnet.defaultSolution": "Rebekaa.sln"
 }
