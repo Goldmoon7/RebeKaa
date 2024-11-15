@@ -187,7 +187,7 @@ public class ProjectTests
         
         int everythingOK = 0;
 
-        s1.makeSmaller();
+        s1.makeSmaller(1);
 
         if(body.Count != 1){
             everythingOK = 1;

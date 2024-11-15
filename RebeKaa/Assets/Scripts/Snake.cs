@@ -87,7 +87,7 @@ public class Snake : MonoBehaviour
         if (makeSmallerTrigger == 1) {
             SCORE--;
             if(body.Count > 2){
-                makeSmaller();
+                makeSmaller(0);
                 UpdateScoreText();
             }
         }
@@ -130,12 +130,14 @@ public class Snake : MonoBehaviour
         makeBiggerTrigger = 0;
     }
 
-    public void makeSmaller() {
+    public void makeSmaller(int i) {
         GameObject segment = body.ElementAt<GameObject>(body.Count-2);
         body.RemoveAt(body.Count-2);
         DestroyImmediate(segment);
-        SpriteRenderer sr = hearts[VIDAS/2].GetComponent<SpriteRenderer>();
-        sr.sprite = sinVida;
+        if(i == 0){
+            SpriteRenderer sr = hearts[VIDAS/2].GetComponent<SpriteRenderer>();
+            sr.sprite = sinVida;
+        }
         makeSmallerTrigger = 0;
     }
 
