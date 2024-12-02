@@ -9,7 +9,7 @@ public class GreenKaa : MonoBehaviour
     private int xlimit = 35;
     private int ylimit = 16;
 
-    static public bool fly = false; //Indica si Kaa esta volando o no
+
 
     // Start is called before the first frame update
     void Start()
