@@ -17,6 +17,7 @@ TagManager:
   - Aguila
   - HorizWall
   - VertWall
+  - GreenKaa
   layers:
   - Default
   - TransparentFX

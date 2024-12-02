@@ -28,6 +28,8 @@ public class Snake : MonoBehaviour
     private int nivelCamaleon = 2;
     public static int makeSmallerTrigger;
 
+    public bool fly = false; //Indica si Kaa esta volando o no
+
     // Start is called before the first frame update
     void Start()
     {
@@ -166,6 +168,12 @@ public class Snake : MonoBehaviour
             Destroy(collider.gameObject);
             makeBiggerTrigger = 1;
             frutasComidas++;
+        } else if (collider.gameObject.CompareTag("GreenKaa")) {
+            SCORE++;
+            UpdateScoreText();
+            Destroy(collider.gameObject);
+            makeBiggerTrigger = 1;
+            StartCoroutine(FlyTimer(20)); //Inicializa una corrutina
         } else if (collider.gameObject.CompareTag("Lagarto")) {
             if (SCORE < nivelCamaleon) {
                 VIDAS--;
@@ -182,7 +190,7 @@ public class Snake : MonoBehaviour
                 Destroy(collider.gameObject);
             }
         } else if (collider.gameObject.CompareTag("Aguila")) {
-            if (SCORE < nivelAguila) {
+            if (fly== false || SCORE < nivelAguila) {
                 VIDAS--;
                 ShouldIDie();
             } else {
@@ -274,6 +282,14 @@ public class Snake : MonoBehaviour
 
     public int getVidas(){
         return this.VIDAS;
+    }
+
+    private IEnumerator FlyTimer(float duration){ //Funcion para cronometrar el tiempo de vuelo de Kaa
+        fly = true;
+        //Aparecen las alas
+        yield return new WaitForSeconds(duration); //Espera hasta que el tiempo se acabe
+        //Desaparecen las alas
+        fly = false;
     }
 }
 
