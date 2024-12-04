@@ -27,6 +27,8 @@ public class Snake : MonoBehaviour
     private int nivelFenec = 5;
     private int nivelCamaleon = 2;
     public static int makeSmallerTrigger;
+    //esta hay que eliminarla cuando ya no hagamos pruebas
+    private int cheat = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -67,12 +69,13 @@ public class Snake : MonoBehaviour
             //transform.Translate(0,movement*Time.deltaTime,0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space) && makeBiggerTrigger == 0) {
             makeBiggerTrigger = 1;
         }
 
-        if (Input.GetKeyDown(KeyCode.L)) {
+        if (Input.GetKeyDown(KeyCode.L) && makeSmallerTrigger == 0) {
             makeSmallerTrigger = 1;
+            cheat = 1;
         }
 
     }
@@ -87,7 +90,12 @@ public class Snake : MonoBehaviour
         if (makeSmallerTrigger == 1) {
             SCORE--;
             if(body.Count > 2){
-                makeSmaller(0);
+                if (cheat == 1) {
+                    makeSmaller(1);
+                    cheat = 0;
+                } else {
+                     makeSmaller(0);
+                }
                 UpdateScoreText();
             }
         }
@@ -102,10 +110,10 @@ public class Snake : MonoBehaviour
 
         if (newDirection.x != 0) {
             tail.transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
-            tail.transform.localScale = new Vector3(1,-newDirection.x,1);
+            tail.transform.localScale = new Vector3(1,-Math.Sign(newDirection.x),1);
         } else if (newDirection.y != 0) {
             tail.transform.rotation = Quaternion.Euler(new Vector3(0,0,180));
-            tail.transform.localScale = new Vector3(1,-newDirection.y,1);
+            tail.transform.localScale = new Vector3(1,-Math.Sign(newDirection.y),1);
         }
 
         this.transform.position += position;
@@ -133,9 +141,10 @@ public class Snake : MonoBehaviour
     public void makeSmaller(int i) {
         GameObject segment = body.ElementAt<GameObject>(body.Count-2);
         body.RemoveAt(body.Count-2);
-        DestroyImmediate(segment);
-        if(i == 0){
-            SpriteRenderer sr = hearts[VIDAS/2].GetComponent<SpriteRenderer>();
+        Destroy(segment);
+        Debug.Log("vidas: " + VIDAS);
+        if(i == 0 && VIDAS >= 0) {
+            SpriteRenderer sr = hearts[(VIDAS/2)].GetComponent<SpriteRenderer>();
             sr.sprite = sinVida;
         }
         makeSmallerTrigger = 0;
