@@ -165,7 +165,7 @@ public class ProjectTests
         
         int everythingOK = 0;
 
-        s1.makeBigger();
+        s1.MakeBigger();
 
         if(body.Count != 3){
             everythingOK = 1;
@@ -187,7 +187,7 @@ public class ProjectTests
         
         int everythingOK = 0;
 
-        s1.makeSmaller(1);
+        s1.MakeSmaller(1);
 
         if(body.Count != 1){
             everythingOK = 1;

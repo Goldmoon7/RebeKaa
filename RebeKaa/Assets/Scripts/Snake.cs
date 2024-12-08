@@ -29,6 +29,7 @@ public class Snake : MonoBehaviour
     public static int makeSmallerTrigger;
     //esta hay que eliminarla cuando ya no hagamos pruebas
     private int cheat = 0;
+    //private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +45,7 @@ public class Snake : MonoBehaviour
         frutasComidas = 0;
         VIDAS = 6;
         hearts = new GameObject[3];
+        //rb = GetComponent<Rigidbody2D>();
         CreateLives();
     }
 
@@ -83,7 +85,7 @@ public class Snake : MonoBehaviour
     {
         if (makeBiggerTrigger == 1) {
             SCORE++;
-            makeBigger();
+            MakeBigger();
             UpdateScoreText();
         }
 
@@ -91,10 +93,10 @@ public class Snake : MonoBehaviour
             SCORE--;
             if(body.Count > 2){
                 if (cheat == 1) {
-                    makeSmaller(1);
+                    MakeSmaller(1);
                     cheat = 0;
                 } else {
-                     makeSmaller(0);
+                    MakeSmaller(0);
                 }
                 UpdateScoreText();
             }
@@ -116,13 +118,16 @@ public class Snake : MonoBehaviour
             tail.transform.localScale = new Vector3(1,-Math.Sign(newDirection.y),1);
         }
 
+        //rb.MovePosition(transform.position += position);
         this.transform.position += position;
 
         if(rotationTrigger != 0) {
             if (currentHorizDir != 0) {
+                //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,90)));
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
                 transform.localScale = new Vector3(1,-currentHorizDir,0);
             } else {
+                //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,-180)));
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,-180));
                 transform.localScale = new Vector3(1,-currentVertDir,0);
             }
@@ -130,7 +135,7 @@ public class Snake : MonoBehaviour
         }
     }
 
-    public void makeBigger() {
+    public void MakeBigger() {
         Vector3 pos = body[body.Count-1].transform.position;
         GameObject newSegment = Instantiate(bodyPrefab,pos,Quaternion.identity);
         newSegment.transform.localScale = new Vector3(1,1,0);
@@ -138,24 +143,23 @@ public class Snake : MonoBehaviour
         makeBiggerTrigger = 0;
     }
 
-    public void makeSmaller(int i) {
+    public void MakeSmaller(int i) {
         GameObject segment = body.ElementAt<GameObject>(body.Count-2);
         body.RemoveAt(body.Count-2);
         Destroy(segment);
         Debug.Log("vidas: " + VIDAS);
         if(i == 0 && VIDAS >= 0) {
+            Debug.Log("VIDAS: " + VIDAS);
+            Debug.Log("index: " + VIDAS/2);
             SpriteRenderer sr = hearts[(VIDAS/2)].GetComponent<SpriteRenderer>();
             sr.sprite = sinVida;
         }
         makeSmallerTrigger = 0;
     }
 
-    //falta la direccion de la cola
-
 
     //hacer el metodo auxiliar
     public void Rotate(GameObject go, Vector3 direction) {
-        
         if (currentHorizDir != 0) {
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
                 transform.localScale = new Vector3(1,-currentHorizDir,1);
@@ -170,8 +174,6 @@ public class Snake : MonoBehaviour
                 VIDAS--;
                 ShouldIDie();
         } else if (collider.gameObject.CompareTag("Fruit")) {
-            SCORE++;
-            UpdateScoreText();
             Destroy(collider.gameObject);
             makeBiggerTrigger = 1;
             frutasComidas++;
@@ -180,7 +182,6 @@ public class Snake : MonoBehaviour
                 VIDAS--;
                 ShouldIDie();
             } else {
-                
                 Destroy(collider.gameObject);
             }
         } else if (collider.gameObject.CompareTag("Fenec")) {
@@ -206,12 +207,10 @@ public class Snake : MonoBehaviour
             } else {
                 horizontalDir = -1;
             }
-
             position = horizontalDir*Vector3.right;
             rotationTrigger = 1;
             currentHorizDir = horizontalDir;
             currentVertDir = 0;
-
         } else if (collider.gameObject.CompareTag("VertWall")) {
             VIDAS -= 2;
             ShouldIDie();
