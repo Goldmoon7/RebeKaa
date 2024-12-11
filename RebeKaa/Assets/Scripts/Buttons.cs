@@ -11,6 +11,6 @@ public class Buttons : MonoBehaviour
     }
         public void Play()
     {
-        SceneManager.LoadScene("GameLab");
+        SceneManager.LoadScene("Definitivo");
     }
 }
