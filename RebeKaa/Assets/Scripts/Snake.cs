@@ -23,9 +23,15 @@ public class Snake : MonoBehaviour
     private int SCORE;
     private int VIDAS;
     private int frutasComidas;
+    private int greenKaaUsadas;
     private int nivelAguila = 10;
     private int nivelFenec = 5;
     private int nivelCamaleon = 2;
+    public Sprite kaaAlas; // El sprite que se mostrará al entrar en contacto
+    public Sprite kaaNormal;
+    private SpriteRenderer spriteRenderer;
+
+    static public bool fly = false; //Indica si Kaa esta volando o no
     public static int makeSmallerTrigger;
     //esta hay que eliminarla cuando ya no hagamos pruebas
     private int cheat = 0;
@@ -34,6 +40,7 @@ public class Snake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         this.transform.position = new Vector3(0.5f,0.5f,0);
         tail.transform.position = new Vector3(this.transform.position.x-1,0.5f,0);
         body = new List<GameObject>();
@@ -177,6 +184,10 @@ public class Snake : MonoBehaviour
             Destroy(collider.gameObject);
             makeBiggerTrigger = 1;
             frutasComidas++;
+        } else if (collider.gameObject.CompareTag("GreenKaa")) {
+            Destroy(collider.gameObject);
+            greenKaaUsadas++;
+            ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
         } else if (collider.gameObject.CompareTag("Lagarto")) {
             if (SCORE < nivelCamaleon) {
                 VIDAS--;
@@ -192,7 +203,7 @@ public class Snake : MonoBehaviour
                 Destroy(collider.gameObject);
             }
         } else if (collider.gameObject.CompareTag("Aguila")) {
-            if (SCORE < nivelAguila) {
+           if (fly== false || SCORE < nivelAguila) {
                 VIDAS--;
                 ShouldIDie();
             } else {
@@ -283,5 +294,44 @@ public class Snake : MonoBehaviour
     public int getVidas(){
         return this.VIDAS;
     }
+
+
+
+    public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay)
+    {
+        // Verifica que el índice sea válido
+        if (index >= 0 && index < body.Count)
+        {
+            // Obtén el objeto objetivo de la lista
+            GameObject targetObject = body[index];
+
+            // Cambia su sprite al nuevo sprite
+            SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
+
+            if (targetSpriteRenderer != null)
+            {
+                fly = true;
+                targetSpriteRenderer.sprite = newSprite;
+
+                // Inicia la corrutina para restaurar el sprite después del retraso
+                StartCoroutine(ResetSprite(targetObject, originalSprite, delay));
+            }
+        }
+    }
+    private IEnumerator ResetSprite(GameObject targetObject, Sprite originalSprite, float delay)
+    {
+        // Espera el tiempo especificado
+        yield return new WaitForSeconds(delay);
+        fly = false;
+        // Obtén el SpriteRenderer del objeto objetivo
+        SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
+
+        if (targetSpriteRenderer != null)
+        {
+            // Cambia de vuelta al sprite original
+            targetSpriteRenderer.sprite = originalSprite;
+        }
+    }
+
 }
 
