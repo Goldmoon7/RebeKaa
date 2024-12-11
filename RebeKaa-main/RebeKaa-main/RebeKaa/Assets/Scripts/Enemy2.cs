@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy2 : MonoBehaviour
+
 {
     public float speed = 5f;  // Velocidad de movimiento
     public float rotationSpeed = 90f;  // Velocidad de rotación en grados por segundo
@@ -18,6 +19,8 @@ public class Enemy2 : MonoBehaviour
     public Sprite spriteR;
     public Sprite spriteL;
 
+
+
     void Start()
     {
         // Inicializar la dirección de movimiento 
@@ -26,8 +29,9 @@ public class Enemy2 : MonoBehaviour
         xBorderLimit = 36;
         yBorderLimit = 17;
 
-        //Inicializar el sprite
+        // Inicializar sprite
         sprite = GetComponent<SpriteRenderer>();
+
     }
 
     void Update()
@@ -63,7 +67,13 @@ public class Enemy2 : MonoBehaviour
     }
 
 
+
     public void RotateEnemy(int spt)
+
+
+
+
+
     public void ChangeOrientation(int i){
         currentRotation = (i*90f)%360f;
         Vector3 aux = new Vector3(transform.eulerAngles.x,transform.eulerAngles.y, currentRotation);
@@ -71,11 +81,13 @@ public class Enemy2 : MonoBehaviour
         q.eulerAngles = aux;
         transform.rotation = q;
     }
+
     void RotateEnemy()
     {
         // Rotar al enemigo un ángulo aleatorio
         int randomAngle = UnityEngine.Random.Range(0, 4);
         currentRotation = (randomAngle*90f)%360f;
+
         
         //Cambiar sprite dependiendo de la orientación
         if(spt == 1){
@@ -86,11 +98,25 @@ public class Enemy2 : MonoBehaviour
                 sprite.sprite = spriteR;
             }
         }
-        
+
+
+
+
 
         // Aplicar la rotación al transform
+
+        if (randomAngle == 1){
+            sprite.sprite = spriteL;
+        }
+        if (randomAngle == 3){
+            sprite.sprite = spriteR;
+        }
+
         ChangeOrientation(randomAngle);
 
+
+        // Actualizar la dirección de movimiento según el ángulo de rotación actual
+        float radians = currentRotation * Mathf.Deg2Rad;
 
         if(currentRotation == 0){
             moveDirection = new Vector2(0,1);
@@ -104,6 +130,7 @@ public class Enemy2 : MonoBehaviour
         else if(currentRotation == 270){
             moveDirection = new Vector2(1,0);
         }
+
     }
 
     public Vector2 GetMoveDirection(){
