@@ -23,6 +23,7 @@ public class Snake : MonoBehaviour
     private int SCORE;
     private int VIDAS;
     private int frutasComidas;
+    static public int longitud;
     private int greenKaaUsadas;
     private int nivelAguila = 10;
     private int nivelFenec = 5;
@@ -50,6 +51,7 @@ public class Snake : MonoBehaviour
         currentVertDir = 0;
         SCORE = 0;
         frutasComidas = 0;
+        longitud = 0;
         VIDAS = 6;
         hearts = new GameObject[3];
         //rb = GetComponent<Rigidbody2D>();
@@ -91,13 +93,15 @@ public class Snake : MonoBehaviour
     void FixedUpdate()
     {
         if (makeBiggerTrigger == 1) {
-            SCORE++;
+            longitud++;
             MakeBigger();
-            UpdateScoreText();
+            UpdateLongitudText();
         }
 
         if (makeSmallerTrigger == 1) {
-            SCORE--;
+            if(longitud > 0){
+                longitud--;
+            }
             if(body.Count > 2){
                 if (cheat == 1) {
                     MakeSmaller(1);
@@ -105,7 +109,7 @@ public class Snake : MonoBehaviour
                 } else {
                     MakeSmaller(0);
                 }
-                UpdateScoreText();
+                UpdateLongitudText();
             }
         }
 
@@ -189,25 +193,31 @@ public class Snake : MonoBehaviour
             greenKaaUsadas++;
             ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
         } else if (collider.gameObject.CompareTag("Lagarto")) {
-            if (SCORE < nivelCamaleon) {
+            if (longitud < nivelCamaleon) {
                 VIDAS--;
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
+                SCORE = SCORE + 1;
+                UpdateScoreText();
             }
         } else if (collider.gameObject.CompareTag("Fenec")) {
-            if (SCORE < nivelFenec) {
+            if (longitud < nivelFenec) {
                 VIDAS--;
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
+                SCORE= SCORE + 3;
+                UpdateScoreText();
             }
         } else if (collider.gameObject.CompareTag("Aguila")) {
-           if (fly== false || SCORE < nivelAguila) {
+           if (fly== false || longitud < nivelAguila) {
                 VIDAS--;
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
+                SCORE = SCORE + 5;
+                UpdateScoreText();
             }
         } else if (collider.gameObject.CompareTag("HorizWall")){
             VIDAS -= 2;
@@ -248,7 +258,12 @@ public class Snake : MonoBehaviour
 
     private void UpdateScoreText() {
         GameObject go = GameObject.FindGameObjectWithTag("Score");
-        go.GetComponent<Text>().text = "PUNTOS: " + SCORE;
+        go.GetComponent<Text>().text = "PUNTUACION: " + SCORE;
+    }
+
+    static public void UpdateLongitudText() {
+        GameObject go = GameObject.FindGameObjectWithTag("Longitud");
+        go.GetComponent<Text>().text = "Longitud: " + longitud;
     }
 
     public void CreateLives() {
@@ -304,6 +319,18 @@ public class Snake : MonoBehaviour
         {
             // Obtén el objeto objetivo de la lista
             GameObject targetObject = body[index];
+            if(rotationTrigger != 0) {
+            if (currentHorizDir != 0) {
+                //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,90)));
+                transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
+                transform.localScale = new Vector3(1,-currentHorizDir,0);
+            } else {
+                //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,-180)));
+                transform.rotation = Quaternion.Euler(new Vector3(0,0,-180));
+                transform.localScale = new Vector3(1,-currentVertDir,0);
+            }
+            rotationTrigger = 0;
+        }
 
             // Cambia su sprite al nuevo sprite
             SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
