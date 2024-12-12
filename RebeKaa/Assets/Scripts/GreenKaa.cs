@@ -6,8 +6,8 @@ public class GreenKaa : MonoBehaviour
 {
 
     public GameObject greenKaaPrefab;
-    private int xlimit = 35;
-    private int ylimit = 16;
+    private int xlimit = 34;
+    private int ylimit = 14;
 
     static public bool fly = false; //Indica si Kaa esta volando o no
 
