@@ -331,6 +331,85 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &70212357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 70212358}
+  - component: {fileID: 70212360}
+  - component: {fileID: 70212359}
+  m_Layer: 5
+  m_Name: Longitud
+  m_TagString: Longitud
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &70212358
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70212357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 359750699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 182}
+  m_SizeDelta: {x: 290.1709, y: 50.3435}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &70212359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70212357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 14a6c28f22ba6d74f85f979102476494, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'LONGITUD: 0'
+--- !u!222 &70212360
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70212357}
+  m_CullTransparentMesh: 1
 --- !u!1 &239437519
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,6 +574,7 @@ RectTransform:
   m_Children:
   - {fileID: 1547196843}
   - {fileID: 1450175975}
+  - {fileID: 70212358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -653,7 +733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &508095806
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -994,7 +1074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &673070833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2111,6 +2191,7 @@ GameObject:
   - component: {fileID: 1925019935}
   - component: {fileID: 1925019937}
   - component: {fileID: 1925019938}
+  - component: {fileID: 1925019939}
   m_Layer: 0
   m_Name: Fondo
   m_TagString: Untagged
@@ -2215,6 +2296,19 @@ MonoBehaviour:
   enemyPrefab2: {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
   enemyPrefab3: {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
   timeBetweenWaves: 20
+--- !u!114 &1925019939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925019934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8b769f6f830e64eaa38f51d2c89b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  greenKaaPrefab: {fileID: 7977272748531188740, guid: e6cd25ba866dd434386d52430dc7933e, type: 3}
 --- !u!1 &1948618309
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,6 +2742,8 @@ MonoBehaviour:
   heartPrefab: {fileID: 3389580642988880678, guid: 2e4d8a6c29345834f917088a8f30e85b, type: 3}
   conVida: {fileID: 21300000, guid: fdcfa8bcbb39710469faea8f1a516338, type: 3}
   sinVida: {fileID: 21300000, guid: 92e07c9968436ae4db37e0a564ea8594, type: 3}
+  kaaAlas: {fileID: 21300000, guid: b70fd1044e30e7c4e83bc19491fd5c32, type: 3}
+  kaaNormal: {fileID: 21300000, guid: 05c70e2901d693d45b2afe5c554c3b98, type: 3}
 --- !u!61 &2053260057
 BoxCollider2D:
   m_ObjectHideFlags: 0

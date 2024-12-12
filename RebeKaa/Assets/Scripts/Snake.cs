@@ -23,9 +23,15 @@ public class Snake : MonoBehaviour
     private int SCORE;
     private int VIDAS;
     private int frutasComidas;
+    static public int longitud;
+    private int greenKaaUsadas;
     private int nivelAguila = 10;
     private int nivelFenec = 5;
     private int nivelCamaleon = 2;
+    public Sprite kaaAlas; // El sprite que se mostrará al entrar en contacto
+    public Sprite kaaNormal;
+    private SpriteRenderer spriteRenderer;
+    static public bool fly = false; //Indica si Kaa esta volando o no
     public static int makeSmallerTrigger;
     //esta hay que eliminarla cuando ya no hagamos pruebas
     private int cheat = 0;
@@ -34,6 +40,7 @@ public class Snake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         this.transform.position = new Vector3(0.5f,0.5f,0);
         tail.transform.position = new Vector3(this.transform.position.x-1,0.5f,0);
         body = new List<GameObject>();
@@ -43,6 +50,7 @@ public class Snake : MonoBehaviour
         currentVertDir = 0;
         SCORE = 0;
         frutasComidas = 0;
+        longitud = 0;
         VIDAS = 6;
         hearts = new GameObject[3];
         //rb = GetComponent<Rigidbody2D>();
@@ -84,13 +92,15 @@ public class Snake : MonoBehaviour
     void FixedUpdate()
     {
         if (makeBiggerTrigger == 1) {
-            SCORE++;
+            longitud++;
             MakeBigger();
-            UpdateScoreText();
+            UpdateLongitudText();
         }
 
         if (makeSmallerTrigger == 1) {
-            SCORE--;
+             if(longitud > 0){
+                longitud--;
+            }
             if(body.Count > 2){
                 if (cheat == 1) {
                     MakeSmaller(1);
@@ -98,7 +108,7 @@ public class Snake : MonoBehaviour
                 } else {
                     MakeSmaller(0);
                 }
-                UpdateScoreText();
+                UpdateLongitudText();
             }
         }
 
@@ -177,26 +187,36 @@ public class Snake : MonoBehaviour
             Destroy(collider.gameObject);
             makeBiggerTrigger = 1;
             frutasComidas++;
+        } else if (collider.gameObject.CompareTag("GreenKaa")) {
+            Destroy(collider.gameObject);
+            greenKaaUsadas++;
+            ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
         } else if (collider.gameObject.CompareTag("Lagarto")) {
-            if (SCORE < nivelCamaleon) {
+            if (longitud < nivelCamaleon) {
                 VIDAS--;
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
+                SCORE = SCORE + 1;
+                UpdateScoreText();
             }
         } else if (collider.gameObject.CompareTag("Fenec")) {
-            if (SCORE < nivelFenec) {
+            if (longitud < nivelFenec) {
                 VIDAS--;
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
+                SCORE = SCORE + 3;
+                UpdateScoreText();
             }
         } else if (collider.gameObject.CompareTag("Aguila")) {
-            if (SCORE < nivelAguila) {
+            if (fly == false || longitud < nivelAguila) {
                 VIDAS--;
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
+                SCORE = SCORE + 5;
+                UpdateScoreText();
             }
         } else if (collider.gameObject.CompareTag("HorizWall")){
             VIDAS -= 2;
@@ -235,9 +255,14 @@ public class Snake : MonoBehaviour
         }
     }
 
-    private void UpdateScoreText() {
+   private void UpdateScoreText() {
         GameObject go = GameObject.FindGameObjectWithTag("Score");
-        go.GetComponent<Text>().text = "PUNTOS: " + SCORE;
+        go.GetComponent<Text>().text = "PUNTUACION: " + SCORE;
+    }
+
+    static public void UpdateLongitudText() {
+        GameObject go = GameObject.FindGameObjectWithTag("Longitud");
+        go.GetComponent<Text>().text = "Longitud: " + longitud;
     }
 
     public void CreateLives() {
@@ -282,6 +307,54 @@ public class Snake : MonoBehaviour
 
     public int getVidas(){
         return this.VIDAS;
+    }
+
+    public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay)
+    {
+        // Verifica que el índice sea válido
+        if (index >= 0 && index < body.Count)
+        {
+            // Obtén el objeto objetivo de la lista
+            GameObject targetObject = body[index];
+            if(rotationTrigger != 0) {
+            if (currentHorizDir != 0) {
+                //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,90)));
+                transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
+                transform.localScale = new Vector3(1,-currentHorizDir,0);
+            } else {
+                //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,-180)));
+                transform.rotation = Quaternion.Euler(new Vector3(0,0,-180));
+                transform.localScale = new Vector3(1,-currentVertDir,0);
+            }
+            rotationTrigger = 0;
+        }
+
+            // Cambia su sprite al nuevo sprite
+            SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
+
+            if (targetSpriteRenderer != null)
+            {
+                fly = true;
+                targetSpriteRenderer.sprite = newSprite;
+
+                // Inicia la corrutina para restaurar el sprite después del retraso
+                StartCoroutine(ResetSprite(targetObject, originalSprite, delay));
+            }
+        }
+    }
+    private IEnumerator ResetSprite(GameObject targetObject, Sprite originalSprite, float delay)
+    {
+        // Espera el tiempo especificado
+        yield return new WaitForSeconds(delay);
+        fly = false;
+        // Obtén el SpriteRenderer del objeto objetivo
+        SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
+
+        if (targetSpriteRenderer != null)
+        {
+            // Cambia de vuelta al sprite original
+            targetSpriteRenderer.sprite = originalSprite;
+        }
     }
 }
 
