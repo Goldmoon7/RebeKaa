@@ -26,7 +26,11 @@ public class GreenKaa : MonoBehaviour
     private void spawnGreenKaa() {
         int x = Random.Range(-xlimit,xlimit);
         int y = Random.Range(-ylimit,ylimit);
-        Vector3 pos = new Vector3(x,y,0);
+        int signox = Random.Range(0,1);
+        if (signox == 0) {
+            signox = -1;
+        }
+        Vector3 pos = new Vector3(x+0.5f*signox,y,0);
         GameObject newSegment = Instantiate(greenKaaPrefab, pos, Quaternion.identity);
     }
 }
