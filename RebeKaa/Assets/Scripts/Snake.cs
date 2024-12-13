@@ -51,7 +51,7 @@ public class Snake : MonoBehaviour
         SCORE = 0;
         frutasComidas = 0;
         longitud = 0;
-        VIDAS = 6;
+        VIDAS = 3;
         hearts = new GameObject[3];
         //rb = GetComponent<Rigidbody2D>();
         CreateLives();
@@ -98,18 +98,16 @@ public class Snake : MonoBehaviour
         }
 
         if (makeSmallerTrigger == 1) {
-             if(longitud > 0){
+            if(longitud > 0){
                 longitud--;
             }
-            if(body.Count > 2){
-                if (cheat == 1) {
-                    MakeSmaller(1);
-                    cheat = 0;
-                } else {
-                    MakeSmaller(0);
-                }
-                UpdateLongitudText();
+            if (cheat == 1) {
+                MakeSmaller(1);
+                cheat = 0;
+            } else {
+                MakeSmaller(0);
             }
+            UpdateLongitudText();
         }
 
         Vector3 tailPosBefore = tail.transform.position;
@@ -154,16 +152,18 @@ public class Snake : MonoBehaviour
     }
 
     public void MakeSmaller(int i) {
-        GameObject segment = body.ElementAt<GameObject>(body.Count-2);
-        body.RemoveAt(body.Count-2);
-        Destroy(segment);
-        Debug.Log("vidas: " + VIDAS);
-        if(i == 0 && VIDAS >= 0) {
+        if (body.Count > 2) {
+            GameObject segment = body.ElementAt<GameObject>(body.Count-2);
+            body.RemoveAt(body.Count-2);
+            Destroy(segment);
+        }
+
+        if(i == 0 && VIDAS >= 1) {
             Debug.Log("VIDAS: " + VIDAS);
-            Debug.Log("index: " + VIDAS/2);
-            SpriteRenderer sr = hearts[(VIDAS/2)].GetComponent<SpriteRenderer>();
+            SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
             sr.sprite = sinVida;
         }
+        
         makeSmallerTrigger = 0;
     }
 
@@ -194,6 +194,7 @@ public class Snake : MonoBehaviour
         } else if (collider.gameObject.CompareTag("Lagarto")) {
             if (longitud < nivelCamaleon) {
                 VIDAS--;
+                Debug.Log("vidas en lagarto = " + VIDAS);
                 ShouldIDie();
             } else {
                 Destroy(collider.gameObject);
@@ -219,7 +220,7 @@ public class Snake : MonoBehaviour
                 UpdateScoreText();
             }
         } else if (collider.gameObject.CompareTag("HorizWall")){
-            VIDAS -= 2;
+            VIDAS --;
             ShouldIDie();
             int horizontalDir = 0;
             if (this.transform.position.x < 0) {
@@ -232,7 +233,7 @@ public class Snake : MonoBehaviour
             currentHorizDir = horizontalDir;
             currentVertDir = 0;
         } else if (collider.gameObject.CompareTag("VertWall")) {
-            VIDAS -= 2;
+            VIDAS --;
             ShouldIDie();
             int verticalDir = 0;
             if (this.transform.position.y < 0) {
@@ -245,6 +246,7 @@ public class Snake : MonoBehaviour
             currentVertDir = verticalDir;
             currentHorizDir = 0;
         }
+        
     }
 
     public void ShouldIDie()  {
