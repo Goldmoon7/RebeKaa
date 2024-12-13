@@ -272,6 +272,9 @@ public class Snake : MonoBehaviour
         }
     }
 
+
+    //UNIT TESTS --------------------------------------------------------------------------
+
     //Getter del atributo currentHorizDir
     public int getCurrentHorizDir(){
         return this.currentHorizDir;
@@ -347,7 +350,7 @@ public class Snake : MonoBehaviour
         // Espera el tiempo especificado
         yield return new WaitForSeconds(delay);
         fly = false;
-        // Obtén el SpriteRenderer del objeto objetivo
+        // Obtén el SpriteRenderer del sprite con alas
         SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
 
         if (targetSpriteRenderer != null)
