@@ -35,6 +35,8 @@ public class Snake : MonoBehaviour
     public static int makeSmallerTrigger;
     //esta hay que eliminarla cuando ya no hagamos pruebas
     private int cheat = 0;
+    private int verticalBlock;
+    private int horizontalBlock;
     //private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -53,6 +55,8 @@ public class Snake : MonoBehaviour
         longitud = 0;
         VIDAS = 3;
         hearts = new GameObject[3];
+        horizontalBlock = 0;
+        verticalBlock = 0;
         //rb = GetComponent<Rigidbody2D>();
         CreateLives();
     }
@@ -67,16 +71,25 @@ public class Snake : MonoBehaviour
         float magnitude = 1;
 
         if (horizontalDir != 0 && currentHorizDir == 0) {
-            position = magnitude*horizontalDir*Vector3.right;
-            rotationTrigger = 1;
-            currentHorizDir = horizontalDir;
-            currentVertDir = 0;
+            if (horizontalDir != horizontalBlock) {
+                position = magnitude*horizontalDir*Vector3.right;
+                rotationTrigger = 1;
+                currentHorizDir = horizontalDir;
+                currentVertDir = 0;
+                if (horizontalBlock != 0) {
+                    horizontalBlock = 0;
+                }
+            }
         } else if (verticalDir != 0 && currentVertDir == 0) {
-            position = magnitude*verticalDir*Vector3.up;
-            rotationTrigger = 1;
-            currentVertDir = verticalDir;
-            currentHorizDir = 0;
-            //transform.Translate(0,movement*Time.deltaTime,0);
+            if (verticalDir != verticalBlock) {
+                position = magnitude*verticalDir*Vector3.up;
+                rotationTrigger = 1;
+                currentVertDir = verticalDir;
+                currentHorizDir = 0;
+                if (verticalBlock != 0) {
+                    verticalBlock = 0;
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && makeBiggerTrigger == 0) {
@@ -158,7 +171,7 @@ public class Snake : MonoBehaviour
             Destroy(segment);
         }
 
-        if(i == 0 && VIDAS >= 1) {
+        if(i == 0 && VIDAS >= 0) {
             Debug.Log("VIDAS: " + VIDAS);
             SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
             sr.sprite = sinVida;
@@ -228,6 +241,8 @@ public class Snake : MonoBehaviour
             } else {
                 horizontalDir = -1;
             }
+            verticalBlock = Math.Sign(this.transform.position.y);
+            Debug.Log("vertBlock = " + verticalBlock);
             position = horizontalDir*Vector3.right;
             rotationTrigger = 1;
             currentHorizDir = horizontalDir;
@@ -241,6 +256,8 @@ public class Snake : MonoBehaviour
             } else {
                 verticalDir = -1;
             }
+            horizontalBlock = Math.Sign(this.transform.position.x);
+            Debug.Log("horizBlock = " + horizontalBlock);
             position = verticalDir*Vector3.up;
             rotationTrigger = 1;
             currentVertDir = verticalDir;
