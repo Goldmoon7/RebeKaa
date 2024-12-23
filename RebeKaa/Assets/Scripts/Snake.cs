@@ -37,6 +37,8 @@ public class Snake : MonoBehaviour
     private int cheat = 0;
     private int verticalBlock;
     private int horizontalBlock;
+    private bool detectarColisiones;
+    public static bool colisionesCuerpo;
     //private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -57,7 +59,8 @@ public class Snake : MonoBehaviour
         hearts = new GameObject[3];
         horizontalBlock = 0;
         verticalBlock = 0;
-        //rb = GetComponent<Rigidbody2D>();
+        detectarColisiones = true;
+        colisionesCuerpo = true;
         CreateLives();
     }
 
@@ -99,6 +102,10 @@ public class Snake : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L) && makeSmallerTrigger == 0) {
             makeSmallerTrigger = 1;
             cheat = 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I)) {
+            GestionarColision();
         }
 
     }
@@ -171,8 +178,9 @@ public class Snake : MonoBehaviour
             Destroy(segment);
         }
 
-        if(i == 0 && VIDAS >= 0) {
-            Debug.Log("VIDAS: " + VIDAS);
+        Debug.Log("VIDAS: " + VIDAS);
+        if(i == 0 && VIDAS >= 0 && VIDAS < 3) {
+            //Debug.Log("VIDAS: " + VIDAS);
             SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
             sr.sprite = sinVida;
         }
@@ -193,77 +201,81 @@ public class Snake : MonoBehaviour
     }
 
     private void OnTriggerEnter2D (Collider2D collider) {
-        if (collider.gameObject.CompareTag("Body")) {
+        if (detectarColisiones) {
+            if (collider.gameObject.CompareTag("Body")) {
                 VIDAS--;
                 ShouldIDie();
-        } else if (collider.gameObject.CompareTag("Fruit")) {
-            Destroy(collider.gameObject);
-            makeBiggerTrigger = 1;
-            frutasComidas++;
-        } else if (collider.gameObject.CompareTag("GreenKaa")) {
-            Destroy(collider.gameObject);
-            greenKaaUsadas++;
-            ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
-        } else if (collider.gameObject.CompareTag("Lagarto")) {
-            if (longitud < nivelCamaleon) {
-                VIDAS--;
-                Debug.Log("vidas en lagarto = " + VIDAS);
-                ShouldIDie();
-            } else {
+                GestionarColision();
+            } else if (collider.gameObject.CompareTag("Fruit")) {
                 Destroy(collider.gameObject);
-                SCORE = SCORE + 1;
-                UpdateScoreText();
-            }
-        } else if (collider.gameObject.CompareTag("Fenec")) {
-            if (longitud < nivelFenec) {
-                VIDAS--;
-                ShouldIDie();
-            } else {
+                makeBiggerTrigger = 1;
+                frutasComidas++;
+            } else if (collider.gameObject.CompareTag("GreenKaa")) {
                 Destroy(collider.gameObject);
-                SCORE = SCORE + 3;
-                UpdateScoreText();
+                greenKaaUsadas++;
+                ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
+            } else if (collider.gameObject.CompareTag("Lagarto")) {
+                if (longitud < nivelCamaleon) {
+                    VIDAS--;
+                    Debug.Log("vidas en lagarto = " + VIDAS);
+                    ShouldIDie();
+                } else {
+                    Destroy(collider.gameObject);
+                    SCORE = SCORE + 1;
+                    UpdateScoreText();
+                }
+            } else if (collider.gameObject.CompareTag("Fenec")) {
+                if (longitud < nivelFenec) {
+                    VIDAS--;
+                    ShouldIDie();
+                } else {
+                    Destroy(collider.gameObject);
+                    SCORE = SCORE + 3;
+                    UpdateScoreText();
+                }
+            } else if (collider.gameObject.CompareTag("Aguila")) {
+                if (fly == false || longitud < nivelAguila) {
+                    VIDAS--;
+                    ShouldIDie();
+                } else {
+                    Destroy(collider.gameObject);
+                    SCORE = SCORE + 5;
+                    UpdateScoreText();
+                }
             }
-        } else if (collider.gameObject.CompareTag("Aguila")) {
-            if (fly == false || longitud < nivelAguila) {
-                VIDAS--;
-                ShouldIDie();
-            } else {
-                Destroy(collider.gameObject);
-                SCORE = SCORE + 5;
-                UpdateScoreText();
-            }
-        } else if (collider.gameObject.CompareTag("HorizWall")){
-            VIDAS --;
-            ShouldIDie();
-            int horizontalDir = 0;
-            if (this.transform.position.x < 0) {
-                horizontalDir = 1;
-            } else {
-                horizontalDir = -1;
-            }
-            verticalBlock = Math.Sign(this.transform.position.y);
-            Debug.Log("vertBlock = " + verticalBlock);
-            position = horizontalDir*Vector3.right;
-            rotationTrigger = 1;
-            currentHorizDir = horizontalDir;
-            currentVertDir = 0;
-        } else if (collider.gameObject.CompareTag("VertWall")) {
-            VIDAS --;
-            ShouldIDie();
-            int verticalDir = 0;
-            if (this.transform.position.y < 0) {
-                verticalDir = 1;
-            } else {
-                verticalDir = -1;
-            }
-            horizontalBlock = Math.Sign(this.transform.position.x);
-            Debug.Log("horizBlock = " + horizontalBlock);
-            position = verticalDir*Vector3.up;
-            rotationTrigger = 1;
-            currentVertDir = verticalDir;
-            currentHorizDir = 0;
         }
-        
+
+        if (collider.gameObject.CompareTag("HorizWall")){
+                VIDAS --;
+                ShouldIDie();
+                int horizontalDir = 0;
+                if (this.transform.position.x < 0) {
+                    horizontalDir = 1;
+                } else {
+                    horizontalDir = -1;
+                }
+                verticalBlock = Math.Sign(this.transform.position.y);
+                Debug.Log("vertBlock = " + verticalBlock);
+                position = horizontalDir*Vector3.right;
+                rotationTrigger = 1;
+                currentHorizDir = horizontalDir;
+                currentVertDir = 0;
+            } else if (collider.gameObject.CompareTag("VertWall")) {
+                VIDAS --;
+                ShouldIDie();
+                int verticalDir = 0;
+                if (this.transform.position.y < 0) {
+                    verticalDir = 1;
+                } else {
+                    verticalDir = -1;
+                }
+                horizontalBlock = Math.Sign(this.transform.position.x);
+                Debug.Log("horizBlock = " + horizontalBlock);
+                position = verticalDir*Vector3.up;
+                rotationTrigger = 1;
+                currentVertDir = verticalDir;
+                currentHorizDir = 0;
+            }
     }
 
     public void ShouldIDie()  {
@@ -286,9 +298,20 @@ public class Snake : MonoBehaviour
 
     public void CreateLives() {
         for (int i = 0; i < hearts.Length; i++) {
-            Vector3 pos = new Vector3(-31+i*5,19,0);
+            Vector3 pos = new Vector3(-30+i*4,18.5f,0);
             hearts[i] = Instantiate(heartPrefab,pos,Quaternion.identity);
         }
+    }
+
+    private void GestionarColision() {
+        StartCoroutine(PausaEntreColisiones(1f));
+    }
+
+
+    private IEnumerator PausaEntreColisiones (float pausa) {
+        detectarColisiones = false;
+        yield return new WaitForSeconds(pausa);
+        detectarColisiones = true;
     }
 
 
