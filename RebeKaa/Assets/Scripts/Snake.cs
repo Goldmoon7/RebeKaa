@@ -108,6 +108,10 @@ public class Snake : MonoBehaviour
             GestionarColision();
         }
 
+        if (Input.GetKeyDown(KeyCode.R)) {
+            StartCoroutine(RedBlink());
+        }
+
     }
     void FixedUpdate()
     {
@@ -153,11 +157,11 @@ public class Snake : MonoBehaviour
             if (currentHorizDir != 0) {
                 //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,90)));
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
-                transform.localScale = new Vector3(1,-currentHorizDir,0);
+                transform.localScale = new Vector3(1,currentHorizDir,0);
             } else {
                 //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,-180)));
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,-180));
-                transform.localScale = new Vector3(1,-currentVertDir,0);
+                transform.localScale = new Vector3(1,currentVertDir,0);
             }
             rotationTrigger = 0;
         }
@@ -308,50 +312,33 @@ public class Snake : MonoBehaviour
     }
 
 
-    private IEnumerator PausaEntreColisiones (float pausa) {
+    private IEnumerator PausaEntreColisiones(float pausa) {
         detectarColisiones = false;
         yield return new WaitForSeconds(pausa);
         detectarColisiones = true;
     }
 
-
-    //UNIT TESTS --------------------------------------------------------------------------
-
-    //Getter del atributo currentHorizDir
-    public int getCurrentHorizDir(){
-        return this.currentHorizDir;
-    }
-
-    //Getter del atributo currentVertDir
-    public int getCurrentVertDir(){
-        return this.currentVertDir;
-    }
-
-    //getter del vector posición
-    public Vector3 getPosition(){
-        return this.position;
-    }
-
-    public List<GameObject> getBody(){
-        return this.body;
-    }
-
-    public GameObject instanciar(){
-        tail.transform.position = new Vector3(-1,0,0);
-        body = new List<GameObject>();
-        body.Add(this.gameObject);
-        body.Add(tail);
-        return Instantiate(bodyPrefab,position,Quaternion.identity);
-    }
-
-    public GameObject instanciarCola(){
-        // body.Add(tail);
-        // body.Add(tail);
-        return Instantiate(tail,position,Quaternion.identity);
-    }
-
-    public int getVidas(){
-        return this.VIDAS;
+    private IEnumerator RedBlink() {
+        //SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        //Color colorOriginal = sr.color;
+        Color color = new Color(255,128,128);
+        for (int i = 0; i < 5; i++) {
+            foreach (GameObject go in body) {
+                SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+                sr.color = color;
+            }
+            color.a = 128;
+            yield return new WaitForSeconds(0.25f);
+            foreach (GameObject go in body) {
+                SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+                sr.color = color;
+            }
+            color.a = 255;
+            color = new Color(255,255,255);
+            yield return new WaitForSeconds(0.25f);
+        }
+        //sr.color = colorOriginal;
+        //color = new Color(0f,0f,255f);
     }
 
     public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay)
@@ -400,6 +387,46 @@ public class Snake : MonoBehaviour
             // Cambia de vuelta al sprite original
             targetSpriteRenderer.sprite = originalSprite;
         }
+    }
+
+
+    //UNIT TESTS --------------------------------------------------------------------------
+
+    //Getter del atributo currentHorizDir
+    public int getCurrentHorizDir(){
+        return this.currentHorizDir;
+    }
+
+    //Getter del atributo currentVertDir
+    public int getCurrentVertDir(){
+        return this.currentVertDir;
+    }
+
+    //getter del vector posición
+    public Vector3 getPosition(){
+        return this.position;
+    }
+
+    public List<GameObject> getBody(){
+        return this.body;
+    }
+
+    public GameObject instanciar(){
+        tail.transform.position = new Vector3(-1,0,0);
+        body = new List<GameObject>();
+        body.Add(this.gameObject);
+        body.Add(tail);
+        return Instantiate(bodyPrefab,position,Quaternion.identity);
+    }
+
+    public GameObject instanciarCola(){
+        // body.Add(tail);
+        // body.Add(tail);
+        return Instantiate(tail,position,Quaternion.identity);
+    }
+
+    public int getVidas(){
+        return this.VIDAS;
     }
 }
 
