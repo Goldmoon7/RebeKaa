@@ -273,7 +273,7 @@ public class Snake : MonoBehaviour
     }
 
 
-    //UNIT TESTS --------------------------------------------------------------------------
+    //UNIT TESTS ...........................................................................................................
 
     //Getter del atributo currentHorizDir
     public int getCurrentHorizDir(){
