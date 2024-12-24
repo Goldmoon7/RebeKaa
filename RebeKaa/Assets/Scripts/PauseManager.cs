@@ -64,7 +64,6 @@ public class PauseManager : MonoBehaviour
 
     public void IrAjustes(){
         SettingsMenu.SetActive(true);
-        PauseMenu.SetActive(false);
         SettingsActivo = true;
         Time.timeScale = 0f;   // Detener el tiempo en el juego
     }

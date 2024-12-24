@@ -35,6 +35,10 @@ public class Snake : MonoBehaviour
     public static int makeSmallerTrigger;
     //esta hay que eliminarla cuando ya no hagamos pruebas
     private int cheat = 0;
+    private int verticalBlock;
+    private int horizontalBlock;
+    private bool detectarColisiones;
+    public static bool colisionesCuerpo;
     //private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -51,9 +55,12 @@ public class Snake : MonoBehaviour
         SCORE = 0;
         frutasComidas = 0;
         longitud = 0;
-        VIDAS = 6;
+        VIDAS = 3;
         hearts = new GameObject[3];
-        //rb = GetComponent<Rigidbody2D>();
+        horizontalBlock = 0;
+        verticalBlock = 0;
+        detectarColisiones = true;
+        colisionesCuerpo = true;
         CreateLives();
     }
 
@@ -67,16 +74,25 @@ public class Snake : MonoBehaviour
         float magnitude = 1;
 
         if (horizontalDir != 0 && currentHorizDir == 0) {
-            position = magnitude*horizontalDir*Vector3.right;
-            rotationTrigger = 1;
-            currentHorizDir = horizontalDir;
-            currentVertDir = 0;
+            if (horizontalDir != horizontalBlock) {
+                position = magnitude*horizontalDir*Vector3.right;
+                rotationTrigger = 1;
+                currentHorizDir = horizontalDir;
+                currentVertDir = 0;
+                if (horizontalBlock != 0) {
+                    horizontalBlock = 0;
+                }
+            }
         } else if (verticalDir != 0 && currentVertDir == 0) {
-            position = magnitude*verticalDir*Vector3.up;
-            rotationTrigger = 1;
-            currentVertDir = verticalDir;
-            currentHorizDir = 0;
-            //transform.Translate(0,movement*Time.deltaTime,0);
+            if (verticalDir != verticalBlock) {
+                position = magnitude*verticalDir*Vector3.up;
+                rotationTrigger = 1;
+                currentVertDir = verticalDir;
+                currentHorizDir = 0;
+                if (verticalBlock != 0) {
+                    verticalBlock = 0;
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && makeBiggerTrigger == 0) {
@@ -86,6 +102,14 @@ public class Snake : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L) && makeSmallerTrigger == 0) {
             makeSmallerTrigger = 1;
             cheat = 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I)) {
+            GestionarColision();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            StartCoroutine(RedBlink());
         }
 
     }
@@ -98,18 +122,16 @@ public class Snake : MonoBehaviour
         }
 
         if (makeSmallerTrigger == 1) {
-             if(longitud > 0){
+            if(longitud > 0){
                 longitud--;
             }
-            if(body.Count > 2){
-                if (cheat == 1) {
-                    MakeSmaller(1);
-                    cheat = 0;
-                } else {
-                    MakeSmaller(0);
-                }
-                UpdateLongitudText();
+            if (cheat == 1) {
+                MakeSmaller(1);
+                cheat = 0;
+            } else {
+                MakeSmaller(0);
             }
+            UpdateLongitudText();
         }
 
         Vector3 tailPosBefore = tail.transform.position;
@@ -135,11 +157,11 @@ public class Snake : MonoBehaviour
             if (currentHorizDir != 0) {
                 //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,90)));
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
-                transform.localScale = new Vector3(1,-currentHorizDir,0);
+                transform.localScale = new Vector3(1,currentHorizDir,0);
             } else {
                 //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,-180)));
                 transform.rotation = Quaternion.Euler(new Vector3(0,0,-180));
-                transform.localScale = new Vector3(1,-currentVertDir,0);
+                transform.localScale = new Vector3(1,currentVertDir,0);
             }
             rotationTrigger = 0;
         }
@@ -154,16 +176,19 @@ public class Snake : MonoBehaviour
     }
 
     public void MakeSmaller(int i) {
-        GameObject segment = body.ElementAt<GameObject>(body.Count-2);
-        body.RemoveAt(body.Count-2);
-        Destroy(segment);
-        Debug.Log("vidas: " + VIDAS);
-        if(i == 0 && VIDAS >= 0) {
-            Debug.Log("VIDAS: " + VIDAS);
-            Debug.Log("index: " + VIDAS/2);
-            SpriteRenderer sr = hearts[(VIDAS/2)].GetComponent<SpriteRenderer>();
+        if (body.Count > 2) {
+            GameObject segment = body.ElementAt<GameObject>(body.Count-2);
+            body.RemoveAt(body.Count-2);
+            Destroy(segment);
+        }
+
+        Debug.Log("VIDAS: " + VIDAS);
+        if(i == 0 && VIDAS >= 0 && VIDAS < 3) {
+            //Debug.Log("VIDAS: " + VIDAS);
+            SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
             sr.sprite = sinVida;
         }
+        
         makeSmallerTrigger = 0;
     }
 
@@ -180,71 +205,81 @@ public class Snake : MonoBehaviour
     }
 
     private void OnTriggerEnter2D (Collider2D collider) {
-        if (collider.gameObject.CompareTag("Body")) {
+        if (detectarColisiones) {
+            if (collider.gameObject.CompareTag("Body")) {
                 VIDAS--;
                 ShouldIDie();
-        } else if (collider.gameObject.CompareTag("Fruit")) {
-            Destroy(collider.gameObject);
-            makeBiggerTrigger = 1;
-            frutasComidas++;
-        } else if (collider.gameObject.CompareTag("GreenKaa")) {
-            Destroy(collider.gameObject);
-            greenKaaUsadas++;
-            ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
-        } else if (collider.gameObject.CompareTag("Lagarto")) {
-            if (longitud < nivelCamaleon) {
-                VIDAS--;
-                ShouldIDie();
-            } else {
+                GestionarColision();
+            } else if (collider.gameObject.CompareTag("Fruit")) {
                 Destroy(collider.gameObject);
-                SCORE = SCORE + 1;
-                UpdateScoreText();
-            }
-        } else if (collider.gameObject.CompareTag("Fenec")) {
-            if (longitud < nivelFenec) {
-                VIDAS--;
-                ShouldIDie();
-            } else {
+                makeBiggerTrigger = 1;
+                frutasComidas++;
+            } else if (collider.gameObject.CompareTag("GreenKaa")) {
                 Destroy(collider.gameObject);
-                SCORE = SCORE + 3;
-                UpdateScoreText();
+                greenKaaUsadas++;
+                ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
+            } else if (collider.gameObject.CompareTag("Lagarto")) {
+                if (longitud < nivelCamaleon) {
+                    VIDAS--;
+                    Debug.Log("vidas en lagarto = " + VIDAS);
+                    ShouldIDie();
+                } else {
+                    Destroy(collider.gameObject);
+                    SCORE = SCORE + 1;
+                    UpdateScoreText();
+                }
+            } else if (collider.gameObject.CompareTag("Fenec")) {
+                if (longitud < nivelFenec) {
+                    VIDAS--;
+                    ShouldIDie();
+                } else {
+                    Destroy(collider.gameObject);
+                    SCORE = SCORE + 3;
+                    UpdateScoreText();
+                }
+            } else if (collider.gameObject.CompareTag("Aguila")) {
+                if (fly == false || longitud < nivelAguila) {
+                    VIDAS--;
+                    ShouldIDie();
+                } else {
+                    Destroy(collider.gameObject);
+                    SCORE = SCORE + 5;
+                    UpdateScoreText();
+                }
             }
-        } else if (collider.gameObject.CompareTag("Aguila")) {
-            if (fly == false || longitud < nivelAguila) {
-                VIDAS--;
-                ShouldIDie();
-            } else {
-                Destroy(collider.gameObject);
-                SCORE = SCORE + 5;
-                UpdateScoreText();
-            }
-        } else if (collider.gameObject.CompareTag("HorizWall")){
-            VIDAS -= 2;
-            ShouldIDie();
-            int horizontalDir = 0;
-            if (this.transform.position.x < 0) {
-                horizontalDir = 1;
-            } else {
-                horizontalDir = -1;
-            }
-            position = horizontalDir*Vector3.right;
-            rotationTrigger = 1;
-            currentHorizDir = horizontalDir;
-            currentVertDir = 0;
-        } else if (collider.gameObject.CompareTag("VertWall")) {
-            VIDAS -= 2;
-            ShouldIDie();
-            int verticalDir = 0;
-            if (this.transform.position.y < 0) {
-                verticalDir = 1;
-            } else {
-                verticalDir = -1;
-            }
-            position = verticalDir*Vector3.up;
-            rotationTrigger = 1;
-            currentVertDir = verticalDir;
-            currentHorizDir = 0;
         }
+
+        if (collider.gameObject.CompareTag("HorizWall")){
+                VIDAS --;
+                ShouldIDie();
+                int horizontalDir = 0;
+                if (this.transform.position.x < 0) {
+                    horizontalDir = 1;
+                } else {
+                    horizontalDir = -1;
+                }
+                verticalBlock = Math.Sign(this.transform.position.y);
+                Debug.Log("vertBlock = " + verticalBlock);
+                position = horizontalDir*Vector3.right;
+                rotationTrigger = 1;
+                currentHorizDir = horizontalDir;
+                currentVertDir = 0;
+            } else if (collider.gameObject.CompareTag("VertWall")) {
+                VIDAS --;
+                ShouldIDie();
+                int verticalDir = 0;
+                if (this.transform.position.y < 0) {
+                    verticalDir = 1;
+                } else {
+                    verticalDir = -1;
+                }
+                horizontalBlock = Math.Sign(this.transform.position.x);
+                Debug.Log("horizBlock = " + horizontalBlock);
+                position = verticalDir*Vector3.up;
+                rotationTrigger = 1;
+                currentVertDir = verticalDir;
+                currentHorizDir = 0;
+            }
     }
 
     public void ShouldIDie()  {
@@ -267,49 +302,43 @@ public class Snake : MonoBehaviour
 
     public void CreateLives() {
         for (int i = 0; i < hearts.Length; i++) {
-            Vector3 pos = new Vector3(-31+i*5,19,0);
+            Vector3 pos = new Vector3(-30+i*4,18.5f,0);
             hearts[i] = Instantiate(heartPrefab,pos,Quaternion.identity);
         }
     }
 
-
-    //UNIT TESTS ...........................................................................................................
-
-    //Getter del atributo currentHorizDir
-    public int getCurrentHorizDir(){
-        return this.currentHorizDir;
+    private void GestionarColision() {
+        StartCoroutine(PausaEntreColisiones(1f));
     }
 
-    //Getter del atributo currentVertDir
-    public int getCurrentVertDir(){
-        return this.currentVertDir;
+
+    private IEnumerator PausaEntreColisiones(float pausa) {
+        detectarColisiones = false;
+        yield return new WaitForSeconds(pausa);
+        detectarColisiones = true;
     }
 
-    //getter del vector posición
-    public Vector3 getPosition(){
-        return this.position;
-    }
-
-    public List<GameObject> getBody(){
-        return this.body;
-    }
-
-    public GameObject instanciar(){
-        tail.transform.position = new Vector3(-1,0,0);
-        body = new List<GameObject>();
-        body.Add(this.gameObject);
-        body.Add(tail);
-        return Instantiate(bodyPrefab,position,Quaternion.identity);
-    }
-
-    public GameObject instanciarCola(){
-        // body.Add(tail);
-        // body.Add(tail);
-        return Instantiate(tail,position,Quaternion.identity);
-    }
-
-    public int getVidas(){
-        return this.VIDAS;
+    private IEnumerator RedBlink() {
+        //SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        //Color colorOriginal = sr.color;
+        Color color = new Color(255,128,128);
+        for (int i = 0; i < 5; i++) {
+            foreach (GameObject go in body) {
+                SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+                sr.color = color;
+            }
+            color.a = 128;
+            yield return new WaitForSeconds(0.25f);
+            foreach (GameObject go in body) {
+                SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+                sr.color = color;
+            }
+            color.a = 255;
+            color = new Color(255,255,255);
+            yield return new WaitForSeconds(0.25f);
+        }
+        //sr.color = colorOriginal;
+        //color = new Color(0f,0f,255f);
     }
 
     public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay)
@@ -358,6 +387,46 @@ public class Snake : MonoBehaviour
             // Cambia de vuelta al sprite original
             targetSpriteRenderer.sprite = originalSprite;
         }
+    }
+
+
+    //UNIT TESTS --------------------------------------------------------------------------
+
+    //Getter del atributo currentHorizDir
+    public int getCurrentHorizDir(){
+        return this.currentHorizDir;
+    }
+
+    //Getter del atributo currentVertDir
+    public int getCurrentVertDir(){
+        return this.currentVertDir;
+    }
+
+    //getter del vector posición
+    public Vector3 getPosition(){
+        return this.position;
+    }
+
+    public List<GameObject> getBody(){
+        return this.body;
+    }
+
+    public GameObject instanciar(){
+        tail.transform.position = new Vector3(-1,0,0);
+        body = new List<GameObject>();
+        body.Add(this.gameObject);
+        body.Add(tail);
+        return Instantiate(bodyPrefab,position,Quaternion.identity);
+    }
+
+    public GameObject instanciarCola(){
+        // body.Add(tail);
+        // body.Add(tail);
+        return Instantiate(tail,position,Quaternion.identity);
+    }
+
+    public int getVidas(){
+        return this.VIDAS;
     }
 }
 
