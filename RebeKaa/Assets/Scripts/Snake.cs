@@ -225,6 +225,7 @@ public class Snake : MonoBehaviour
                     ShouldIDie();
                 } else {
                     Destroy(collider.gameObject);
+                    EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 1;
                     UpdateScoreText();
                 }
@@ -234,6 +235,7 @@ public class Snake : MonoBehaviour
                     ShouldIDie();
                 } else {
                     Destroy(collider.gameObject);
+                    EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 3;
                     UpdateScoreText();
                 }
@@ -243,6 +245,7 @@ public class Snake : MonoBehaviour
                     ShouldIDie();
                 } else {
                     Destroy(collider.gameObject);
+                    EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 5;
                     UpdateScoreText();
                 }

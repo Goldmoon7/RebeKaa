@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -10,13 +11,22 @@ public class EnemySpawner : MonoBehaviour
     
     public GameObject enemyPrefab3; //aguila
     private int waveCounter = 1; //contador de oleadas
+    public static int enemyCounter = 0;
     public int timeBetweenWaves = 40; //tiempo entre oleadas
 
     void Start()
     {
-        InvokeRepeating("SpawnWave",0f,timeBetweenWaves);
+        if(enemyCounter == 0){
+            SpawnWave();
+        }
     }
+    void Update(){
+        if(enemyCounter == 0){
 
+            SpawnWave();
+        }
+        //Falta poner que hacer cuando se acaban todas las rondas
+    }
     public void SpawnRandomEnemy(GameObject enemy) { //Spawnea un enemigo pasado como parámetro en uno de los bordes del mapa
         int x;
         x = UnityEngine.Random.Range(1,5);
@@ -43,15 +53,18 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnWave(){ //Spawneo de waves en orden en función del contador
         switch (waveCounter){
             case 1:
+                enemyCounter = 4;
                 wave1();
                 waveCounter++;
                 break;
             case 2:
+                enemyCounter = 4;
                 wave2();
                 waveCounter++;
                 timeBetweenWaves += 30;
                 break;
             case 3:
+                enemyCounter = 6;
                 wave3();
                 waveCounter++;
                 CancelInvoke();
