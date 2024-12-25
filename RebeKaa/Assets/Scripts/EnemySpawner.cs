@@ -3,27 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab1; //lagarto
     public GameObject enemyPrefab2; //fenec
-    
     public GameObject enemyPrefab3; //aguila
+    public GameObject TextOleada;
     private int waveCounter = 1; //contador de oleadas
     public static int enemyCounter = 0;
     public int timeBetweenWaves = 40; //tiempo entre oleadas
 
     void Start()
     {
-        if(enemyCounter == 0){
-            SpawnWave();
-        }
+            if(enemyCounter==0)
+                StartCoroutine( Texto_y_Waves());
     }
     void Update(){
-        if(enemyCounter == 0){
-
-            SpawnWave();
+        if(enemyCounter == 0 && waveCounter <= 3){
+            StartCoroutine( Texto_y_Waves());
         }
         //Falta poner que hacer cuando se acaban todas las rondas
     }
@@ -51,27 +50,23 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void SpawnWave(){ //Spawneo de waves en orden en función del contador
-        switch (waveCounter){
-            case 1:
+            if(waveCounter == 0){
                 enemyCounter = 4;
                 wave1();
                 waveCounter++;
-                break;
-            case 2:
+            }
+            else if(waveCounter == 1){
                 enemyCounter = 4;
                 wave2();
                 waveCounter++;
                 timeBetweenWaves += 30;
-                break;
-            case 3:
+            }
+            else if(waveCounter == 2){
                 enemyCounter = 6;
                 wave3();
                 waveCounter++;
                 CancelInvoke();
-                break;
-            default:
-                break;
-        }
+            }
     }
 
     //WAVES
@@ -132,4 +127,12 @@ public class EnemySpawner : MonoBehaviour
     //     return (Math.Sqrt(Math.Pow(x2-x1,2) +
     //                 Math.Pow(y2-y1,2)) < 8) ? true : false;
     // }
+
+    private IEnumerator Texto_y_Waves(){
+        TextOleada.GetComponent<Text>().text = "OLEADA" + waveCounter;
+        TextOleada.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        TextOleada.SetActive(false);
+        SpawnWave();
+    }
 }
