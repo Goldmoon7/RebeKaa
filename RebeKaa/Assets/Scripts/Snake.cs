@@ -24,6 +24,8 @@ public class Snake : MonoBehaviour
     private int VIDAS;
     private int frutasComidas;
     static public int longitud;
+    static public float tiempo;
+    static public int enemigosDerrotados;
     private int greenKaaUsadas;
     private int nivelAguila = 10;
     private int nivelFenec = 5;
@@ -54,7 +56,11 @@ public class Snake : MonoBehaviour
         currentVertDir = 0;
         SCORE = 0;
         frutasComidas = 0;
+        UpdateFruitsText(); //para que se muestre desde el inicio
         longitud = 0;
+        enemigosDerrotados = 0;
+        UpdateEnemiesText(); //para que se muestre desde el inicio
+        tiempo = Time.time;
         VIDAS = 3;
         hearts = new GameObject[3];
         horizontalBlock = 0;
@@ -111,7 +117,8 @@ public class Snake : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) {
             StartCoroutine(RedBlink());
         }
-
+        if(VIDAS > 0)
+            UpdateTiempoText();
     }
     void FixedUpdate()
     {
@@ -214,6 +221,7 @@ public class Snake : MonoBehaviour
                 Destroy(collider.gameObject);
                 makeBiggerTrigger = 1;
                 frutasComidas++;
+                UpdateFruitsText(); //actualiza frutasComidas
             } else if (collider.gameObject.CompareTag("GreenKaa")) {
                 Destroy(collider.gameObject);
                 greenKaaUsadas++;
@@ -228,6 +236,8 @@ public class Snake : MonoBehaviour
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 1;
                     UpdateScoreText();
+                    enemigosDerrotados++;
+                    UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Fenec")) {
                 if (longitud < nivelFenec) {
@@ -238,6 +248,8 @@ public class Snake : MonoBehaviour
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 3;
                     UpdateScoreText();
+                    enemigosDerrotados++;
+                    UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Aguila")) {
                 if (fly == false || longitud < nivelAguila) {
@@ -248,6 +260,8 @@ public class Snake : MonoBehaviour
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 5;
                     UpdateScoreText();
+                    enemigosDerrotados++;
+                    UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             }
         }
@@ -290,6 +304,7 @@ public class Snake : MonoBehaviour
             makeSmallerTrigger = 1;
         } else {
             EnemySpawner.enemyCounter = 0;
+            ReiniciarTiempo();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
@@ -303,7 +318,27 @@ public class Snake : MonoBehaviour
         GameObject go = GameObject.FindGameObjectWithTag("Longitud");
         go.GetComponent<Text>().text = "Longitud: " + longitud;
     }
+    private void UpdateEnemiesText() {
+        GameObject go = GameObject.FindGameObjectWithTag("Enemies"); // Busca el objeto con la etiqueta "Enemies"
+        go.GetComponent<Text>().text = "ENEMIGOS DERROTADOS: " + enemigosDerrotados; // Actualiza el texto
+    }
 
+    private void UpdateFruitsText() {
+        GameObject go = GameObject.FindGameObjectWithTag("Fruits"); // Busca el objeto con la etiqueta "Fruits"
+        go.GetComponent<Text>().text = "FRUTAS COMIDAS: " + frutasComidas; // Actualiza el texto
+    }
+    static public void UpdateTiempoText() {
+        GameObject go = GameObject.FindGameObjectWithTag("Tiempo");
+        float tempAct = Time.time -tiempo;
+        int minutos= Mathf.FloorToInt(tempAct / 60f);
+        int segundos = Mathf.FloorToInt(tempAct % 60);
+        go.GetComponent<Text>().text = "Tiempo: " + minutos + ":" + segundos;
+    }
+    static public void ReiniciarTiempo(){
+        GameObject go = GameObject.FindGameObjectWithTag("Tiempo");
+        tiempo = Time.time;
+        go.GetComponent<Text>().text = "Tiempo: " + 0 + ":" + 0;
+    }
     public void CreateLives() {
         for (int i = 0; i < hearts.Length; i++) {
             Vector3 pos = new Vector3(-30+i*4,18.5f,0);

@@ -19,6 +19,9 @@ TagManager:
   - VertWall
   - GreenKaa
   - Longitud
+  - Tiempo
+  - Fruits
+  - Enemies
   layers:
   - Default
   - TransparentFX
