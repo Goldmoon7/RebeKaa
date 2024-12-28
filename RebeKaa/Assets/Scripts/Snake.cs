@@ -303,7 +303,6 @@ public class Snake : MonoBehaviour
         if (VIDAS > 0) {
             makeSmallerTrigger = 1;
         } else {
-            EnemySpawner.enemyCounter = 0;
             ReiniciarTiempo();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
