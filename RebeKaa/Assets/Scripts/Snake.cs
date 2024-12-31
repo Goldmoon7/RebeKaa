@@ -17,7 +17,7 @@ public class Snake : MonoBehaviour
     public GameObject bodyPrefab, tail, heartPrefab;
     public Sprite conVida, sinVida;
     List<GameObject> body;
-    GameObject[] hearts;
+    public static GameObject[] hearts;
     private int currentHorizDir;
     private int currentVertDir;
     private int SCORE;
@@ -214,9 +214,11 @@ public class Snake : MonoBehaviour
     private void OnTriggerEnter2D (Collider2D collider) {
         if (detectarColisiones) {
             if (collider.gameObject.CompareTag("Body")) {
-                VIDAS--;
-                ShouldIDie();
-                GestionarColision();
+                if(ModoInfinito.noMorir == false){
+                    VIDAS--;
+                    ShouldIDie();
+                    GestionarColision();
+                }
             } else if (collider.gameObject.CompareTag("Fruit")) {
                 Destroy(collider.gameObject);
                 makeBiggerTrigger = 1;
@@ -228,38 +230,44 @@ public class Snake : MonoBehaviour
                 ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
             } else if (collider.gameObject.CompareTag("Lagarto")) {
                 if (longitud < nivelCamaleon) {
-                    VIDAS--;
-                    Debug.Log("vidas en lagarto = " + VIDAS);
-                    ShouldIDie();
+                    if(ModoInfinito.noMorir == false){
+                        VIDAS--;
+                        Debug.Log("vidas en lagarto = " + VIDAS);
+                        ShouldIDie();
+                    }
                 } else {
                     Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 1;
-                    UpdateScoreText();
+                    //UpdateScoreText();
                     enemigosDerrotados++;
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Fenec")) {
                 if (longitud < nivelFenec) {
-                    VIDAS--;
-                    ShouldIDie();
+                    if(ModoInfinito.noMorir == false){
+                        VIDAS--;
+                        ShouldIDie();
+                    }
                 } else {
                     Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 3;
-                    UpdateScoreText();
+                    //UpdateScoreText();
                     enemigosDerrotados++;
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Aguila")) {
                 if (fly == false || longitud < nivelAguila) {
-                    VIDAS--;
-                    ShouldIDie();
+                    if(ModoInfinito.noMorir == false){
+                        VIDAS--;
+                        ShouldIDie();
+                    }
                 } else {
                     Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 5;
-                    UpdateScoreText();
+                    //UpdateScoreText();
                     enemigosDerrotados++;
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
@@ -267,8 +275,10 @@ public class Snake : MonoBehaviour
         }
 
         if (collider.gameObject.CompareTag("HorizWall")){
+            if(ModoInfinito.noMorir == false){
                 VIDAS --;
                 ShouldIDie();
+            }
                 int horizontalDir = 0;
                 if (this.transform.position.x < 0) {
                     horizontalDir = 1;
@@ -282,8 +292,10 @@ public class Snake : MonoBehaviour
                 currentHorizDir = horizontalDir;
                 currentVertDir = 0;
             } else if (collider.gameObject.CompareTag("VertWall")) {
-                VIDAS --;
-                ShouldIDie();
+                if(ModoInfinito.noMorir == false){
+                    VIDAS --;
+                    ShouldIDie();
+                }
                 int verticalDir = 0;
                 if (this.transform.position.y < 0) {
                     verticalDir = 1;

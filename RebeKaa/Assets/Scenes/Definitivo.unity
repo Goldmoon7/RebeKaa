@@ -827,10 +827,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 886006554}
   - {fileID: 1547196843}
   - {fileID: 1450175975}
   - {fileID: 70212358}
-  - {fileID: 886006554}
   - {fileID: 549962905}
   - {fileID: 899456910}
   - {fileID: 896229951}
@@ -1255,6 +1255,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1352,6 +1353,21 @@ MonoBehaviour:
   SettingsMenu: {fileID: 673070832}
   PauseActivo: 0
   SettingsActivo: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4eda57f1d211c4a9e2552956cc1c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corazonInfinito: {fileID: 21300000, guid: 0299f9764b9980a4c9ef8871f250d653, type: 3}
+  corazonNormal: {fileID: 21300000, guid: fdcfa8bcbb39710469faea8f1a516338, type: 3}
+  prefab_Corazon: {fileID: 3389580642988880678, guid: 2e4d8a6c29345834f917088a8f30e85b, type: 3}
 --- !u!1 &549962904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,7 +1566,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 594599914}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519420034}
+        m_TargetAssemblyTypeName: ModoInfinito, MiModulo
+        m_MethodName: Modo_Infinito
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &646758020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,7 +2347,7 @@ GameObject:
   - component: {fileID: 886006555}
   m_Layer: 5
   m_Name: Texto_oleada
-  m_TagString: Untagged
+  m_TagString: Wave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2331,7 +2359,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886006553}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2376,7 +2404,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: OLEADA 1
+  m_Text: OLEADA 0
 --- !u!222 &886006556
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4257,8 +4285,9 @@ MonoBehaviour:
   enemyPrefab1: {fileID: 2934634487366033990, guid: 392148974e925e04fb9ebadf54b3de07, type: 3}
   enemyPrefab2: {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
   enemyPrefab3: {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
-  TextOleada: {fileID: 886006553}
-  timeBetweenWaves: 20
+  TextoOleada: {fileID: 886006553}
+  waveCounter: 0
+  numeroOleada: 0
 --- !u!114 &1925019939
 MonoBehaviour:
   m_ObjectHideFlags: 0

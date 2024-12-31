@@ -22,6 +22,8 @@ TagManager:
   - Tiempo
   - Fruits
   - Enemies
+  - Oleada
+  - Wave
   layers:
   - Default
   - TransparentFX

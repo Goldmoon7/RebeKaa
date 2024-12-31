@@ -131,13 +131,13 @@ public class EnemySpawner : MonoBehaviour
     // }
 
     private void Texto_y_Waves(){
-        TextoOleada.GetComponent<Text>().text = "OLEADA " + numeroOleada;
+        //TextoOleada.GetComponent<Text>().text = "OLEADA " + numeroOleada;
         numeroOleada++;
-        Time.timeScale = 0f;
-        TextoOleada.SetActive(true);
-        Thread.Sleep(3000);
-        TextoOleada.SetActive(false);
-        Time.timeScale = 1f;
+        //Time.timeScale = 0f;
+        //TextoOleada.SetActive(true);
+        //Thread.Sleep(3000);
+        //TextoOleada.SetActive(false);
+       // Time.timeScale = 1f;
         SpawnWave();
     }
 }
