@@ -213,7 +213,7 @@ public class Snake : MonoBehaviour
 
     private void OnTriggerEnter2D (Collider2D collider) {
         if (detectarColisiones) {
-            if (collider.gameObject.CompareTag("Body")) {
+            if (collider.gameObject.CompareTag("Body") && longitud>1) {
                 if(ModoInfinito.noMorir == false){
                     VIDAS--;
                     ShouldIDie();
