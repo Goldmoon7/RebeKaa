@@ -237,6 +237,7 @@ public class Snake : MonoBehaviour
                         ShouldIDie();
                     }
                 } else {
+                    collider.isTrigger = false;
                     enemy.SetMuerteLagarto(true);
                     //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;

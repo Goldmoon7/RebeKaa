@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class Enemy3 : MonoBehaviour
     private SpriteRenderer sprite;
     public Sprite spriteR;
     public Sprite spriteL;
+    private Deteccion det;
+    private int nivelEnemigo = 5;
 
 
     void Start()
@@ -25,6 +28,10 @@ public class Enemy3 : MonoBehaviour
         yBorderLimit = 17;
         // Inicializar sprite
         sprite = GetComponent<SpriteRenderer>();
+
+        det = GetComponentInChildren<Deteccion>();
+        det.detEntrada += SpriteAColor;
+        det.detSalida += SpriteANormal;
     }
 
     void Update()
@@ -56,10 +63,10 @@ public class Enemy3 : MonoBehaviour
 
         // Aplicar la rotación al transform
         if (randomAngle == 1){
-            sprite.sprite = spriteL;
+            this.transform.localScale = new Vector3(transform.localScale.x*-1,transform.localScale.y,transform.localScale.z);
         }
         if (randomAngle == 3){
-            sprite.sprite = spriteR;
+            this.transform.localScale = new Vector3(Math.Abs(transform.localScale.x),transform.localScale.y,transform.localScale.z);
         }
 
         // Actualizar la dirección de movimiento según el ángulo de rotación actual
@@ -76,5 +83,21 @@ public class Enemy3 : MonoBehaviour
         else if(currentRotation == 270){
             moveDirection = new Vector2(1,0);
         }
+    }
+
+    public void SpriteAColor() {
+        //cambiar la animacion a color verde o rojo
+        if (Snake.longitud < nivelEnemigo) {
+            //cambiar a rojo
+            sprite.color = new Color(255,0,0);
+        } else {
+            //cambiar a verde
+            sprite.color = new Color(0,255,0);
+        }
+    }
+
+    public void SpriteANormal() {
+        //devolver la animacion a color normal
+        sprite.color = Color.white;
     }
 }

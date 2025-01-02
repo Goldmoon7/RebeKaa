@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class radioDeteccion : MonoBehaviour
-{
-    /*
+public class Deteccion : MonoBehaviour
+{ 
    public delegate void ChildEvent();
    public event ChildEvent detEntrada;
    public event ChildEvent detSalida;
-   */
+   
 
 
     // Start is called before the first frame update
@@ -23,17 +22,17 @@ public class radioDeteccion : MonoBehaviour
         
     }
 
-    /*
+    
     private void OnTriggerEnter2D (Collider2D collider) {
-        if (collider.gameObject.CompareTag("Cabeza")) {
+        if (collider.gameObject.CompareTag("Head")) {
             detEntrada?.Invoke();
         }
     }
 
     private void OnTriggerExit2D (Collider2D collider) {
-        if (collider.gameObject.CompareTag("Cabeza")) {
+        if (collider.gameObject.CompareTag("Head")) {
             detSalida?.Invoke();
         }
     }
-    */
+    
 }

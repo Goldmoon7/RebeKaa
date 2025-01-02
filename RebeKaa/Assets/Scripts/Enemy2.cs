@@ -12,6 +12,9 @@ public class Enemy2 : MonoBehaviour
     public float rotationInterval = 2f;  // Intervalo de rotación en segundos
     private float timeSinceLastRotation;
     private float cont = 0; //Contador para cambio de velocidad
+    private Deteccion det;
+    private int nivelEnemigo = 10;
+    private SpriteRenderer sprite;
 
 
     void Start()
@@ -21,6 +24,12 @@ public class Enemy2 : MonoBehaviour
         // Bordes del mapa
         xBorderLimit = 36;
         yBorderLimit = 17;
+
+        sprite = GetComponent<SpriteRenderer>();
+
+        det = GetComponentInChildren<Deteccion>();
+        det.detEntrada += SpriteAColor;
+        det.detSalida += SpriteANormal;
     }
 
     void Update()
@@ -83,6 +92,22 @@ public class Enemy2 : MonoBehaviour
         else if(currentRotation == 270){
             moveDirection = new Vector2(1,0);
         }
+    }
+
+    public void SpriteAColor() {
+        //cambiar la animacion a color verde o rojo
+        if (Snake.longitud >= nivelEnemigo && Snake.fly) {
+            //cambiar a verde
+            sprite.color = new Color(0,255,0);
+        } else {
+            //cambiar a verde
+            sprite.color = new Color(255,0,0);
+        }
+    }
+
+    public void SpriteANormal() {
+        //devolver la animacion a color normal
+        sprite.color = Color.white;
     }
 
     public Vector2 GetMoveDirection(){

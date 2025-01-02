@@ -19,8 +19,10 @@ public class Enemy1 : MonoBehaviour{
     public Animator animator;
     public Sprite spriteR;
     public Sprite spriteL;
+    private Deteccion det;
+    private int nivelEnemigo = 3;
     //public Sprite normal, verde, rojo;
-    //private GameObject radioDeteccion;
+    //private GameObject Deteccion;
 
 
     void Start()
@@ -34,38 +36,38 @@ public class Enemy1 : MonoBehaviour{
         sprite = GetComponent<SpriteRenderer>();
         animator= GetComponent<Animator>();
 
-        /*
-        radioDeteccion = Instantiate(rdPrefab,this.transform.position,Quaternion.identity,this.transform);
-        radioDeteccion rd = GetComponentInChildren<radioDeteccion>();
-        rd.detEntrada += SpriteAColor;
-        rd.detSalida += SpriteANormal;
-        */
+        //Deteccion = Instantiate(rdPrefab,this.transform.position,Quaternion.identity,this.transform);
+        det = GetComponentInChildren<Deteccion>();
+        det.detEntrada += SpriteAColor;
+        det.detSalida += SpriteANormal;
     }
 
     void Update()
     {
-        // Mover el enemigo en la dirección de movimiento
-        transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
+        if (!muerte_lagarto) {
+            // Mover el enemigo en la dirección de movimiento
+            transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
 
-        // Ejemplo: rotar el enemigo cuando presionamos la barra espaciadora
-        timeSinceLastRotation += Time.deltaTime;
-        if (timeSinceLastRotation >= rotationInterval)
-        {
-            RotateEnemy(1);
-            timeSinceLastRotation = 0f;
+            // Ejemplo: rotar el enemigo cuando presionamos la barra espaciadora
+            timeSinceLastRotation += Time.deltaTime;
+            if (timeSinceLastRotation >= rotationInterval)
+            {
+                RotateEnemy(1);
+                timeSinceLastRotation = 0f;
+            }
+            var newPos = transform.position;
+            if(newPos.x > xBorderLimit)
+            newPos.x = -xBorderLimit+1;
+            else if(newPos.x < -xBorderLimit)
+            newPos.x = xBorderLimit-1;
+            else if(newPos.y > yBorderLimit)
+            newPos.y = -yBorderLimit+1;
+            else if(newPos.y < -yBorderLimit)
+            newPos.y = yBorderLimit-1;
+            transform.position = newPos;
+            //radioDeteccion.transform.position = newPos;
+            UpdateSpriteDirection();
         }
-        var newPos = transform.position;
-        if(newPos.x > xBorderLimit)
-        newPos.x = -xBorderLimit+1;
-        else if(newPos.x < -xBorderLimit)
-        newPos.x = xBorderLimit-1;
-        else if(newPos.y > yBorderLimit)
-        newPos.y = -yBorderLimit+1;
-        else if(newPos.y < -yBorderLimit)
-        newPos.y = yBorderLimit-1;
-        transform.position = newPos;
-        //radioDeteccion.transform.position = newPos;
-        UpdateSpriteDirection();
         animator.SetBool("muerte_lagarto", muerte_lagarto);
     }
 
@@ -107,11 +109,19 @@ public class Enemy1 : MonoBehaviour{
     }
 
     public void SpriteAColor() {
-
+        //cambiar la animacion a color verde o rojo
+        if (Snake.longitud < nivelEnemigo) {
+            //cambiar a rojo
+            animator.SetInteger("color_lagarto", 1);
+        } else {
+            //cambiar a verde
+            animator.SetInteger("color_lagarto", 2);
+        }
     }
 
     public void SpriteANormal() {
-
+        //devolver la animacion a color normal
+        animator.SetInteger("color_lagarto", 0);
     }
 
     public Vector2 GetMoveDirection(){
@@ -133,10 +143,9 @@ public class Enemy1 : MonoBehaviour{
 
     public void SetMuerteLagarto(bool estado){
         if(estado){
+            this.tag = "Muerto";
             muerte_lagarto = estado;
             speed = 0f;
-            CircleCollider2D mycollider = GetComponent<CircleCollider2D>();
-            mycollider.isTrigger=false;
             Destroy(gameObject,3f);
             animator.SetBool("muerte_lagarto", false);
         }
