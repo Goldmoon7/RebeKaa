@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour{
     public float speed = 5f;  // Velocidad de movimiento
+    public GameObject rdPrefab;
     public float rotationSpeed = 90f;  // Velocidad de rotación en grados por segundo
     private Vector2 moveDirection;  // Dirección de movimiento en 2D
     private float currentRotation = 0f;  // Ángulo actual de rotación en grados
@@ -15,6 +16,8 @@ public class Enemy1 : MonoBehaviour{
     private SpriteRenderer sprite;
     public Sprite spriteR;
     public Sprite spriteL;
+    //public Sprite normal, verde, rojo;
+    //private GameObject radioDeteccion;
 
 
     void Start()
@@ -26,6 +29,13 @@ public class Enemy1 : MonoBehaviour{
         yBorderLimit = 17;
         //Inicializar el sprite
         sprite = GetComponent<SpriteRenderer>();
+
+        /*
+        radioDeteccion = Instantiate(rdPrefab,this.transform.position,Quaternion.identity,this.transform);
+        radioDeteccion rd = GetComponentInChildren<radioDeteccion>();
+        rd.detEntrada += SpriteAColor;
+        rd.detSalida += SpriteANormal;
+        */
     }
 
     void Update()
@@ -50,6 +60,7 @@ public class Enemy1 : MonoBehaviour{
         else if(newPos.y < -yBorderLimit)
         newPos.y = yBorderLimit-1;
         transform.position = newPos;
+        //radioDeteccion.transform.position = newPos;
     }
 
     public void RotateEnemy(int spt)
@@ -61,10 +72,12 @@ public class Enemy1 : MonoBehaviour{
         //Cambiar sprite dependiendo de la orientación
         if(spt == 1){
             if (randomAngle == 1){
-                sprite.sprite = spriteL;
+                this.transform.localScale = new Vector3(transform.localScale.x*-1,transform.localScale.y,transform.localScale.z);
+                //sprite.sprite = spriteL;
             }
             if (randomAngle == 3){
-                sprite.sprite = spriteR;
+                this.transform.localScale = new Vector3(Math.Abs(transform.localScale.x),transform.localScale.y,transform.localScale.z);
+                //sprite.sprite = spriteR;
             }
         }
         
@@ -81,6 +94,14 @@ public class Enemy1 : MonoBehaviour{
         else if(currentRotation == 270){
             moveDirection = new Vector2(1,0);
         }
+    }
+
+    public void SpriteAColor() {
+
+    }
+
+    public void SpriteANormal() {
+
     }
 
     public Vector2 GetMoveDirection(){

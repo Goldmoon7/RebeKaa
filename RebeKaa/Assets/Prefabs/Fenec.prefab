@@ -32,7 +32,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5241700896840993805}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &-6810786458504311744
@@ -166,3 +167,94 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!1001 &3045934673270578053
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5052157043218555474}
+    m_Modifications:
+    - target: {fileID: 6494206670239520033, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_Name
+      value: Deteccion1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6494206670239520033, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5254583869804965689}
+  m_SourcePrefab: {fileID: 100100000, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+--- !u!4 &5241700896840993805 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+  m_PrefabInstance: {fileID: 3045934673270578053}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8098980649442987684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6494206670239520033, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+  m_PrefabInstance: {fileID: 3045934673270578053}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5254583869804965689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098980649442987684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6ef57bdfb3b024abcaa77e09ede305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lagartoN: {fileID: 0}
+  lagartoG: {fileID: 0}
+  lagartoR: {fileID: 0}
+  fenecN: {fileID: 0}
+  fenecG: {fileID: 0}
+  fenecR: {fileID: 0}
+  aguilaN: {fileID: 0}
+  aguilaG: {fileID: 0}
+  aguilaR: {fileID: 0}
