@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: lagarto_verde
+  m_Name: fenec_rojo
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,11 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 407475279, guid: e38b521f68c438b45bc74becf1bf4eb6, type: 3}
-    - time: 0.53333336
-      value: {fileID: -24481173, guid: e38b521f68c438b45bc74becf1bf4eb6, type: 3}
-    - time: 1.2
-      value: {fileID: 407475279, guid: e38b521f68c438b45bc74becf1bf4eb6, type: 3}
+      value: {fileID: 553788038, guid: b15fc1dc0198e6544968141e74798eb4, type: 3}
+    - time: 0.2
+      value: {fileID: -917645468, guid: b15fc1dc0198e6544968141e74798eb4, type: 3}
+    - time: 0.4
+      value: {fileID: -930146815, guid: b15fc1dc0198e6544968141e74798eb4, type: 3}
+    - time: 0.6333333
+      value: {fileID: 553788038, guid: b15fc1dc0198e6544968141e74798eb4, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,15 +50,16 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 407475279, guid: e38b521f68c438b45bc74becf1bf4eb6, type: 3}
-    - {fileID: -24481173, guid: e38b521f68c438b45bc74becf1bf4eb6, type: 3}
-    - {fileID: 407475279, guid: e38b521f68c438b45bc74becf1bf4eb6, type: 3}
+    - {fileID: 553788038, guid: b15fc1dc0198e6544968141e74798eb4, type: 3}
+    - {fileID: -917645468, guid: b15fc1dc0198e6544968141e74798eb4, type: 3}
+    - {fileID: -930146815, guid: b15fc1dc0198e6544968141e74798eb4, type: 3}
+    - {fileID: 553788038, guid: b15fc1dc0198e6544968141e74798eb4, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.2166667
+    m_StopTime: 0.65
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

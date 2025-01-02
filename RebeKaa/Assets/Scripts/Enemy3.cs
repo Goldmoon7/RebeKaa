@@ -15,6 +15,8 @@ public class Enemy3 : MonoBehaviour
     private SpriteRenderer sprite;
     public Sprite spriteR;
     public Sprite spriteL;
+    public Animator animator;
+    public bool muerte_fenec = false;
     private Deteccion det;
     private int nivelEnemigo = 5;
 
@@ -28,6 +30,7 @@ public class Enemy3 : MonoBehaviour
         yBorderLimit = 17;
         // Inicializar sprite
         sprite = GetComponent<SpriteRenderer>();
+        animator= GetComponent<Animator>();
 
         det = GetComponentInChildren<Deteccion>();
         det.detEntrada += SpriteAColor;
@@ -54,6 +57,8 @@ public class Enemy3 : MonoBehaviour
         else if(newPos.y < -yBorderLimit)
         newPos.y = yBorderLimit-1;
         transform.position = newPos;
+
+        animator.SetBool("muerte_fenec", muerte_fenec);
     }
     void RotateEnemy()
     {
@@ -89,15 +94,30 @@ public class Enemy3 : MonoBehaviour
         //cambiar la animacion a color verde o rojo
         if (Snake.longitud < nivelEnemigo) {
             //cambiar a rojo
-            sprite.color = new Color(255,0,0);
+            animator.SetInteger("color_fenec", 1);
         } else {
             //cambiar a verde
-            sprite.color = new Color(0,255,0);
+            animator.SetInteger("color_fenec", 2);
         }
     }
 
     public void SpriteANormal() {
         //devolver la animacion a color normal
-        sprite.color = Color.white;
+        animator.SetInteger("color_fenec", 0);
+    }
+
+    public void SetMuerteFenec(bool estado){
+        if(estado){
+            this.tag = "Muerto";
+            muerte_fenec = estado;
+            speed = 0f;
+            Destroy(gameObject,3f);
+            animator.SetBool("muerte_fenec", false);
+        }
+        /*muerte_lagarto = estado;
+        if(muerte_lagarto == true){
+            animator.SetBool("muerte_lagarto", true);
+            Destroy(gameObject,10f);
+        }*/
     }
 }
