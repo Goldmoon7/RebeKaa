@@ -229,6 +229,7 @@ public class Snake : MonoBehaviour
                 greenKaaUsadas++;
                 ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
             } else if (collider.gameObject.CompareTag("Lagarto")) {
+                Enemy1 enemy = collider.GetComponent<Enemy1>();
                 if (longitud < nivelCamaleon) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
@@ -236,7 +237,8 @@ public class Snake : MonoBehaviour
                         ShouldIDie();
                     }
                 } else {
-                    Destroy(collider.gameObject);
+                    enemy.SetMuerteLagarto(true);
+                    //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 1;
                     //UpdateScoreText();

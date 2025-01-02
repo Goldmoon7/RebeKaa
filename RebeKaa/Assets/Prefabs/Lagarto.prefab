@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -7162811727450095083}
   - component: {fileID: 5781999061474370617}
   - component: {fileID: 1251542366998875566}
+  - component: {fileID: 5160006113828347416}
   m_Layer: 0
   m_Name: Lagarto
   m_TagString: Lagarto
@@ -165,8 +166,27 @@ MonoBehaviour:
   rdPrefab: {fileID: 6494206670239520033, guid: 330d52d20b735324e958b168bcc68755, type: 3}
   rotationSpeed: 90
   rotationInterval: 2
+  animator: {fileID: 5160006113828347416}
   spriteR: {fileID: 21300000, guid: 02b50c742fc72e94792cc6675296c842, type: 3}
   spriteL: {fileID: 21300000, guid: 234ce65e322628c49acde08a5183b4d5, type: 3}
-  normal: {fileID: 0}
-  verde: {fileID: 0}
-  rojo: {fileID: 0}
+--- !u!95 &5160006113828347416
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2934634487366033990}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 866512fd2c6d6e444ac866455bf3027f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -14,6 +14,9 @@ public class Enemy1 : MonoBehaviour{
     public float rotationInterval = 2f;  // Intervalo de rotación en segundos
     private float timeSinceLastRotation;
     private SpriteRenderer sprite;
+    private Sprite explosion_muerte;
+    public bool muerte_lagarto = false;
+    public Animator animator;
     public Sprite spriteR;
     public Sprite spriteL;
     //public Sprite normal, verde, rojo;
@@ -29,6 +32,7 @@ public class Enemy1 : MonoBehaviour{
         yBorderLimit = 17;
         //Inicializar el sprite
         sprite = GetComponent<SpriteRenderer>();
+        animator= GetComponent<Animator>();
 
         /*
         radioDeteccion = Instantiate(rdPrefab,this.transform.position,Quaternion.identity,this.transform);
@@ -61,6 +65,8 @@ public class Enemy1 : MonoBehaviour{
         newPos.y = yBorderLimit-1;
         transform.position = newPos;
         //radioDeteccion.transform.position = newPos;
+        UpdateSpriteDirection();
+        animator.SetBool("muerte_lagarto", muerte_lagarto);
     }
 
     public void RotateEnemy(int spt)
@@ -84,15 +90,19 @@ public class Enemy1 : MonoBehaviour{
         // Actualizar la dirección de movimiento según el ángulo de rotación actual
         if(currentRotation == 0){
             moveDirection = new Vector2(0,1);
+            UpdateSpriteDirection();
         }
         else if(currentRotation == 90){
             moveDirection = new Vector2(-1,0);
+            UpdateSpriteDirection();
         }
         else if(currentRotation == 180){
             moveDirection = new Vector2(0,-1);
+            UpdateSpriteDirection();
         }
         else if(currentRotation == 270){
             moveDirection = new Vector2(1,0);
+            UpdateSpriteDirection();
         }
     }
 
@@ -111,4 +121,30 @@ public class Enemy1 : MonoBehaviour{
     public float GetCurrentRotation(){
         return currentRotation;
     }
+
+    private void UpdateSpriteDirection()
+    {
+        // Determinar el ángulo en función de la dirección de movimiento
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+        // Aplicar la rotación al objeto
+        if(angle == 0 || angle == -180)
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+
+    public void SetMuerteLagarto(bool estado){
+        if(estado){
+            muerte_lagarto = estado;
+            speed = 0f;
+            CircleCollider2D mycollider = GetComponent<CircleCollider2D>();
+            mycollider.isTrigger=false;
+            Destroy(gameObject,3f);
+            animator.SetBool("muerte_lagarto", false);
+        }
+        /*muerte_lagarto = estado;
+        if(muerte_lagarto == true){
+            animator.SetBool("muerte_lagarto", true);
+            Destroy(gameObject,10f);
+        }*/
+    }
+
 }
