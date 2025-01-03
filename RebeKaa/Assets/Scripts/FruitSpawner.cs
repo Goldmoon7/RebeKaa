@@ -6,6 +6,7 @@ public class FruitSpawner : MonoBehaviour
 {
 
     public GameObject fruitPrefab;
+    public List<GameObject> fruitPrefabs;
     public int timeBetweenSpawns = 8;
     private int xlimit = 32;
     private int ylimit = 14;
@@ -32,7 +33,16 @@ public class FruitSpawner : MonoBehaviour
         if (signoy == 0) {
             signoy = -1;
         }
+        int tipoFruta; /* = Random.Range(0,fruitPrefabs.Count);*/
         Vector3 pos = new Vector3(x+0.5f*signox,y+0.5f*signoy,0);
-        Instantiate(fruitPrefab, pos, Quaternion.identity);
+        double p = Random.Range(0,1f);
+        if (p <= 0.1) {
+            tipoFruta = 2;
+        } else if (p <= 0.7) {
+            tipoFruta = 0;
+        } else {
+            tipoFruta = 1;
+        }
+        Instantiate(fruitPrefabs[tipoFruta], pos, Quaternion.identity);
     }
 }
