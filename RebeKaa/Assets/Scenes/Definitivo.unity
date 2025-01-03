@@ -5375,6 +5375,10 @@ MonoBehaviour:
   enemyPrefab1: {fileID: 2934634487366033990, guid: 392148974e925e04fb9ebadf54b3de07, type: 3}
   enemyPrefab2: {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
   enemyPrefab3: {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
+  enemyPrefabs:
+  - {fileID: 2934634487366033990, guid: 392148974e925e04fb9ebadf54b3de07, type: 3}
+  - {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
+  - {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
   TextoOleada: {fileID: 886006553}
   waveCounter: 0
   numeroOleada: 0

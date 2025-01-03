@@ -13,7 +13,9 @@ public class FruitSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnFruit",0f,timeBetweenSpawns);
+        SpawnFruit();
+        StartCoroutine(RetrasarComienzo());
+        //InvokeRepeating("SpawnFruit",0f,timeBetweenSpawns);
     }
 
     // Update is called once per frame
@@ -23,8 +25,8 @@ public class FruitSpawner : MonoBehaviour
     }
 
     public void SpawnFruit() {
-        int x = Random.Range(-xlimit,xlimit);
-        int y = Random.Range(-ylimit,ylimit);
+        int x = Random.Range(-xlimit,xlimit+1);
+        int y = Random.Range(-ylimit,ylimit+1);
         int signox = Random.Range(0,1);
         int signoy = Random.Range(0,1);
         if (signox == 0) {
@@ -44,5 +46,10 @@ public class FruitSpawner : MonoBehaviour
             tipoFruta = 1;
         }
         Instantiate(fruitPrefabs[tipoFruta], pos, Quaternion.identity);
+    }
+
+    private IEnumerator RetrasarComienzo() {
+        yield return new WaitUntil(() => Snake.frutasComidas == 1);
+        InvokeRepeating("SpawnFruit",0f,timeBetweenSpawns);
     }
 }

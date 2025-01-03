@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,22 +10,31 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab1; //lagarto
     public GameObject enemyPrefab2; //fenec
     public GameObject enemyPrefab3; //aguila
+    public List<GameObject> enemyPrefabs; //0 = largato, 1 = fenec, 2 = aguila
     public GameObject TextoOleada;
-    public int waveCounter; //contador de oleadas
+    public static int waveCounter; //contador de oleadas
     public int numeroOleada;
     public static int enemyCounter;
+    private int xlimit = 32;
+    private int ylimit = 14;
 
     void Start()
     {
+        /*
         waveCounter = 0;
         numeroOleada = 1;
         enemyCounter = 0;
         Texto_y_Waves();
+        */
+        waveCounter = 0;
+        StartCoroutine(GestorOleadas());
     }
     void Update(){
+        /*
         if(enemyCounter == 0 && numeroOleada < 4){
            Texto_y_Waves();
         }
+        */
         //Falta poner que hacer cuando se acaban todas las rondas
     }
     public void SpawnRandomEnemy(GameObject enemy) { //Spawnea un enemigo pasado como parámetro en uno de los bordes del mapa
@@ -52,6 +60,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    /*
     private void SpawnWave(){ //Spawneo de waves en orden en función del contador
             if(waveCounter == 0){
                 enemyCounter = 4;
@@ -70,6 +79,7 @@ public class EnemySpawner : MonoBehaviour
                 CancelInvoke();
             }
     }
+    */
 
     //WAVES
     private void wave1(){
@@ -139,5 +149,63 @@ public class EnemySpawner : MonoBehaviour
         //TextoOleada.SetActive(false);
        // Time.timeScale = 1f;
         SpawnWave();
+    }
+
+    private void SpawnWave() {
+        int i = waveCounter-1;
+        enemyCounter = i + 4;
+        for (int j = 0; j < enemyCounter; j++) {
+            int x = Random.Range(0,xlimit+1);
+            int y = Random.Range(0,ylimit+1);
+            if (j == 1 || j == 2) {
+                x *= -1;
+            }
+            if (j == 2 || j == 3) {
+                y *= -1;
+            }
+            if (waveCounter > 2) {
+                i = 2;
+            }
+            int tipoEnemigo = Random.Range(0,i+1);
+            Vector3 pos = new Vector3(x,y,0);
+            GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, Quaternion.identity);
+            enemy.transform.localScale = new Vector3(3,3,3);
+        }
+    }
+
+    private IEnumerator GestorOleadas() {
+        yield return new WaitUntil(() => Snake.frutasComidas == 1);
+        //mostrar panel de primera oleada
+        Time.fixedDeltaTime += 0.011f;
+        waveCounter = 1;
+        SpawnWave();
+        yield return new WaitUntil(() => enemyCounter == 0);
+        //Time.fixedDeltaTime += 0.011f;
+        waveCounter++;
+        //mostrar panel de segunda oleada
+        SpawnWave();
+        yield return new WaitUntil(() => enemyCounter == 0);
+        //Time.fixedDeltaTime += 0.011f;
+        waveCounter++;
+        //mostrar panel de segunda oleada
+        SpawnWave();
+        yield return new WaitUntil(() => enemyCounter == 0);
+        //Time.fixedDeltaTime += 0.011f;
+        waveCounter++;
+        //mostrar panel de segunda oleada
+        SpawnWave();
+        yield return new WaitUntil(() => enemyCounter == 0);
+        //Time.fixedDeltaTime += 0.011f;
+        waveCounter++;
+        //mostrar panel de segunda oleada
+        SpawnWave();
+        
+    }
+
+    private IEnumerator GestionarTiempo() {
+        //0.125
+        //0.07
+        //Time.fixedDeltaTime += 0.011f;
+        yield break;
     }
 }

@@ -133,6 +133,8 @@ MonoBehaviour:
   rotationInterval: 2
   spriteR: {fileID: 21300000, guid: a751cd1855cd42443922066d69a09c17, type: 3}
   spriteL: {fileID: 21300000, guid: ae50461a28248b042a994093d7f8f4c1, type: 3}
+  animator: {fileID: 0}
+  muerte_fenec: 0
 --- !u!58 &-838531991741793084
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -197,6 +199,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5052157043218555474}
     m_Modifications:
+    - target: {fileID: 94931241191257024, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6494206670239520033, guid: 330d52d20b735324e958b168bcc68755, type: 3}
       propertyPath: m_Name
       value: Deteccion1

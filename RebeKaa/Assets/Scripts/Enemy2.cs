@@ -30,6 +30,7 @@ public class Enemy2 : MonoBehaviour
         det = GetComponentInChildren<Deteccion>();
         det.detEntrada += SpriteAColor;
         det.detSalida += SpriteANormal;
+        StartCoroutine(Spawn());
     }
 
     void Update()
@@ -108,6 +109,21 @@ public class Enemy2 : MonoBehaviour
     public void SpriteANormal() {
         //devolver la animacion a color normal
         sprite.color = Color.white;
+    }
+
+    private IEnumerator Spawn() {
+        this.tag = "Muerto";
+        Color original = sprite.color;
+        Color transp = sprite.color;
+        transp.a = 0.25f;
+
+        for (int i = 0; i < 5; i++) {
+            sprite.color = transp;
+            yield return new WaitForSeconds(0.2f);
+            sprite.color = original;
+            yield return new WaitForSeconds(0.2f);
+        }
+        this.tag = "Aguila";
     }
 
     public Vector2 GetMoveDirection(){

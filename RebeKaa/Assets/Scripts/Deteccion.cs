@@ -29,6 +29,12 @@ public class Deteccion : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D (Collider2D collider) {
+        if (collider.gameObject.CompareTag("Head")) {
+            detEntrada?.Invoke();
+        }
+    }
+
     private void OnTriggerExit2D (Collider2D collider) {
         if (collider.gameObject.CompareTag("Head")) {
             detSalida?.Invoke();

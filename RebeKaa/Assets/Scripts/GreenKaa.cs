@@ -8,13 +8,15 @@ public class GreenKaa : MonoBehaviour
     public GameObject greenKaaPrefab;
     private int xlimit = 32;
     private int ylimit = 14;
+    private int timeBetweenSpawns;
 
     static public bool fly = false; //Indica si Kaa esta volando o no
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("spawnGreenKaa",10f,10);
+        timeBetweenSpawns = 10;
+        StartCoroutine(RetrasarComienzo());
     }
 
     // Update is called once per frame
@@ -31,7 +33,12 @@ public class GreenKaa : MonoBehaviour
             signox = -1;
         }
         Vector3 pos = new Vector3(x+0.5f*signox,y,0);
-        GameObject newSegment = Instantiate(greenKaaPrefab, pos, Quaternion.identity);
+        GameObject greenKaa = Instantiate(greenKaaPrefab, pos, Quaternion.identity);
+    }
+
+    private IEnumerator RetrasarComienzo() {
+        yield return new WaitUntil(() => EnemySpawner.waveCounter > 2);
+        InvokeRepeating("spawnGreenKaa",5f,timeBetweenSpawns);
     }
 }
 

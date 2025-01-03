@@ -22,7 +22,7 @@ public class Snake : MonoBehaviour
     private int currentVertDir;
     private int SCORE;
     private int VIDAS;
-    private int frutasComidas;
+    public static int frutasComidas;
     static public int longitud;
     static public float tiempo;
     static public int enemigosDerrotados;
