@@ -64,7 +64,7 @@ public class Enemy2 : MonoBehaviour
         else if(newPos.y < -yBorderLimit)
         newPos.y = yBorderLimit-1;
         transform.position = newPos;
-        animator.SetBool("muerte_lagarto", muerte_aguila);
+        animator.SetBool("muerte_aguila", muerte_aguila);
     }
 
     public void ChangeOrientation(int i){
@@ -103,9 +103,10 @@ public class Enemy2 : MonoBehaviour
         //cambiar la animacion a color verde o rojo
         if (Snake.longitud >= nivelEnemigo && Snake.fly) {
             //cambiar a verde
-            animator.SetInteger("color_aguila",1);
-            //cambiar a verde
             animator.SetInteger("color_aguila",2);
+        } else {
+            //cambiar a verde
+            animator.SetInteger("color_aguila",1);
         }
     }
 

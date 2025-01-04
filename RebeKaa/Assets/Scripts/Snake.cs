@@ -321,8 +321,8 @@ public class Snake : MonoBehaviour
             makeSmallerTrigger = 1;
         } else {
             ReiniciarTiempo();
-            EndGame();
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //EndGame();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
