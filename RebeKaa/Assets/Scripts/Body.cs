@@ -21,6 +21,7 @@ public class Body : MonoBehaviour
         if(Snake.colisionesCuerpo) {
             if (collider.gameObject.CompareTag("Lagarto") || collider.gameObject.CompareTag("Fenec") || collider.gameObject.CompareTag("Aguila")) {
                 GestionarColisiones();
+                StartCoroutine(BlinkEnemy(collider.gameObject));
                 Snake.makeSmallerTrigger = 1;
             }
         }
@@ -34,5 +35,18 @@ public class Body : MonoBehaviour
         Snake.colisionesCuerpo = false;
         yield return new WaitForSeconds(tiempo);
         Snake.colisionesCuerpo = true;
+    }
+
+    private IEnumerator BlinkEnemy(GameObject enemy) {
+        SpriteRenderer sprite = enemy.GetComponent<SpriteRenderer>();
+        Color original = Color.white;
+        Color transp = original;
+        transp.a = 0.25f;
+        for (int i = 0; i < 3; i++) {
+            sprite.color = transp;
+            yield return new WaitForSeconds(0.2f);
+            sprite.color = original;
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }

@@ -15,6 +15,7 @@ public class Snake : MonoBehaviour
     private int rotationTrigger;
     private int makeBiggerTrigger;
     public GameObject bodyPrefab, tail, heartPrefab;
+    public GameObject EndMenu;
     public Sprite conVida, sinVida;
     List<GameObject> body;
     public static GameObject[] hearts;
@@ -114,9 +115,6 @@ public class Snake : MonoBehaviour
             GestionarColision();
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) {
-            StartCoroutine(RedBlink());
-        }
         if(VIDAS > 0)
             UpdateTiempoText();
     }
@@ -193,7 +191,7 @@ public class Snake : MonoBehaviour
         if(i == 0 && VIDAS >= 0 && VIDAS < 3) {
             //Debug.Log("VIDAS: " + VIDAS);
             SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
-            sr.sprite = sinVida;
+            //StartCoroutine(Blink(sr));
         }
         
         makeSmallerTrigger = 0;
@@ -247,13 +245,15 @@ public class Snake : MonoBehaviour
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Fenec")) {
+                Enemy3 enemy = collider.GetComponent<Enemy3>();
                 if (longitud < nivelFenec) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
                         ShouldIDie();
                     }
                 } else {
-                    Destroy(collider.gameObject);
+                    enemy.SetMuerteFenec(true);
+                    //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 3;
                     //UpdateScoreText();
@@ -261,13 +261,15 @@ public class Snake : MonoBehaviour
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Aguila")) {
+                Enemy2 enemy = collider.GetComponent<Enemy2>();
                 if (fly == false || longitud < nivelAguila) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
                         ShouldIDie();
                     }
                 } else {
-                    Destroy(collider.gameObject);
+                    enemy.SetMuerteAguila(true);
+                    //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 5;
                     //UpdateScoreText();
@@ -319,8 +321,16 @@ public class Snake : MonoBehaviour
             makeSmallerTrigger = 1;
         } else {
             ReiniciarTiempo();
+            //EndGame();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    public void EndGame()
+    {
+        EndMenu.SetActive(true);  // Mostrar el menú de pausa
+        Time.timeScale = 0f;   // Detener el tiempo en el juego
+
     }
 
    private void UpdateScoreText() {
@@ -371,6 +381,7 @@ public class Snake : MonoBehaviour
         detectarColisiones = true;
     }
 
+    /*
     private IEnumerator RedBlink() {
         //SpriteRenderer sr = GetComponent<SpriteRenderer>();
         //Color colorOriginal = sr.color;
@@ -393,6 +404,7 @@ public class Snake : MonoBehaviour
         //sr.color = colorOriginal;
         //color = new Color(0f,0f,255f);
     }
+    */
 
     public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay)
     {
@@ -440,6 +452,43 @@ public class Snake : MonoBehaviour
             // Cambia de vuelta al sprite original
             targetSpriteRenderer.sprite = originalSprite;
         }
+    }
+
+    /*
+    private IEnumerator Blink() {
+        detectarColisiones = false;
+        List<SpriteRenderer> sp = new List<SpriteRenderer>();
+        for (int i = 0; i < body.Count; i++) {
+            sp.Add(body[i].GetComponent<SpriteRenderer>());
+        }
+        Color original = Color.white;
+        Color transp = original;
+        transp.a = 0.25f;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < body.Count; i++) {
+                sp[j].color = transp;
+            }
+            yield return new WaitForSeconds(0.2f);
+            for (int j = 0; j < body.Count; i++) {
+                sp[j].color = original;
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
+        detectarColisiones = true;
+    }
+    */
+
+    private IEnumerator Blink(SpriteRenderer sr) {
+        Color original = Color.white;
+        Color transp = original;
+        transp.a = 0.25f;
+        for (int i = 0; i < 3; i++) {
+            sr.color = transp;
+            yield return new WaitForSeconds(0.2f);
+            sr.color = original;
+            yield return new WaitForSeconds(0.2f);
+        }
+        sr.sprite = sinVida;
     }
 
 

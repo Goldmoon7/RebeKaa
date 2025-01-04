@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 604c9e7bd1dce054bb14477f30208b5f
+guid: 79a8b3baae1c302418994eb8aec8550b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: muerte_lagarto_0
+      name: aguila_muerte_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1685e50a498afe947ae79e84090f850c
-      internalID: 737349386
+      spriteID: a38d880db4b715640a31fb32ce592a92
+      internalID: 690403309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_1
+      name: aguila_muerte_1
       rect:
         serializedVersion: 2
         x: 11
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c78801248b34ff448f824431b84ff57
-      internalID: -474635391
+      spriteID: 31ddb3c1513116e4bb16dcf3b1d82041
+      internalID: 1645839574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_2
+      name: aguila_muerte_2
       rect:
         serializedVersion: 2
         x: 22
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e92ad91836b214044a00d7ed843ff983
-      internalID: -1926077303
+      spriteID: 7a4b16b1f5a910940a00592644d3ef7a
+      internalID: 1438531872
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_3
+      name: aguila_muerte_3
       rect:
         serializedVersion: 2
         x: 33
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79450403a1f24d544a9b3bba6714fbab
-      internalID: 672577139
+      spriteID: ac97dad8a7129094ba77076f5469ce1d
+      internalID: 352243218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_4
+      name: aguila_muerte_4
       rect:
         serializedVersion: 2
         x: 44
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 259ee9137bc5ced4f8219b5ff32f976a
-      internalID: -1151745983
+      spriteID: 41e460d4034757c4d9769fe44b7a9522
+      internalID: 1292815825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_5
+      name: aguila_muerte_5
       rect:
         serializedVersion: 2
         x: 55
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 296dcdbf781d1624b91badd49c683f4d
-      internalID: 1379955235
+      spriteID: 0e7ac1888e5fc11418380ebce2ab6fc9
+      internalID: 1805340411
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      muerte_lagarto_0: 737349386
-      muerte_lagarto_1: -474635391
-      muerte_lagarto_2: -1926077303
-      muerte_lagarto_3: 672577139
-      muerte_lagarto_4: -1151745983
-      muerte_lagarto_5: 1379955235
+      aguila_muerte_0: 690403309
+      aguila_muerte_1: 1645839574
+      aguila_muerte_2: 1438531872
+      aguila_muerte_3: 352243218
+      aguila_muerte_4: 1292815825
+      aguila_muerte_5: 1805340411
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

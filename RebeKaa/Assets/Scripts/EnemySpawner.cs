@@ -4,14 +4,19 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Threading;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
+    /*
     public GameObject enemyPrefab1; //lagarto
     public GameObject enemyPrefab2; //fenec
     public GameObject enemyPrefab3; //aguila
+    */
     public List<GameObject> enemyPrefabs; //0 = largato, 1 = fenec, 2 = aguila
     public GameObject TextoOleada;
+    public GameObject EndMenu;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
     public static int enemyCounter;
@@ -37,6 +42,8 @@ public class EnemySpawner : MonoBehaviour
         */
         //Falta poner que hacer cuando se acaban todas las rondas
     }
+
+    
     public void SpawnRandomEnemy(GameObject enemy) { //Spawnea un enemigo pasado como parámetro en uno de los bordes del mapa
         int x;
         x = UnityEngine.Random.Range(1,5);
@@ -59,8 +66,8 @@ public class EnemySpawner : MonoBehaviour
                 break;
         }
     }
-
     /*
+
     private void SpawnWave(){ //Spawneo de waves en orden en función del contador
             if(waveCounter == 0){
                 enemyCounter = 4;
@@ -79,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
                 CancelInvoke();
             }
     }
-    */
+    
 
     //WAVES
     private void wave1(){
@@ -150,6 +157,7 @@ public class EnemySpawner : MonoBehaviour
        // Time.timeScale = 1f;
         SpawnWave();
     }
+    */
 
     private void SpawnWave() {
         int i = waveCounter-1;
@@ -180,26 +188,59 @@ public class EnemySpawner : MonoBehaviour
         waveCounter = 1;
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
+        /*
+        if (PlayerPrefs.GetInt("nivelActual") == 1) {
+            PlayerPrefs.SetInt("nivelActual",2);
+            EndGame();
+        }
+        */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
         //mostrar panel de segunda oleada
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
+        /*
+        if (PlayerPrefs.GetInt("nivelActual") == 2) {
+            PlayerPrefs.SetInt("nivelActual",3);
+           EndGame();
+        }
+        */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
         //mostrar panel de segunda oleada
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
+        /*
+        if (PlayerPrefs.GetInt("nivelActual") == 3) {
+            PlayerPrefs.SetInt("nivelActual",4);
+            EndGame();
+        }
+        */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
         //mostrar panel de segunda oleada
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
+        /*
+        if (PlayerPrefs.GetInt("nivelActual") == 4) {
+            PlayerPrefs.SetInt("nivelActual",5);
+            EndGame();
+        }
+        */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
         //mostrar panel de segunda oleada
         SpawnWave();
+        yield return new WaitUntil(() => enemyCounter == 0);
+        EndGame();
         
+    }
+
+    public void EndGame()
+    {
+        EndMenu.SetActive(true);  // Mostrar el menú de pausa
+        Time.timeScale = 0f;   // Detener el tiempo en el juego
+
     }
 
     private IEnumerator GestionarTiempo() {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 604c9e7bd1dce054bb14477f30208b5f
+guid: 50b3d62c39406524db9477dcabb138ac
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: muerte_lagarto_0
+      name: muerte_fenec_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1685e50a498afe947ae79e84090f850c
-      internalID: 737349386
+      spriteID: 21333bce3b6e6bb408a096da8da0e352
+      internalID: -1578874727
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_1
+      name: muerte_fenec_1
       rect:
         serializedVersion: 2
         x: 11
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c78801248b34ff448f824431b84ff57
-      internalID: -474635391
+      spriteID: ce413cbe88ac54743834c92a36b5d047
+      internalID: 2069563352
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_2
+      name: muerte_fenec_2
       rect:
         serializedVersion: 2
         x: 22
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e92ad91836b214044a00d7ed843ff983
-      internalID: -1926077303
+      spriteID: 24510ae6c562e524eac222ad52561ed7
+      internalID: 2033825861
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_3
+      name: muerte_fenec_3
       rect:
         serializedVersion: 2
         x: 33
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79450403a1f24d544a9b3bba6714fbab
-      internalID: 672577139
+      spriteID: cb6f5c8a149696f4fbf7e856145d6f1b
+      internalID: 1907425823
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_4
+      name: muerte_fenec_4
       rect:
         serializedVersion: 2
         x: 44
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 259ee9137bc5ced4f8219b5ff32f976a
-      internalID: -1151745983
+      spriteID: 035e9fa1d10ff7d49baab598e42e54b8
+      internalID: 582133950
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: muerte_lagarto_5
+      name: muerte_fenec_5
       rect:
         serializedVersion: 2
         x: 55
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 296dcdbf781d1624b91badd49c683f4d
-      internalID: 1379955235
+      spriteID: 17d0b5d2a6918db4aa1aa9744f855076
+      internalID: 1253340729
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      muerte_lagarto_0: 737349386
-      muerte_lagarto_1: -474635391
-      muerte_lagarto_2: -1926077303
-      muerte_lagarto_3: 672577139
-      muerte_lagarto_4: -1151745983
-      muerte_lagarto_5: 1379955235
+      muerte_fenec_0: -1578874727
+      muerte_fenec_1: 2069563352
+      muerte_fenec_2: 2033825861
+      muerte_fenec_3: 1907425823
+      muerte_fenec_4: 582133950
+      muerte_fenec_5: 1253340729
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
