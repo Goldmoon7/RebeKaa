@@ -95,7 +95,7 @@ public class PauseManager : MonoBehaviour
 
     public void SalirTrasFinDePartida() {
         Debug.Log("el boton ha sido pulsado");
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MenuInicio"));
+        SceneManager.LoadScene("MenuInicio");
     }
 
 }

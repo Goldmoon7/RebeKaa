@@ -115,9 +115,6 @@ public class Snake : MonoBehaviour
             GestionarColision();
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) {
-            StartCoroutine(RedBlink());
-        }
         if(VIDAS > 0)
             UpdateTiempoText();
     }
@@ -194,7 +191,7 @@ public class Snake : MonoBehaviour
         if(i == 0 && VIDAS >= 0 && VIDAS < 3) {
             //Debug.Log("VIDAS: " + VIDAS);
             SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
-            sr.sprite = sinVida;
+            StartCoroutine(Blink(sr));
         }
         
         makeSmallerTrigger = 0;
@@ -380,6 +377,7 @@ public class Snake : MonoBehaviour
         detectarColisiones = true;
     }
 
+    /*
     private IEnumerator RedBlink() {
         //SpriteRenderer sr = GetComponent<SpriteRenderer>();
         //Color colorOriginal = sr.color;
@@ -402,6 +400,7 @@ public class Snake : MonoBehaviour
         //sr.color = colorOriginal;
         //color = new Color(0f,0f,255f);
     }
+    */
 
     public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay)
     {
@@ -449,6 +448,43 @@ public class Snake : MonoBehaviour
             // Cambia de vuelta al sprite original
             targetSpriteRenderer.sprite = originalSprite;
         }
+    }
+
+    /*
+    private IEnumerator Blink() {
+        detectarColisiones = false;
+        List<SpriteRenderer> sp = new List<SpriteRenderer>();
+        for (int i = 0; i < body.Count; i++) {
+            sp.Add(body[i].GetComponent<SpriteRenderer>());
+        }
+        Color original = Color.white;
+        Color transp = original;
+        transp.a = 0.25f;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < body.Count; i++) {
+                sp[j].color = transp;
+            }
+            yield return new WaitForSeconds(0.2f);
+            for (int j = 0; j < body.Count; i++) {
+                sp[j].color = original;
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
+        detectarColisiones = true;
+    }
+    */
+
+    private IEnumerator Blink(SpriteRenderer sr) {
+        Color original = Color.white;
+        Color transp = original;
+        transp.a = 0.25f;
+        for (int i = 0; i < 3; i++) {
+            sr.color = transp;
+            yield return new WaitForSeconds(0.2f);
+            sr.color = original;
+            yield return new WaitForSeconds(0.2f);
+        }
+        sr.sprite = sinVida;
     }
 
 
