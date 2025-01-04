@@ -15,6 +15,7 @@ public class Snake : MonoBehaviour
     private int rotationTrigger;
     private int makeBiggerTrigger;
     public GameObject bodyPrefab, tail, heartPrefab;
+    public GameObject EndMenu;
     public Sprite conVida, sinVida;
     List<GameObject> body;
     public static GameObject[] hearts;
@@ -319,8 +320,16 @@ public class Snake : MonoBehaviour
             makeSmallerTrigger = 1;
         } else {
             ReiniciarTiempo();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            EndGame();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    public void EndGame()
+    {
+        EndMenu.SetActive(true);  // Mostrar el menú de pausa
+        Time.timeScale = 0f;   // Detener el tiempo en el juego
+
     }
 
    private void UpdateScoreText() {
