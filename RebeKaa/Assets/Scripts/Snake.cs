@@ -29,7 +29,7 @@ public class Snake : MonoBehaviour
     private int greenKaaUsadas;
     private int nivelAguila = 10;
     private int nivelFenec = 5;
-    private int nivelCamaleon = 2;
+    private int nivelCamaleon = 3;
     public Sprite kaaAlas; // El sprite que se mostrará al entrar en contacto
     public Sprite kaaNormal;
     private SpriteRenderer spriteRenderer;
