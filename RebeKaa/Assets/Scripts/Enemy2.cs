@@ -15,6 +15,8 @@ public class Enemy2 : MonoBehaviour
     private Deteccion det;
     private int nivelEnemigo = 10;
     private SpriteRenderer sprite;
+    public Animator animator;
+    public bool muerte_aguila = false;
 
 
     void Start()
@@ -26,6 +28,7 @@ public class Enemy2 : MonoBehaviour
         yBorderLimit = 17;
 
         sprite = GetComponent<SpriteRenderer>();
+        animator= GetComponent<Animator>();
 
         det = GetComponentInChildren<Deteccion>();
         det.detEntrada += SpriteAColor;
@@ -61,6 +64,7 @@ public class Enemy2 : MonoBehaviour
         else if(newPos.y < -yBorderLimit)
         newPos.y = yBorderLimit-1;
         transform.position = newPos;
+        animator.SetBool("muerte_lagarto", muerte_aguila);
     }
 
     public void ChangeOrientation(int i){
@@ -99,16 +103,15 @@ public class Enemy2 : MonoBehaviour
         //cambiar la animacion a color verde o rojo
         if (Snake.longitud >= nivelEnemigo && Snake.fly) {
             //cambiar a verde
-            sprite.color = new Color(0,255,0);
-        } else {
+            animator.SetInteger("color_aguila",1);
             //cambiar a verde
-            sprite.color = new Color(255,0,0);
+            animator.SetInteger("color_aguila",2);
         }
     }
 
     public void SpriteANormal() {
         //devolver la animacion a color normal
-        sprite.color = Color.white;
+        animator.SetInteger("color_aguila",0);
     }
 
     private IEnumerator Spawn() {
@@ -124,6 +127,21 @@ public class Enemy2 : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
         this.tag = "Aguila";
+    }
+
+    public void SetMuerteAguila(bool estado){
+        if(estado){
+            this.tag = "Muerto";
+            muerte_aguila = estado;
+            speed = 0f;
+            Destroy(gameObject,3f);
+            animator.SetBool("muerte_aguila", false);
+        }
+        /*muerte_lagarto = estado;
+        if(muerte_lagarto == true){
+            animator.SetBool("muerte_lagarto", true);
+            Destroy(gameObject,10f);
+        }*/
     }
 
     public Vector2 GetMoveDirection(){

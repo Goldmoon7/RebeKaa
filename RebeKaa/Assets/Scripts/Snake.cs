@@ -191,7 +191,7 @@ public class Snake : MonoBehaviour
         if(i == 0 && VIDAS >= 0 && VIDAS < 3) {
             //Debug.Log("VIDAS: " + VIDAS);
             SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
-            StartCoroutine(Blink(sr));
+            //StartCoroutine(Blink(sr));
         }
         
         makeSmallerTrigger = 0;
@@ -245,13 +245,15 @@ public class Snake : MonoBehaviour
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Fenec")) {
+                Enemy3 enemy = collider.GetComponent<Enemy3>();
                 if (longitud < nivelFenec) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
                         ShouldIDie();
                     }
                 } else {
-                    Destroy(collider.gameObject);
+                    enemy.SetMuerteFenec(true);
+                    //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 3;
                     //UpdateScoreText();
@@ -259,13 +261,15 @@ public class Snake : MonoBehaviour
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Aguila")) {
+                Enemy2 enemy = collider.GetComponent<Enemy2>();
                 if (fly == false || longitud < nivelAguila) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
                         ShouldIDie();
                     }
                 } else {
-                    Destroy(collider.gameObject);
+                    enemy.SetMuerteAguila(true);
+                    //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
                     SCORE = SCORE + 5;
                     //UpdateScoreText();
