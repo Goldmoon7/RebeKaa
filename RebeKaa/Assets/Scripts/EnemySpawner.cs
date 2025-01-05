@@ -184,7 +184,6 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator GestorOleadas() {
         yield return new WaitUntil(() => Snake.frutasComidas == 1);
-        //mostrar panel de primera oleada
         //Time.fixedDeltaTime += 0.011f;
         waveCounter = 1;
         SiguienteOleada();
@@ -199,8 +198,6 @@ public class EnemySpawner : MonoBehaviour
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
         SiguienteOleada();
-        //mostrar panel de segunda oleada
-        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
         if (PlayerPrefs.GetInt("nivelActual") == 2) {
@@ -211,8 +208,6 @@ public class EnemySpawner : MonoBehaviour
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
         SiguienteOleada();
-        //mostrar panel de segunda oleada
-        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
         if (PlayerPrefs.GetInt("nivelActual") == 3) {
@@ -223,8 +218,6 @@ public class EnemySpawner : MonoBehaviour
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
         SiguienteOleada();
-        //mostrar panel de segunda oleada
-        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
         if (PlayerPrefs.GetInt("nivelActual") == 4) {
@@ -235,8 +228,6 @@ public class EnemySpawner : MonoBehaviour
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
         SiguienteOleada();
-        //mostrar panel de segunda oleada
-        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         EndGame();
         
