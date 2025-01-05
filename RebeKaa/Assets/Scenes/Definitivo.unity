@@ -1526,7 +1526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffac2afbc1c705641856f056b2f6a2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  darboton: {fileID: 0}
+  darboton: {fileID: 8300000, guid: 02bc4c32dc02eb340b31cb57bd7789d8, type: 3}
   abrirmenu: {fileID: 8300000, guid: b22abfce266d31048b9cdd05f343ad93, type: 3}
   PauseMenu: {fileID: 508095805}
   SettingsMenu: {fileID: 673070832}
