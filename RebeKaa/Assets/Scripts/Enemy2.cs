@@ -123,9 +123,9 @@ public class Enemy2 : MonoBehaviour
 
         for (int i = 0; i < 5; i++) {
             sprite.color = transp;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f);
             sprite.color = original;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f);
         }
         this.tag = "Aguila";
     }
