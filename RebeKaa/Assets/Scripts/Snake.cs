@@ -17,6 +17,10 @@ public class Snake : MonoBehaviour
     public GameObject bodyPrefab, tail, heartPrefab;
     public GameObject EndMenu;
     public Sprite conVida, sinVida;
+    [SerializeField] public AudioClip comerfruta;
+    [SerializeField] public AudioClip bebergreenkaa;
+    [SerializeField] public AudioClip enemigoderrotado;
+    [SerializeField] public AudioClip dañorecibido;
     List<GameObject> body;
     public static GameObject[] hearts;
     private int currentHorizDir;
@@ -191,7 +195,7 @@ public class Snake : MonoBehaviour
         if(i == 0 && VIDAS >= 0 && VIDAS < 3) {
             //Debug.Log("VIDAS: " + VIDAS);
             SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
-            //StartCoroutine(Blink(sr));
+            StartCoroutine(Blink(sr));
         }
         
         makeSmallerTrigger = 0;
@@ -214,15 +218,18 @@ public class Snake : MonoBehaviour
             if (collider.gameObject.CompareTag("Body") && longitud>1) {
                 if(ModoInfinito.noMorir == false){
                     VIDAS--;
+                    ControlAudio.Instance.EjecutarSonido(dañorecibido);
                     ShouldIDie();
                     GestionarColision();
                 }
             } else if (collider.gameObject.CompareTag("Fruit")) {
+                ControlAudio.Instance.EjecutarSonido(comerfruta);
                 Destroy(collider.gameObject);
                 makeBiggerTrigger = 1;
                 frutasComidas++;
                 UpdateFruitsText(); //actualiza frutasComidas
             } else if (collider.gameObject.CompareTag("GreenKaa")) {
+                ControlAudio.Instance.EjecutarSonido(bebergreenkaa);
                 Destroy(collider.gameObject);
                 greenKaaUsadas++;
                 ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
@@ -231,11 +238,13 @@ public class Snake : MonoBehaviour
                 if (longitud < nivelCamaleon) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
+                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
                         Debug.Log("vidas en lagarto = " + VIDAS);
                         ShouldIDie();
                     }
                 } else {
                     collider.isTrigger = false;
+                    ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
                     enemy.SetMuerteLagarto(true);
                     //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
@@ -249,9 +258,11 @@ public class Snake : MonoBehaviour
                 if (longitud < nivelFenec) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
+                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
                         ShouldIDie();
                     }
                 } else {
+                    ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
                     enemy.SetMuerteFenec(true);
                     //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
@@ -265,9 +276,11 @@ public class Snake : MonoBehaviour
                 if (fly == false || longitud < nivelAguila) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
+                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
                         ShouldIDie();
                     }
                 } else {
+                    ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
                     enemy.SetMuerteAguila(true);
                     //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
@@ -282,6 +295,7 @@ public class Snake : MonoBehaviour
         if (collider.gameObject.CompareTag("HorizWall")){
             if(ModoInfinito.noMorir == false){
                 VIDAS --;
+                ControlAudio.Instance.EjecutarSonido(dañorecibido);
                 ShouldIDie();
             }
                 int horizontalDir = 0;
@@ -299,6 +313,7 @@ public class Snake : MonoBehaviour
             } else if (collider.gameObject.CompareTag("VertWall")) {
                 if(ModoInfinito.noMorir == false){
                     VIDAS --;
+                    ControlAudio.Instance.EjecutarSonido(dañorecibido);
                     ShouldIDie();
                 }
                 int verticalDir = 0;

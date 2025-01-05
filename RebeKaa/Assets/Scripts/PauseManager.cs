@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
+    [SerializeField] private AudioClip darboton;
+    [SerializeField] private AudioClip abrirmenu;
     public GameObject PauseMenu;  // Referencia al menú de pausa en la UI
     public GameObject SettingsMenu; //Referencia al menu de ajustes
     public GameObject EndMenu;
@@ -49,6 +51,7 @@ public class PauseManager : MonoBehaviour
     // Método para pausar el juego
     public void PauseGame()
     {
+        ControlAudio.Instance.EjecutarSonido(abrirmenu);
         PauseMenu.SetActive(true);  // Mostrar el menú de pausa
         PauseActivo = true;
         Time.timeScale = 0f;   // Detener el tiempo en el juego
@@ -58,6 +61,7 @@ public class PauseManager : MonoBehaviour
     // Método para reanudar el juego
     public void ResumeGame()
     {
+        ControlAudio.Instance.EjecutarSonido(darboton);
         PauseMenu.SetActive(false); // Ocultar el menú de pausa
         PauseActivo = false;
         SettingsMenu.SetActive(false);
@@ -74,6 +78,7 @@ public class PauseManager : MonoBehaviour
     }
 
     public void IrAjustes(){
+        ControlAudio.Instance.EjecutarSonido(darboton);
         SettingsMenu.SetActive(true);
         PauseMenu.SetActive(false);
         SettingsActivo = true;
