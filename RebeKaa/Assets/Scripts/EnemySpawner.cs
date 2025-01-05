@@ -16,7 +16,6 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab3; //aguila
     */
     public List<GameObject> enemyPrefabs; //0 = largato, 1 = fenec, 2 = aguila
-    public List<GameObject> cartelesOleadas;
     public GameObject TextoOleada;
     public GameObject EndMenu;
     public static int waveCounter; //contador de oleadas
@@ -186,10 +185,10 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator GestorOleadas() {
         yield return new WaitUntil(() => Snake.frutasComidas == 1);
         //mostrar panel de primera oleada
-        Time.fixedDeltaTime += 0.011f;
+        //Time.fixedDeltaTime += 0.011f;
         waveCounter = 1;
-        StartCoroutine(CartelOleada());
-        SpawnWave();
+        SiguienteOleada();
+        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
         if (PlayerPrefs.GetInt("nivelActual") == 1) {
@@ -199,9 +198,9 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
-        StartCoroutine(CartelOleada());
+        SiguienteOleada();
         //mostrar panel de segunda oleada
-        SpawnWave();
+        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
         if (PlayerPrefs.GetInt("nivelActual") == 2) {
@@ -211,9 +210,9 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
-        StartCoroutine(CartelOleada());
+        SiguienteOleada();
         //mostrar panel de segunda oleada
-        SpawnWave();
+        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
         if (PlayerPrefs.GetInt("nivelActual") == 3) {
@@ -223,9 +222,9 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
-        StartCoroutine(CartelOleada());
+        SiguienteOleada();
         //mostrar panel de segunda oleada
-        SpawnWave();
+        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
         if (PlayerPrefs.GetInt("nivelActual") == 4) {
@@ -235,9 +234,9 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
-        StartCoroutine(CartelOleada());
+        SiguienteOleada();
         //mostrar panel de segunda oleada
-        SpawnWave();
+        //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         EndGame();
         
@@ -250,22 +249,26 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    public IEnumerator CartelOleada() {
+    public void SiguienteOleada() {
         Time.timeScale = 0f;
-        GameObject cartel = Instantiate(cartelesOleadas[waveCounter], new Vector3(0,0,0), Quaternion.identity);
-        SpriteRenderer sr = cartel.GetComponent<SpriteRenderer>();
+        StartCoroutine(CartelOleada());
+        SpawnWave();
+    }
+
+    public IEnumerator CartelOleada() {
+        Text txt = TextoOleada.GetComponent<Text>();
+        txt.text = "OLEADA: " + waveCounter;
+        TextoOleada.SetActive(true);
         Color original = Color.white;
         Color transp = original;
         transp.a = 0.25f;
         for (int i = 0; i < 5; i++) {
-            sr.color = transp;
+            txt.color = transp;
             yield return new WaitForSecondsRealtime(0.2f);
-            sr.color = original;
+            txt.color = original;
             yield return new WaitForSecondsRealtime(0.2f);
         }
-        transp.a = 0;
-        sr.color = transp;
-        Destroy(cartel);
+        TextoOleada.SetActive(false);
         Time.timeScale = 1f;
     }
 
