@@ -381,7 +381,7 @@ public class Snake : MonoBehaviour
     }
     public void CreateLives() {
         for (int i = 0; i < hearts.Length; i++) {
-            Vector3 pos = new Vector3(-30+i*4,18.5f,0);
+            Vector3 pos = new Vector3(-30+i*4,19.5f,0);
             hearts[i] = Instantiate(heartPrefab,pos,Quaternion.identity);
         }
     }

@@ -204,6 +204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Deteccion1
       objectReference: {fileID: 0}
+    - target: {fileID: 6494206670239520033, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
       propertyPath: m_LocalScale.x
       value: 6
