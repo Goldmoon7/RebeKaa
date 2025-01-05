@@ -195,7 +195,8 @@ public class Snake : MonoBehaviour
         if(i == 0 && VIDAS >= 0 && VIDAS < 3) {
             //Debug.Log("VIDAS: " + VIDAS);
             SpriteRenderer sr = hearts[VIDAS].GetComponent<SpriteRenderer>();
-            StartCoroutine(Blink(sr));
+            sr.sprite = sinVida;
+            //StartCoroutine(Blink(sr));
         }
         
         makeSmallerTrigger = 0;
