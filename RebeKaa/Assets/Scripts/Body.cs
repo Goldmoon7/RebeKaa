@@ -38,15 +38,18 @@ public class Body : MonoBehaviour
     }
 
     private IEnumerator BlinkEnemy(GameObject enemy) {
+        string tagOriginal = enemy.tag;
+        enemy.tag = "Muerto";
         SpriteRenderer sprite = enemy.GetComponent<SpriteRenderer>();
         Color original = Color.white;
         Color transp = original;
         transp.a = 0.25f;
         for (int i = 0; i < 3; i++) {
             sprite.color = transp;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f);
             sprite.color = original;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f);
         }
+        enemy.tag = tagOriginal;
     }
 }

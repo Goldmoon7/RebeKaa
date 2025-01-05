@@ -338,6 +338,7 @@ public class Snake : MonoBehaviour
         } else {
             ReiniciarTiempo();
             //EndGame();
+            //StartCoroutine(FindDelJuego());
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
@@ -381,7 +382,7 @@ public class Snake : MonoBehaviour
     }
     public void CreateLives() {
         for (int i = 0; i < hearts.Length; i++) {
-            Vector3 pos = new Vector3(-30+i*4,18.5f,0);
+            Vector3 pos = new Vector3(-30+i*4,19.5f,0);
             hearts[i] = Instantiate(heartPrefab,pos,Quaternion.identity);
         }
     }
@@ -397,30 +398,12 @@ public class Snake : MonoBehaviour
         detectarColisiones = true;
     }
 
-    /*
-    private IEnumerator RedBlink() {
-        //SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        //Color colorOriginal = sr.color;
-        Color color = new Color(255,128,128);
-        for (int i = 0; i < 5; i++) {
-            foreach (GameObject go in body) {
-                SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
-                sr.color = color;
-            }
-            color.a = 128;
-            yield return new WaitForSeconds(0.25f);
-            foreach (GameObject go in body) {
-                SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
-                sr.color = color;
-            }
-            color.a = 255;
-            color = new Color(255,255,255);
-            yield return new WaitForSeconds(0.25f);
-        }
-        //sr.color = colorOriginal;
-        //color = new Color(0f,0f,255f);
+    private IEnumerator FindDelJuego() {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(1.5f);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    */
 
     public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay)
     {
@@ -500,9 +483,9 @@ public class Snake : MonoBehaviour
         transp.a = 0.25f;
         for (int i = 0; i < 3; i++) {
             sr.color = transp;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f);
             sr.color = original;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.2f);
         }
         sr.sprite = sinVida;
     }

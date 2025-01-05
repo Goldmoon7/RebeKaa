@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: -3617049834318134546}
   - component: {fileID: -361830608360922453}
   m_Layer: 0
-  m_Name: aguilaFrontal
+  m_Name: Aguila
   m_TagString: Aguila
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -346,6 +346,8 @@ MonoBehaviour:
   speed: 5
   rotationSpeed: 90
   rotationInterval: 2
+  animator: {fileID: 0}
+  muerte_aguila: 0
 --- !u!95 &-361830608360922453
 Animator:
   serializedVersion: 5
@@ -382,6 +384,10 @@ PrefabInstance:
     - target: {fileID: 6494206670239520033, guid: 330d52d20b735324e958b168bcc68755, type: 3}
       propertyPath: m_Name
       value: Deteccion1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6494206670239520033, guid: 330d52d20b735324e958b168bcc68755, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7132318912533452680, guid: 330d52d20b735324e958b168bcc68755, type: 3}
       propertyPath: m_LocalScale.x

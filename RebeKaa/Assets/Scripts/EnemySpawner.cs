@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Threading;
 using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab3; //aguila
     */
     public List<GameObject> enemyPrefabs; //0 = largato, 1 = fenec, 2 = aguila
+    public List<GameObject> cartelesOleadas;
     public GameObject TextoOleada;
     public GameObject EndMenu;
     public static int waveCounter; //contador de oleadas
@@ -186,6 +188,7 @@ public class EnemySpawner : MonoBehaviour
         //mostrar panel de primera oleada
         Time.fixedDeltaTime += 0.011f;
         waveCounter = 1;
+        StartCoroutine(CartelOleada());
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
@@ -196,6 +199,7 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
+        StartCoroutine(CartelOleada());
         //mostrar panel de segunda oleada
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
@@ -207,6 +211,7 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
+        StartCoroutine(CartelOleada());
         //mostrar panel de segunda oleada
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
@@ -218,6 +223,7 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
+        StartCoroutine(CartelOleada());
         //mostrar panel de segunda oleada
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
@@ -229,6 +235,7 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
+        StartCoroutine(CartelOleada());
         //mostrar panel de segunda oleada
         SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
@@ -241,6 +248,25 @@ public class EnemySpawner : MonoBehaviour
         EndMenu.SetActive(true);  // Mostrar el menú de pausa
         Time.timeScale = 0f;   // Detener el tiempo en el juego
 
+    }
+
+    public IEnumerator CartelOleada() {
+        Time.timeScale = 0f;
+        GameObject cartel = Instantiate(cartelesOleadas[waveCounter], new Vector3(0,0,0), Quaternion.identity);
+        SpriteRenderer sr = cartel.GetComponent<SpriteRenderer>();
+        Color original = Color.white;
+        Color transp = original;
+        transp.a = 0.25f;
+        for (int i = 0; i < 5; i++) {
+            sr.color = transp;
+            yield return new WaitForSecondsRealtime(0.2f);
+            sr.color = original;
+            yield return new WaitForSecondsRealtime(0.2f);
+        }
+        transp.a = 0;
+        sr.color = transp;
+        Destroy(cartel);
+        Time.timeScale = 1f;
     }
 
     private IEnumerator GestionarTiempo() {
