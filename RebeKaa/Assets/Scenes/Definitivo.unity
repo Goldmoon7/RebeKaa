@@ -36988,6 +36988,13 @@ MonoBehaviour:
   - {fileID: 2934634487366033990, guid: 392148974e925e04fb9ebadf54b3de07, type: 3}
   - {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
   - {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
+  cartelesOleadas:
+  - {fileID: 8727658063031988344, guid: 833b565fe243f6f48b1a1a9a5056eda5, type: 3}
+  - {fileID: 8727658063031988344, guid: 833b565fe243f6f48b1a1a9a5056eda5, type: 3}
+  - {fileID: 8727658063031988344, guid: 833b565fe243f6f48b1a1a9a5056eda5, type: 3}
+  - {fileID: 8727658063031988344, guid: 833b565fe243f6f48b1a1a9a5056eda5, type: 3}
+  - {fileID: 8727658063031988344, guid: 833b565fe243f6f48b1a1a9a5056eda5, type: 3}
+  - {fileID: 8727658063031988344, guid: 833b565fe243f6f48b1a1a9a5056eda5, type: 3}
   TextoOleada: {fileID: 886006553}
   EndMenu: {fileID: 665663981}
   numeroOleada: 0
@@ -70014,6 +70021,7 @@ MonoBehaviour:
   - {fileID: 2934634487366033990, guid: 392148974e925e04fb9ebadf54b3de07, type: 3}
   - {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
   - {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
+  cartelesOleadas: []
   TextoOleada: {fileID: 886006553}
   EndMenu: {fileID: 665663981}
   numeroOleada: 0
