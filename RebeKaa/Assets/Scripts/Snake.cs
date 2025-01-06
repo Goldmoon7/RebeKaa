@@ -290,6 +290,27 @@ public class Snake : MonoBehaviour
                     enemigosDerrotados++;
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
+            } else if (collider.gameObject.CompareTag("Boss")) {
+                Boss enemy = collider.GetComponent<Boss>();
+                if (enemy.enLlamas) {
+                    if(ModoInfinito.noMorir == false){
+                        VIDAS--;
+                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                        ShouldIDie();
+                    }
+                } else {
+                    enemy.toques--;
+                    if(enemy.toques==0){
+                        ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
+                        enemy.SetMuerteBoss(true);
+                        //Destroy(collider.gameObject);
+                        EnemySpawner.enemyCounter--;
+                        SCORE = SCORE + 20;
+                        //UpdateScoreText();
+                        enemigosDerrotados++;
+                        UpdateEnemiesText(); //actualiza enemigosDerrotados
+                    }
+                }
             }
         }
 
