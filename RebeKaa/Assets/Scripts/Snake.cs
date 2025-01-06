@@ -295,13 +295,13 @@ public class Snake : MonoBehaviour
                 if (enemy.enLlamas) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
-                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                        ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         ShouldIDie();
                     }
                 } else {
                     enemy.toques--;
                     if(enemy.toques==0){
-                        ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
+                        ControlAudio.Instance.EjecutarSonidoEnemigo(enemigoderrotado);
                         enemy.SetMuerteBoss(true);
                         //Destroy(collider.gameObject);
                         EnemySpawner.enemyCounter--;
