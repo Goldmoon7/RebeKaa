@@ -312,6 +312,15 @@ public class Snake : MonoBehaviour
                     }
                 }
             }
+            else if(collider.gameObject.CompareTag("Proyectil")){
+                BolaFuego bola = collider.GetComponent<BolaFuego>();
+                Destroy(collider.gameObject);
+                if(ModoInfinito.noMorir == false){
+                    VIDAS--;
+                    ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                    ShouldIDie();
+                }
+            }
         }
 
         if (collider.gameObject.CompareTag("HorizWall")){

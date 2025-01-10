@@ -7,6 +7,7 @@ using System.Threading;
 using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System.Numerics;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -16,7 +17,9 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab3; //aguila
     */
     public List<GameObject> enemyPrefabs; //0 = largato, 1 = fenec, 2 = aguila
+    public GameObject boss;
     public GameObject TextoOleada;
+    public GameObject TextoTutorial;
     public GameObject EndMenu;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
@@ -50,20 +53,20 @@ public class EnemySpawner : MonoBehaviour
         x = UnityEngine.Random.Range(1,5);
         switch (x){
             case 1:
-                GameObject e1 = Instantiate(enemy, new Vector3(0,14,0), Quaternion.identity);
-                e1.transform.localScale = new Vector3(3,3,3);
+                GameObject e1 = Instantiate(enemy, new UnityEngine.Vector3(0,14,0), UnityEngine.Quaternion.identity);
+                e1.transform.localScale = new UnityEngine.Vector3(3,3,3);
                 break;
             case 2:
-                GameObject e2 = Instantiate(enemy, new Vector3(0,-14,0), Quaternion.identity);
-                e2.transform.localScale = new Vector3(3,3,3);
+                GameObject e2 = Instantiate(enemy, new UnityEngine.Vector3(0,-14,0), UnityEngine.Quaternion.identity);
+                e2.transform.localScale = new UnityEngine.Vector3(3,3,3);
                 break;
             case 3:
-                GameObject e3 = Instantiate(enemy, new Vector3(33,0,0), Quaternion.identity);
-                e3.transform.localScale = new Vector3(3,3,3);
+                GameObject e3 = Instantiate(enemy, new UnityEngine.Vector3(33,0,0), UnityEngine.Quaternion.identity);
+                e3.transform.localScale = new UnityEngine.Vector3(3,3,3);
                 break;
             case 4:
-                GameObject e4 = Instantiate(enemy, new Vector3(-33,0,0), Quaternion.identity);
-                e4.transform.localScale = new Vector3(3,3,3);
+                GameObject e4 = Instantiate(enemy, new UnityEngine.Vector3(-33,0,0), UnityEngine.Quaternion.identity);
+                e4.transform.localScale = new UnityEngine.Vector3(3,3,3);
                 break;
         }
     }
@@ -164,6 +167,7 @@ public class EnemySpawner : MonoBehaviour
         int i = waveCounter-1;
         enemyCounter = i + 4;
         for (int j = 0; j < enemyCounter; j++) {
+            if(waveCounter != 6){
             int x = Random.Range(0,xlimit+1);
             int y = Random.Range(0,ylimit+1);
             if (j == 1 || j == 2) {
@@ -176,14 +180,22 @@ public class EnemySpawner : MonoBehaviour
                 i = 2;
             }
             int tipoEnemigo = Random.Range(0,i+1);
-            Vector3 pos = new Vector3(x,y,0);
-            GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, Quaternion.identity);
-            enemy.transform.localScale = new Vector3(3,3,3);
+            UnityEngine.Vector3 pos = new UnityEngine.Vector3(x,y,0);
+            GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, UnityEngine.Quaternion.identity);
+            enemy.transform.localScale = new UnityEngine.Vector3(3,3,3);
+            }
+            else{
+                enemyCounter = 1;
+                UnityEngine.Vector3 pos = new UnityEngine.Vector3(25, 0, 0);
+                GameObject enemy = Instantiate(boss, pos, UnityEngine.Quaternion.identity);
+            }
         }
     }
 
     private IEnumerator GestorOleadas() {
+        CartelTutorial(0);
         yield return new WaitUntil(() => Snake.frutasComidas == 1);
+        CartelTutorial(1);
         //Time.fixedDeltaTime += 0.011f;
         waveCounter = 1;
         SiguienteOleada();
@@ -217,6 +229,7 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
+        CartelTutorial(2);
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
         /*
@@ -227,6 +240,11 @@ public class EnemySpawner : MonoBehaviour
         */
         //Time.fixedDeltaTime += 0.011f;
         waveCounter++;
+        SiguienteOleada();
+        yield return new WaitUntil(() => enemyCounter == 0);
+
+        waveCounter++;
+        CartelTutorial(3);
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
         EndGame();
@@ -261,6 +279,32 @@ public class EnemySpawner : MonoBehaviour
         }
         TextoOleada.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    public IEnumerator CartelTutorial(int fase){
+        Text txt = TextoTutorial.GetComponent<Text>();
+        txt.color = Color.white;
+        switch(fase){
+            case 0:{
+                txt.text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
+                break;
+            }
+            case 1:{
+                txt.text = "Parece que vas a tener que derrotar a esos enemigos, para ello, necesitarás una longitud mínima de 3 para derrotar a los lagartos y una longitud mínima de 5 para derrotar a los fennecs.";
+                break;
+            }
+            case 2:{
+                txt.text = "¡Uh Oh! Enemigos más peligrosos se acercan. Deberás beber la famosa GreenKaa que va apareciendo y además necesitas tener una longitud mínima de 10 para derrotarlas. Ten cuidado porque si tienes longitud 10 pero no has bebido el GreenKaa, las águilas te matarán.";
+                break;
+            }
+            case 3:{
+                txt.text = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo";
+                break;
+            }
+        }
+        TextoTutorial.SetActive(true);
+        yield return new WaitUntil(() => Input.anyKeyDown);
+        TextoTutorial.SetActive(false);
     }
 
     private IEnumerator GestionarTiempo() {

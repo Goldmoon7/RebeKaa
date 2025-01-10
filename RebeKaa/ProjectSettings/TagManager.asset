@@ -26,6 +26,8 @@ TagManager:
   - Wave
   - Activacion
   - Muerto
+  - Proyectil
+  - Boss
   layers:
   - Default
   - TransparentFX
