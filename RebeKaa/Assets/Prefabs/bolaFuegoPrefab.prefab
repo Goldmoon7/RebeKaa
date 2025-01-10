@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1806890084751466686
+--- !u!1 &7439814736314006458
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8478815013204854189}
-  - component: {fileID: 8188700700534004220}
-  - component: {fileID: 7508043389714428777}
-  - component: {fileID: 6021211411605855700}
-  - component: {fileID: 7921908329186807243}
-  - component: {fileID: 6199189389095860525}
+  - component: {fileID: 8727768811557894861}
+  - component: {fileID: 1567362810980116101}
+  - component: {fileID: 7433780165717156112}
+  - component: {fileID: -4410010541841947672}
+  - component: {fileID: 7982908251861817636}
   m_Layer: 0
-  m_Name: boss
-  m_TagString: Undefined
+  m_Name: bolaFuegoPrefab
+  m_TagString: Proyectil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8478815013204854189
+--- !u!4 &8727768811557894861
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806890084751466686}
+  m_GameObject: {fileID: 7439814736314006458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.7289, y: -5.0032196, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalPosition: {x: -6.8551, y: -7.3808, z: 0}
+  m_LocalScale: {x: 21.5163, y: 16.02528, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6276984861685929540}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8188700700534004220
+--- !u!212 &1567362810980116101
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806890084751466686}
+  m_GameObject: {fileID: 7439814736314006458}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -78,24 +76,24 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a67c960778e613445b35e65ac3f812b3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b7ee41db313ff048af90a5850897601, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &7508043389714428777
+--- !u!70 &7433780165717156112
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806890084751466686}
+  m_GameObject: {fileID: 7439814736314006458}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -121,17 +119,17 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06605842, y: 0.0067742667}
-  m_Size: {x: 1.0914679, y: 1.0914679}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.64, y: 0.64}
   m_Direction: 0
---- !u!50 &6021211411605855700
+--- !u!50 &-4410010541841947672
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806890084751466686}
+  m_GameObject: {fileID: 7439814736314006458}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -151,76 +149,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7921908329186807243
+--- !u!114 &7982908251861817636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806890084751466686}
+  m_GameObject: {fileID: 7439814736314006458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d22acbbc77a6d124bb91ddc2626f3b03, type: 3}
+  m_Script: {fileID: 11500000, guid: c2f234eef8901374e8390b77800a75a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 90
-  rotationInterval: 4
-  attackInterval: 8
-  toques: 8
-  animator: {fileID: 6199189389095860525}
-  enLlamas: 0
-  bolaFuegoPrefab: {fileID: 7439814736314006458, guid: e85f4f1c2e5b40048b122ddea3eb55dc, type: 3}
-  cola: {fileID: 7952642827256525734}
---- !u!95 &6199189389095860525
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806890084751466686}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cdb4d7ac68c29144ba2770522ae19cf4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!1 &7952642827256525734
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6276984861685929540}
-  m_Layer: 0
-  m_Name: cola
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6276984861685929540
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7952642827256525734}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.354, y: 0.013, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8478815013204854189}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  speed: 3
+  maxLifeTime: 3
+  targetVector: {x: 0, y: 0, z: 0}

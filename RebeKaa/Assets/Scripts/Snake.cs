@@ -16,7 +16,7 @@ public class Snake : MonoBehaviour
     private Vector3 position;
     private int rotationTrigger;
     private int makeBiggerTrigger;
-    public GameObject bodyPrefab, tail, heartPrefab;
+    public GameObject bodyPrefab, tail, heartPrefab, head;
     public GameObject EndMenu;
     public Sprite conVida, sinVida;
     [SerializeField] public AudioClip comerfruta;
@@ -243,7 +243,8 @@ public class Snake : MonoBehaviour
                 ControlAudio.Instance.EjecutarSonidoGreenKaa(bebergreenkaa);
                 Destroy(collider.gameObject);
                 greenKaaUsadas++;
-                ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
+                fly = true;
+                ActivarAlas();
             } else if (collider.gameObject.CompareTag("Lagarto")) {
                 Enemy1 enemy = collider.GetComponent<Enemy1>();
                 if (longitud < nivelCamaleon) {
@@ -322,11 +323,20 @@ public class Snake : MonoBehaviour
                         enemy.SetMuerteBoss(true);
                         //Destroy(collider.gameObject);
                         EnemySpawner.enemyCounter--;
-                        SCORE = SCORE + 20;
+                        SCORE = SCORE + 100;
                         //UpdateScoreText();
                         enemigosDerrotados++;
                         UpdateEnemiesText(); //actualiza enemigosDerrotados
                     }
+                }
+            }
+            else if(collider.gameObject.CompareTag("Proyectil")){
+                BolaFuego bola = collider.GetComponent<BolaFuego>();
+                Destroy(collider.gameObject);
+                if(ModoInfinito.noMorir == false){
+                    VIDAS--;
+                    ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
+                    ShouldIDie();
                 }
             }
         }
@@ -443,65 +453,42 @@ public class Snake : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay){
-    // Verifica que el índice sea válido
-    if (index >= 0 && index < body.Count)
-    {
-        // Obtén el objeto objetivo de la lista
-        GameObject targetObject = body[index];
-
-        // Obtén la posición actual del segmento antes de actualizar
-        Vector3 segmentPosBefore = targetObject.transform.position;
-
-        // Actualiza el sprite
-        SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
-        if (targetSpriteRenderer != null)
-        {
-            fly = true;
-            targetSpriteRenderer.sprite = newSprite;
-
-            // Ajusta la rotación y escala basándote en el movimiento
-            Vector3 segmentPosAfter = targetObject.transform.position; // Posición después del cambio
-            Vector3 movementDirection = segmentPosBefore - segmentPosAfter;
-
-            if (movementDirection.x != 0) // Movimiento horizontal
-            {
-                Debug.Log("Movimiento horizontal detectado");
-                targetObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-                targetObject.transform.localScale = new Vector3(1, -Math.Sign(movementDirection.x), 1);
-            }
-            else if (movementDirection.y != 0) // Movimiento vertical
-            {
-                Debug.Log("Movimiento vertical detectado");
-                targetObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
-                targetObject.transform.localScale = new Vector3(1, -Math.Sign(movementDirection.y), 1);
-            }
-            else
-            {
-                Debug.Log("No se detectó movimiento");
-            }
-
-
-            // Inicia la corrutina para restaurar el sprite después del retraso
-            StartCoroutine(ResetSprite(targetObject, originalSprite, delay));
-        }
-    }
-}
-
-private IEnumerator ResetSprite(GameObject targetObject, Sprite originalSprite, float delay)
+private IEnumerator ResetSprite(float delay)
 {
     // Espera el tiempo especificado
     yield return new WaitForSeconds(delay);
+    DesactivarAlas();
     fly = false;
-
-    // Cambia de vuelta al sprite original
-    SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
-    if (targetSpriteRenderer != null)
-    {
-        targetSpriteRenderer.sprite = originalSprite;
-    }
 }
 
+public void ActivarAlas() {
+    // Buscar en los hijos del objeto "Head" un objeto con la etiqueta "alas".
+    Transform alasTransform = head.transform.Find("Alas solo");
+    
+    if (alasTransform == null || !alasTransform.CompareTag("alas")) {
+        Debug.LogError("No se encontró el objeto 'Alas solo' con la etiqueta 'alas' dentro de 'Head'.");
+        return;
+    }
+
+    // Activar el objeto
+    GameObject alas = alasTransform.gameObject;
+    alas.SetActive(true);
+
+    // Iniciar la corrutina
+    StartCoroutine(ResetSprite(20));
+}
+public void DesactivarAlas(){
+    // Buscar en los hijos del objeto "Head" un objeto con la etiqueta "alas".
+    Transform alasTransform = head.transform.Find("Alas solo");
+    
+    if (alasTransform == null || !alasTransform.CompareTag("alas")) {
+        Debug.LogError("No se encontró el objeto 'Alas solo' con la etiqueta 'alas' dentro de 'Head'.");
+        return;
+    }
+    // Activar el objeto
+    GameObject alas = alasTransform.gameObject;
+    alas.SetActive(false);
+}
 
     /*
     private IEnumerator Blink() {

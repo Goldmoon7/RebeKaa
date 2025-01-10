@@ -10,8 +10,8 @@ public class Boss : MonoBehaviour
     private Vector2 moveDirection;  // Dirección de movimiento en 2D
     private float currentRotation = 0f;  // Ángulo actual de rotación en grados
     private float xBorderLimit, yBorderLimit;
-    public float rotationInterval = 8f;  // Intervalo de rotación en segundos
-    public float attackInterval = 6f;  // Intervalo de ataque en segundos
+    public float rotationInterval = 5f;  // Intervalo de rotación en segundos
+    public float attackInterval = 3f;  // Intervalo de ataque en segundos
 
     private float timeSinceLastRotation;
     private float timeSinceLastAttack;
@@ -19,6 +19,8 @@ public class Boss : MonoBehaviour
     public int toques = 8; // Toques necesarios para derrotar al boss
     public Animator animator;
     public bool enLlamas = false;
+
+    public GameObject bolaFuegoPrefab, cola;
 
     // Start is called before the first frame update
     void Start()
@@ -38,42 +40,48 @@ public class Boss : MonoBehaviour
     {
         transform.position += (Vector3)moveDirection * speed * Time.deltaTime;
 
-            // Ejemplo: rotar el enemigo cuando presionamos la barra espaciadora
-            timeSinceLastRotation += Time.deltaTime;
-            if (timeSinceLastRotation >= rotationInterval)
-            {
-                RotateEnemy(1);
-                timeSinceLastRotation = 0f;
-            }
-            if (timeSinceLastAttack >= attackInterval)
-            {
-                animator.SetBool("isAttacking", true);
-                enLlamas = true;
-                timeSinceLastAttack = 0f;
-            }
-            else{
-                animator.SetBool("isAttacking", false);
-                enLlamas = false;
-            }
-            var newPos = transform.position;
-            if(newPos.x > xBorderLimit)
-            newPos.x = -xBorderLimit+1;
-            else if(newPos.x < -xBorderLimit)
-            newPos.x = xBorderLimit-1;
-            else if(newPos.y > yBorderLimit)
-            newPos.y = -yBorderLimit+1;
-            else if(newPos.y < -yBorderLimit)
-            newPos.y = yBorderLimit-1;
-            transform.position = newPos;
+        // Ejemplo: rotar el enemigo cuando presionamos la barra espaciadora
+        timeSinceLastRotation += Time.deltaTime;
+        timeSinceLastAttack += Time.deltaTime;
 
-            if (moveDirection.x != 0 && moveDirection.y == 0)
+        if (timeSinceLastRotation >= rotationInterval)
+        {
+            RotateEnemy(1);
+            timeSinceLastRotation = 0f;
+        }
+            
+        var newPos = transform.position;
+        if(newPos.x > xBorderLimit)
+        newPos.x = -xBorderLimit+1;
+        else if(newPos.x < -xBorderLimit)
+        newPos.x = xBorderLimit-1;
+        else if(newPos.y > yBorderLimit)
+        newPos.y = -yBorderLimit+1;
+        else if(newPos.y < -yBorderLimit)
+        newPos.y = yBorderLimit-1;
+        transform.position = newPos;
+
+        // Cambiar a animacion horizontal
+        if (moveDirection.x != 0 && moveDirection.y == 0)
+        {
+            animator.SetBool("caminando_deLado", true);
+        }
+        // Cambiar a animacion vertical
+        else if (moveDirection.y != 0 && moveDirection.x == 0)
+        {
+            animator.SetBool("caminando_deLado", false);
+        }
+            
+        // Cambiar a animacion de ataque
+        if (timeSinceLastAttack >= attackInterval)
             {
-                animator.SetBool("caminando_deLado", true);
-            }
-            else if (moveDirection.y != 0 && moveDirection.x == 0)
-            {
-                animator.SetBool("caminando_deLado", false);
-            }
+            Attack();
+            timeSinceLastAttack = 0f;
+        }
+        else if (timeSinceLastAttack<attackInterval){
+            animator.SetBool("isAttacking", false);
+            enLlamas = false;
+        }
     }
 
     public void RotateEnemy(int spt)
@@ -125,15 +133,17 @@ public class Boss : MonoBehaviour
     public void SetMuerteBoss(bool estado){
         if(estado){
             this.tag = "Muerto";
-            //muerte_aguila = estado;
             speed = 0f;
             Destroy(gameObject,3f);
-            //animator.SetBool("muerte_aguila", false);
         }
-        /*muerte_lagarto = estado;
-        if(muerte_lagarto == true){
-            animator.SetBool("muerte_lagarto", true);
-            Destroy(gameObject,10f);
-        }*/
+    }
+
+    private void Attack(){
+        animator.SetBool("isAttacking", true);
+        enLlamas = true;
+
+        GameObject bola = Instantiate(bolaFuegoPrefab, cola.transform.position, Quaternion.identity);
+        BolaFuego bolaScript = bola.GetComponent<BolaFuego>();
+        bolaScript.targetVector = transform.right;
     }
 }
