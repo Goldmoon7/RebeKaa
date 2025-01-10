@@ -219,18 +219,18 @@ public class Snake : MonoBehaviour
             if (collider.gameObject.CompareTag("Body") && longitud>1) {
                 if(ModoInfinito.noMorir == false){
                     VIDAS--;
-                    ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                    ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                     ShouldIDie();
                     GestionarColision();
                 }
             } else if (collider.gameObject.CompareTag("Fruit")) {
-                ControlAudio.Instance.EjecutarSonido(comerfruta);
+                ControlAudio.Instance.EjecutarSonidoFruta(comerfruta);
                 Destroy(collider.gameObject);
                 makeBiggerTrigger = 1;
                 frutasComidas++;
                 UpdateFruitsText(); //actualiza frutasComidas
             } else if (collider.gameObject.CompareTag("GreenKaa")) {
-                ControlAudio.Instance.EjecutarSonido(bebergreenkaa);
+                ControlAudio.Instance.EjecutarSonidoGreenKaa(bebergreenkaa);
                 Destroy(collider.gameObject);
                 greenKaaUsadas++;
                 ChangeToSpriteWithReset(1,kaaAlas,kaaNormal,20f);
@@ -239,13 +239,13 @@ public class Snake : MonoBehaviour
                 if (longitud < nivelCamaleon) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
-                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                        ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         Debug.Log("vidas en lagarto = " + VIDAS);
                         ShouldIDie();
                     }
                 } else {
                     collider.isTrigger = false;
-                    ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
+                    ControlAudio.Instance.EjecutarSonidoEnemigo(enemigoderrotado);
                     enemy.SetMuerteLagarto(true);
                     //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
@@ -259,11 +259,11 @@ public class Snake : MonoBehaviour
                 if (longitud < nivelFenec) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
-                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                        ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         ShouldIDie();
                     }
                 } else {
-                    ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
+                    ControlAudio.Instance.EjecutarSonidoEnemigo(enemigoderrotado);
                     enemy.SetMuerteFenec(true);
                     //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
@@ -277,11 +277,11 @@ public class Snake : MonoBehaviour
                 if (fly == false || longitud < nivelAguila) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
-                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                        ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         ShouldIDie();
                     }
                 } else {
-                    ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
+                    ControlAudio.Instance.EjecutarSonidoEnemigo(enemigoderrotado);
                     enemy.SetMuerteAguila(true);
                     //Destroy(collider.gameObject);
                     EnemySpawner.enemyCounter--;
@@ -295,13 +295,13 @@ public class Snake : MonoBehaviour
                 if (enemy.enLlamas) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
-                        ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                        ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         ShouldIDie();
                     }
                 } else {
                     enemy.toques--;
                     if(enemy.toques==0){
-                        ControlAudio.Instance.EjecutarSonido(enemigoderrotado);
+                        ControlAudio.Instance.EjecutarSonidoEnemigo(enemigoderrotado);
                         enemy.SetMuerteBoss(true);
                         //Destroy(collider.gameObject);
                         EnemySpawner.enemyCounter--;
@@ -326,7 +326,7 @@ public class Snake : MonoBehaviour
         if (collider.gameObject.CompareTag("HorizWall")){
             if(ModoInfinito.noMorir == false){
                 VIDAS --;
-                ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                 ShouldIDie();
             }
                 int horizontalDir = 0;
@@ -344,7 +344,7 @@ public class Snake : MonoBehaviour
             } else if (collider.gameObject.CompareTag("VertWall")) {
                 if(ModoInfinito.noMorir == false){
                     VIDAS --;
-                    ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                    ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                     ShouldIDie();
                 }
                 int verticalDir = 0;
