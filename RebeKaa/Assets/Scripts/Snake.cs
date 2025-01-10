@@ -305,7 +305,7 @@ public class Snake : MonoBehaviour
                         enemy.SetMuerteBoss(true);
                         //Destroy(collider.gameObject);
                         EnemySpawner.enemyCounter--;
-                        SCORE = SCORE + 20;
+                        SCORE = SCORE + 100;
                         //UpdateScoreText();
                         enemigosDerrotados++;
                         UpdateEnemiesText(); //actualiza enemigosDerrotados
@@ -317,7 +317,7 @@ public class Snake : MonoBehaviour
                 Destroy(collider.gameObject);
                 if(ModoInfinito.noMorir == false){
                     VIDAS--;
-                    ControlAudio.Instance.EjecutarSonido(dañorecibido);
+                    ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                     ShouldIDie();
                 }
             }
