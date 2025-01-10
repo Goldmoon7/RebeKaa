@@ -1031,7 +1031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &375028570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,8 +1045,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs: []
+  cartelesOleada: []
+  cartelOleada: {fileID: 0}
   boss: {fileID: 1806890084751466686, guid: 293c2596f046cac4f896bf867306410d, type: 3}
   TextoOleada: {fileID: 0}
+  TextoTutorial: {fileID: 0}
   EndMenu: {fileID: 0}
   numeroOleada: 0
 --- !u!4 &375028571
@@ -37358,8 +37361,16 @@ MonoBehaviour:
   - {fileID: 2934634487366033990, guid: 392148974e925e04fb9ebadf54b3de07, type: 3}
   - {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
   - {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
+  cartelesOleada:
+  - {fileID: 21300000, guid: b3c2fba386590194ab5e9d8aaa75064d, type: 3}
+  - {fileID: 21300000, guid: ee2c21b535263c84b908c9ccd1000b79, type: 3}
+  - {fileID: 21300000, guid: e3f94c69a232a044d99584546d09231d, type: 3}
+  - {fileID: 21300000, guid: bd6d87796b2465841a22d11e956c91f2, type: 3}
+  - {fileID: 21300000, guid: dc7450dc03224d74fa1e001da0b1b3f5, type: 3}
+  cartelOleada: {fileID: 1493835041}
   boss: {fileID: 0}
   TextoOleada: {fileID: 886006553}
+  TextoTutorial: {fileID: 0}
   EndMenu: {fileID: 665663981}
   numeroOleada: 0
 --- !u!114 &1424998966
@@ -37472,6 +37483,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450175974}
   m_CullTransparentMesh: 1
+--- !u!1 &1493835041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1493835043}
+  - component: {fileID: 1493835042}
+  m_Layer: 0
+  m_Name: CartelOleada
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!212 &1493835042
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493835041}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1935778681
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: b3c2fba386590194ab5e9d8aaa75064d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 10.24, y: 2.52}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1493835043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493835041}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1547196842
 GameObject:
   m_ObjectHideFlags: 0
@@ -70548,8 +70643,11 @@ MonoBehaviour:
   - {fileID: 2934634487366033990, guid: 392148974e925e04fb9ebadf54b3de07, type: 3}
   - {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
   - {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
+  cartelesOleada: []
+  cartelOleada: {fileID: 0}
   boss: {fileID: 0}
   TextoOleada: {fileID: 886006553}
+  TextoTutorial: {fileID: 0}
   EndMenu: {fileID: 665663981}
   numeroOleada: 0
 --- !u!114 &1925019939
@@ -103799,6 +103897,7 @@ MonoBehaviour:
   bodyPrefab: {fileID: 6010595244568473450, guid: 1e9fc9eefd6938c4ab0dd6e149f5eeb9, type: 3}
   tail: {fileID: 70051892}
   heartPrefab: {fileID: 3389580642988880678, guid: 2e4d8a6c29345834f917088a8f30e85b, type: 3}
+  head: {fileID: 2053260052}
   EndMenu: {fileID: 665663981}
   conVida: {fileID: 21300000, guid: fdcfa8bcbb39710469faea8f1a516338, type: 3}
   sinVida: {fileID: 21300000, guid: 92e07c9968436ae4db37e0a564ea8594, type: 3}
@@ -104181,3 +104280,4 @@ SceneRoots:
   - {fileID: 2038952357}
   - {fileID: 1424998964}
   - {fileID: 375028571}
+  - {fileID: 1493835043}

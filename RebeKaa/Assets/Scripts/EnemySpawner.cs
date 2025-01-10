@@ -17,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab3; //aguila
     */
     public List<GameObject> enemyPrefabs; //0 = largato, 1 = fenec, 2 = aguila
+    public List<Sprite> cartelesOleada;
+    public GameObject cartelOleada;
     public GameObject boss;
     public GameObject TextoOleada;
     public GameObject TextoTutorial;
@@ -39,6 +41,7 @@ public class EnemySpawner : MonoBehaviour
         Texto_y_Waves();
         */
         waveCounter = 0;
+        cartelOleada.SetActive(false);
         StartCoroutine(GestorOleadas());
     }
     void Update(){
@@ -270,19 +273,27 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public IEnumerator CartelOleada() {
+        /*
         Text txt = TextoOleada.GetComponent<Text>();
         txt.text = "OLEADA: " + waveCounter;
         TextoOleada.SetActive(true);
+        */
+        SpriteRenderer sr = cartelOleada.GetComponent<SpriteRenderer>();
+        sr.sprite = cartelesOleada[waveCounter-1];
+        cartelOleada.SetActive(true);
         Color original = Color.white;
         Color transp = original;
         transp.a = 0.25f;
         for (int i = 0; i < 5; i++) {
-            txt.color = transp;
+            //txt.color = transp;
+            sr.color = transp;
             yield return new WaitForSecondsRealtime(0.2f);
-            txt.color = original;
+            //txt.color = original;
+            sr.color = original;
             yield return new WaitForSecondsRealtime(0.2f);
         }
-        TextoOleada.SetActive(false);
+        //TextoOleada.SetActive(false);
+        cartelOleada.SetActive(false);
         Time.timeScale = 1f;
     }
 
