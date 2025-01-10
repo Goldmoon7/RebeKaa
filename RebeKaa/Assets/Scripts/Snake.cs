@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
 using System.Linq;
+using System.Net.NetworkInformation;
+using UnityEngine.Video;
 
 public class Snake : MonoBehaviour
 {
@@ -27,7 +29,12 @@ public class Snake : MonoBehaviour
     private int currentVertDir;
     private int SCORE;
     private int VIDAS;
+    public static int nvidas;
     public static int frutasComidas;
+    public static int greenkaaBebidas;
+    public static int nlagartosmuertos;
+    public static int nfenecmuertos;
+    public static int naguilasmuertas;
     static public int longitud;
     static public float tiempo;
     static public int enemigosDerrotados;
@@ -67,6 +74,7 @@ public class Snake : MonoBehaviour
         UpdateEnemiesText(); //para que se muestre desde el inicio
         tiempo = Time.time;
         VIDAS = 3;
+        nvidas = 3;
         hearts = new GameObject[3];
         horizontalBlock = 0;
         verticalBlock = 0;
@@ -219,6 +227,7 @@ public class Snake : MonoBehaviour
             if (collider.gameObject.CompareTag("Body") && longitud>1) {
                 if(ModoInfinito.noMorir == false){
                     VIDAS--;
+                    nvidas--;
                     ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                     ShouldIDie();
                     GestionarColision();
@@ -230,6 +239,7 @@ public class Snake : MonoBehaviour
                 frutasComidas++;
                 UpdateFruitsText(); //actualiza frutasComidas
             } else if (collider.gameObject.CompareTag("GreenKaa")) {
+                greenkaaBebidas++;
                 ControlAudio.Instance.EjecutarSonidoGreenKaa(bebergreenkaa);
                 Destroy(collider.gameObject);
                 greenKaaUsadas++;
@@ -239,6 +249,7 @@ public class Snake : MonoBehaviour
                 if (longitud < nivelCamaleon) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
+                        nvidas--;
                         ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         Debug.Log("vidas en lagarto = " + VIDAS);
                         ShouldIDie();
@@ -252,6 +263,7 @@ public class Snake : MonoBehaviour
                     SCORE = SCORE + 1;
                     //UpdateScoreText();
                     enemigosDerrotados++;
+                    nlagartosmuertos++;
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Fenec")) {
@@ -259,6 +271,7 @@ public class Snake : MonoBehaviour
                 if (longitud < nivelFenec) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
+                        nvidas--;
                         ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         ShouldIDie();
                     }
@@ -270,6 +283,7 @@ public class Snake : MonoBehaviour
                     SCORE = SCORE + 3;
                     //UpdateScoreText();
                     enemigosDerrotados++;
+                    nfenecmuertos++;
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Aguila")) {
@@ -277,6 +291,7 @@ public class Snake : MonoBehaviour
                 if (fly == false || longitud < nivelAguila) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
+                        nvidas--;
                         ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         ShouldIDie();
                     }
@@ -288,6 +303,7 @@ public class Snake : MonoBehaviour
                     SCORE = SCORE + 5;
                     //UpdateScoreText();
                     enemigosDerrotados++;
+                    naguilasmuertas++;
                     UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Boss")) {
@@ -295,6 +311,7 @@ public class Snake : MonoBehaviour
                 if (enemy.enLlamas) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
+                        nvidas--;
                         ControlAudio.Instance.EjecutarSonidoDaño(dañorecibido);
                         ShouldIDie();
                     }
@@ -426,53 +443,65 @@ public class Snake : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay)
+    public void ChangeToSpriteWithReset(int index, Sprite newSprite, Sprite originalSprite, float delay){
+    // Verifica que el índice sea válido
+    if (index >= 0 && index < body.Count)
     {
-        // Verifica que el índice sea válido
-        if (index >= 0 && index < body.Count)
-        {
-            // Obtén el objeto objetivo de la lista
-            GameObject targetObject = body[index];
-            if(rotationTrigger != 0) {
-            if (currentHorizDir != 0) {
-                //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,90)));
-                transform.rotation = Quaternion.Euler(new Vector3(0,0,90));
-                transform.localScale = new Vector3(1,-currentHorizDir,0);
-            } else {
-                //rb.MoveRotation(Quaternion.Euler(new Vector3(0,0,-180)));
-                transform.rotation = Quaternion.Euler(new Vector3(0,0,-180));
-                transform.localScale = new Vector3(1,-currentVertDir,0);
-            }
-            rotationTrigger = 0;
-        }
+        // Obtén el objeto objetivo de la lista
+        GameObject targetObject = body[index];
 
-            // Cambia su sprite al nuevo sprite
-            SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
+        // Obtén la posición actual del segmento antes de actualizar
+        Vector3 segmentPosBefore = targetObject.transform.position;
 
-            if (targetSpriteRenderer != null)
-            {
-                fly = true;
-                targetSpriteRenderer.sprite = newSprite;
-
-                // Inicia la corrutina para restaurar el sprite después del retraso
-                StartCoroutine(ResetSprite(targetObject, originalSprite, delay));
-            }
-        }
-    }
-    private IEnumerator ResetSprite(GameObject targetObject, Sprite originalSprite, float delay)
-    {
-        // Espera el tiempo especificado
-        yield return new WaitForSeconds(delay);
-        fly = false;
-        // Obtén el SpriteRenderer del sprite con alas
+        // Actualiza el sprite
         SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
-
         if (targetSpriteRenderer != null)
         {
-            // Cambia de vuelta al sprite original
-            targetSpriteRenderer.sprite = originalSprite;
+            fly = true;
+            targetSpriteRenderer.sprite = newSprite;
+
+            // Ajusta la rotación y escala basándote en el movimiento
+            Vector3 segmentPosAfter = targetObject.transform.position; // Posición después del cambio
+            Vector3 movementDirection = segmentPosBefore - segmentPosAfter;
+
+            if (movementDirection.x != 0) // Movimiento horizontal
+            {
+                Debug.Log("Movimiento horizontal detectado");
+                targetObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+                targetObject.transform.localScale = new Vector3(1, -Math.Sign(movementDirection.x), 1);
+            }
+            else if (movementDirection.y != 0) // Movimiento vertical
+            {
+                Debug.Log("Movimiento vertical detectado");
+                targetObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+                targetObject.transform.localScale = new Vector3(1, -Math.Sign(movementDirection.y), 1);
+            }
+            else
+            {
+                Debug.Log("No se detectó movimiento");
+            }
+
+
+            // Inicia la corrutina para restaurar el sprite después del retraso
+            StartCoroutine(ResetSprite(targetObject, originalSprite, delay));
         }
     }
+}
+
+private IEnumerator ResetSprite(GameObject targetObject, Sprite originalSprite, float delay)
+{
+    // Espera el tiempo especificado
+    yield return new WaitForSeconds(delay);
+    fly = false;
+
+    // Cambia de vuelta al sprite original
+    SpriteRenderer targetSpriteRenderer = targetObject.GetComponent<SpriteRenderer>();
+    if (targetSpriteRenderer != null)
+    {
+        targetSpriteRenderer.sprite = originalSprite;
+    }
+}
+
 
     /*
     private IEnumerator Blink() {

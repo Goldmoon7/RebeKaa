@@ -24,6 +24,9 @@ public class EnemySpawner : MonoBehaviour
     private int xlimit = 32;
     private int ylimit = 14;
 
+    private int minutos;
+    private int segundos;
+
     void Start()
     {
         /*
@@ -236,6 +239,8 @@ public class EnemySpawner : MonoBehaviour
     public void EndGame()
     {
         EndMenu.SetActive(true);  // Mostrar el menú de pausa
+        UpdateStatsText();
+        UpdateTotalPoints();
         Time.timeScale = 0f;   // Detener el tiempo en el juego
 
     }
@@ -268,5 +273,30 @@ public class EnemySpawner : MonoBehaviour
         //0.07
         //Time.fixedDeltaTime += 0.011f;
         yield break;
+    }
+    private void UpdateStatsText() {
+        GameObject go = GameObject.FindGameObjectWithTag("Stats"); // Busca el objeto con la etiqueta "Stats"
+        float tempAct = Time.time -Snake.tiempo;
+        minutos= Mathf.FloorToInt(tempAct / 60f);
+        segundos = Mathf.FloorToInt(tempAct % 60);
+        go.GetComponent<Text>().text = "Frutas Comidas.................... " + Snake.frutasComidas + 
+        "\n\nEnemigos Derrotados............... " + Snake.enemigosDerrotados + 
+        "\n\n\tLagartos Derrotados.................... "+ Snake.nlagartosmuertos +
+        "\n\n\tFenecs Derrotados.................... "+ Snake.nfenecmuertos +
+        "\n\n\tAguilas Derrotadas.................... " + Snake.naguilasmuertas +
+        "\n\n\tBoss Derrotado......................... " + 1 +
+        "\n\nGreenKaa Bebidos.................. " + Snake.greenkaaBebidas + 
+        "\n\nLongitud.......................... " + Snake.longitud +
+        "\n\nTiempo............................ " + minutos + ":" + segundos +
+        "\n\nVidas Restantes............................ " + Snake.nvidas; // Actualiza el texto
+    }
+
+    private void UpdateTotalPoints(){
+        GameObject go = GameObject.FindGameObjectWithTag("TOTAL");
+        double total;
+        total = Snake.frutasComidas * 5 + Snake.nlagartosmuertos * 10 + Snake.nfenecmuertos*20 + Snake.naguilasmuertas*40 + 
+                100 + Snake.longitud + (segundos + minutos*60f) * (-0.2) + Snake.nvidas*10;
+        go.GetComponent<Text>().text = "TOTAL: " + total;
+
     }
 }
