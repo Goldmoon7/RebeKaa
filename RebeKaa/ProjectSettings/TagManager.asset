@@ -76,3 +76,6 @@ TagManager:
   - name: Cabeza
     uniqueID: 3233272025
     locked: 0
+  - name: Cartel
+    uniqueID: 910621749
+    locked: 0

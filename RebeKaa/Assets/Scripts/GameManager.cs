@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using PlasticPipe.PlasticProtocol.Messages;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class Buttons : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
 
     public GameObject menuPrincipal;
     public GameObject menuNiveles;
     public GameObject menuAjustes;
     public static int nivel;
+    public List<GameObject> botones;
 
     public void Start() {
         if (PlayerPrefs.HasKey("nivelActual")) {
@@ -26,6 +28,7 @@ public class Buttons : MonoBehaviour
             menuAjustes.SetActive(false);
             menuPrincipal.SetActive(false);
             menuNiveles.SetActive(true);
+            PonerBotones();
         }
     }
     public void Settings()
@@ -36,7 +39,9 @@ public class Buttons : MonoBehaviour
     {
         menuPrincipal.SetActive(false);
         menuNiveles.SetActive(true);
-        PlayerPrefs.SetInt("nivelActual",1);
+        if (PlayerPrefs.GetInt("nivelActual") == 0) {
+            PlayerPrefs.SetInt("nivelActual",1);
+        }
     }
 
     public void Nivel(int i) {
@@ -53,5 +58,17 @@ public class Buttons : MonoBehaviour
             menuNiveles.SetActive(false);
         }
         menuPrincipal.SetActive(true);
+    }
+
+    public void PonerBotones() {
+        int nivel = PlayerPrefs.GetInt("nivelActual");
+        Color transp = Color.white;
+        transp.a = 185;
+        for(int i = 0; i < 5; i++) {
+            if (i > (nivel-1)) {
+                Button boton = botones[i].GetComponent<Button>();
+                boton.interactable = false;
+            }
+        } 
     }
 }

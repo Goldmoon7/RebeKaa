@@ -448,8 +448,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896335009}
-        m_TargetAssemblyTypeName: Buttons, MiModulo
+      - m_Target: {fileID: 1896335011}
+        m_TargetAssemblyTypeName: GameManager, MiModulo
         m_MethodName: Nivel
         m_Mode: 3
         m_Arguments:
@@ -1113,7 +1113,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 673686472}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1896335011}
+        m_TargetAssemblyTypeName: GameManager, MiModulo
+        m_MethodName: Settings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &673686472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,8 +1583,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896335009}
-        m_TargetAssemblyTypeName: Buttons, MiModulo
+      - m_Target: {fileID: 1896335011}
+        m_TargetAssemblyTypeName: GameManager, MiModulo
         m_MethodName: Nivel
         m_Mode: 3
         m_Arguments:
@@ -1703,8 +1715,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896335009}
-        m_TargetAssemblyTypeName: Buttons, MiModulo
+      - m_Target: {fileID: 1896335011}
+        m_TargetAssemblyTypeName: GameManager, MiModulo
         m_MethodName: Nivel
         m_Mode: 3
         m_Arguments:
@@ -1910,8 +1922,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896335009}
-        m_TargetAssemblyTypeName: Buttons, MiModulo
+      - m_Target: {fileID: 1896335011}
+        m_TargetAssemblyTypeName: GameManager, MiModulo
         m_MethodName: Nivel
         m_Mode: 3
         m_Arguments:
@@ -2153,8 +2165,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896335009}
-        m_TargetAssemblyTypeName: Buttons, MiModulo
+      - m_Target: {fileID: 1896335011}
+        m_TargetAssemblyTypeName: GameManager, MiModulo
         m_MethodName: Volver
         m_Mode: 3
         m_Arguments:
@@ -2507,8 +2519,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896335009}
-        m_TargetAssemblyTypeName: Buttons, MiModulo
+      - m_Target: {fileID: 1896335011}
+        m_TargetAssemblyTypeName: GameManager, MiModulo
         m_MethodName: Nivel
         m_Mode: 3
         m_Arguments:
@@ -3451,8 +3463,8 @@ GameObject:
   - component: {fileID: 1896335008}
   - component: {fileID: 1896335007}
   - component: {fileID: 1896335006}
-  - component: {fileID: 1896335009}
   - component: {fileID: 1896335010}
+  - component: {fileID: 1896335011}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3534,21 +3546,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1896335009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896335005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58c39f8b9382d8d4ab3e311488f750c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuPrincipal: {fileID: 1662360767}
-  menuNiveles: {fileID: 532810807}
-  menuAjustes: {fileID: 1772819770}
 --- !u!82 &1896335010
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3645,6 +3642,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1896335011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896335005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c39f8b9382d8d4ab3e311488f750c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuPrincipal: {fileID: 1662360767}
+  menuNiveles: {fileID: 532810807}
+  menuAjustes: {fileID: 1772819770}
+  botones:
+  - {fileID: 205086883}
+  - {fileID: 1361828469}
+  - {fileID: 1050487157}
+  - {fileID: 1184474902}
+  - {fileID: 971044440}
 --- !u!1 &1897091329
 GameObject:
   m_ObjectHideFlags: 0
@@ -4154,8 +4172,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1896335009}
-        m_TargetAssemblyTypeName: Buttons, MiModulo
+      - m_Target: {fileID: 1896335011}
+        m_TargetAssemblyTypeName: GameManager, MiModulo
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:

@@ -21,7 +21,7 @@ public class Body : MonoBehaviour
         if(Snake.colisionesCuerpo) {
             if (collider.gameObject.CompareTag("Lagarto") || collider.gameObject.CompareTag("Fenec") || collider.gameObject.CompareTag("Aguila")) {
                 GestionarColisiones();
-                StartCoroutine(BlinkEnemy(collider.gameObject));
+                //StartCoroutine(BlinkEnemy(collider.gameObject));
                 Snake.makeSmallerTrigger = 1;
             }
         }

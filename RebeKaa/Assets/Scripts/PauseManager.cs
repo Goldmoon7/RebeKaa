@@ -101,12 +101,14 @@ public class PauseManager : MonoBehaviour
     public void SalirTrasFinDePartida() {
         ControlAudio.Instance.EjecutarSonido(darboton);
         EndMenu.SetActive(false);
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MenuInicio");
     }
 
     public void VolveraJugar(){
         ControlAudio.Instance.EjecutarSonido(darboton);
         EndMenu.SetActive(false);
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

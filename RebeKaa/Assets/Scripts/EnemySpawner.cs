@@ -28,7 +28,8 @@ public class EnemySpawner : MonoBehaviour
     private int xlimit = 32;
     private int ylimit = 14;
     public static int bossMuerto = 0;
-
+    private bool modificarVelocidad;
+    private bool fin;
     private int minutos;
     private int segundos;
 
@@ -42,6 +43,9 @@ public class EnemySpawner : MonoBehaviour
         */
         waveCounter = 0;
         cartelOleada.SetActive(false);
+        Time.fixedDeltaTime = 0.125f;
+        modificarVelocidad = false;
+        fin = false;
         StartCoroutine(GestorOleadas());
     }
     void Update(){
@@ -50,7 +54,19 @@ public class EnemySpawner : MonoBehaviour
            Texto_y_Waves();
         }
         */
-        //Falta poner que hacer cuando se acaban todas las rondas
+        //Falta poner que hacer cuando se acaban todas las ronda
+
+        if (Input.GetKeyDown(KeyCode.P)) {
+            PlayerPrefs.SetInt("nivelActual",1);
+            Debug.Log("jelousssssws" + PlayerPrefs.GetInt("nivelActual"));
+        }
+    }
+
+    void FixedUpdate() {
+        if (modificarVelocidad) {
+            Time.fixedDeltaTime -= 0.011f;
+            modificarVelocidad = false;
+        }
     }
 
     
@@ -202,68 +218,75 @@ public class EnemySpawner : MonoBehaviour
         //CartelTutorial(0);
         yield return new WaitUntil(() => Snake.frutasComidas == 1);
         //CartelTutorial(1);
-        //Time.fixedDeltaTime += 0.011f;
+        modificarVelocidad = true;
         waveCounter = 1;
         SiguienteOleada();
         //SpawnWave();
         yield return new WaitUntil(() => enemyCounter == 0);
-        /*
         if (PlayerPrefs.GetInt("nivelActual") == 1) {
+            fin = true;
             PlayerPrefs.SetInt("nivelActual",2);
             EndGame();
         }
-        */
-        //Time.fixedDeltaTime += 0.011f;
+        yield return new WaitUntil(() => fin == false);
+        modificarVelocidad = true;
         waveCounter++;
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
-        /*
         if (PlayerPrefs.GetInt("nivelActual") == 2) {
+            fin = true;
             PlayerPrefs.SetInt("nivelActual",3);
-           EndGame();
+            EndGame();
         }
-        */
-        //Time.fixedDeltaTime += 0.011f;
+        yield return new WaitUntil(() => fin == false);
+        modificarVelocidad = true;
         waveCounter++;
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
-        /*
         if (PlayerPrefs.GetInt("nivelActual") == 3) {
+            fin = true;
             PlayerPrefs.SetInt("nivelActual",4);
             EndGame();
         }
-        */
-        //Time.fixedDeltaTime += 0.011f;
+        yield return new WaitUntil(() => fin == false);
+        modificarVelocidad = true;
         waveCounter++;
         CartelTutorial(2);
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
-        /*
         if (PlayerPrefs.GetInt("nivelActual") == 4) {
+            fin = true;
             PlayerPrefs.SetInt("nivelActual",5);
             EndGame();
         }
-        */
-        //Time.fixedDeltaTime += 0.011f;
+        yield return new WaitUntil(() => fin == false);
+        modificarVelocidad = true;
         waveCounter++;
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
-
+        if (PlayerPrefs.GetInt("nivelActual") == 5) {
+            fin = true;
+            PlayerPrefs.SetInt("nivelActual",6);
+            EndGame();
+        }
+        yield return new WaitUntil(() => fin == false);
         waveCounter++;
         CartelTutorial(3);
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
+        fin = true;
         EndGame();
-        
+        yield return new WaitUntil(() => fin == false);
     }
 
     public void EndGame()
     {
+        StopAllCoroutines();
+        Time.timeScale = 0f;   // Detener el tiempo en el juego
+        //StopAllCoroutines();
         EndMenu.SetActive(true);  // Mostrar el menú de pausa
         UpdateStatsText();
         UpdateTotalPoints();
-        Time.timeScale = 0f;   // Detener el tiempo en el juego
-
     }
 
     public void SiguienteOleada() {
