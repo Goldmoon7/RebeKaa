@@ -75,13 +75,27 @@ public class Boss : MonoBehaviour
         // Cambiar a animacion de ataque
         if (timeSinceLastAttack >= attackInterval)
             {
-            Attack();
+            StartCoroutine(Attack());
             timeSinceLastAttack = 0f;
         }
-        else if (timeSinceLastAttack<attackInterval){
-            animator.SetBool("isAttacking", false);
-            enLlamas = false;
-        }
+    }
+
+     private IEnumerator Attack()
+    {
+        animator.SetBool("isAttacking", true);
+        enLlamas = true;
+
+        // Wait for the duration of the attack animation
+        yield return new WaitForSeconds(1f); // Adjust this duration as needed
+
+        GameObject bola = Instantiate(bolaFuegoPrefab, cola.transform.position, Quaternion.identity);
+        BolaFuego bolaScript = bola.GetComponent<BolaFuego>();
+        bolaScript.targetVector = transform.right;
+
+        // Wait for the duration of the attack animation
+        yield return new WaitForSeconds(1f); // Adjust this duration as needed
+
+        animator.SetBool("isAttacking", false);
     }
 
     public void RotateEnemy(int spt)
@@ -136,14 +150,5 @@ public class Boss : MonoBehaviour
             speed = 0f;
             Destroy(gameObject,3f);
         }
-    }
-
-    private void Attack(){
-        animator.SetBool("isAttacking", true);
-        enLlamas = true;
-
-        GameObject bola = Instantiate(bolaFuegoPrefab, cola.transform.position, Quaternion.identity);
-        BolaFuego bolaScript = bola.GetComponent<BolaFuego>();
-        bolaScript.targetVector = transform.right;
     }
 }

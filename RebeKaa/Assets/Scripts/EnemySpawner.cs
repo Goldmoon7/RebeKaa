@@ -8,6 +8,7 @@ using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using System.Numerics;
+using System;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject cartelOleada;
     public GameObject boss;
     public GameObject TextoOleada;
-    public GameObject TextoTutorial;
+    public Tutorial tutorial;
     public GameObject EndMenu;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
@@ -174,8 +175,8 @@ public class EnemySpawner : MonoBehaviour
         enemyCounter = i + 4;
         for (int j = 0; j < enemyCounter; j++) {
             if(waveCounter != 6){
-            int x = Random.Range(0,xlimit+1);
-            int y = Random.Range(0,ylimit+1);
+            int x = UnityEngine.Random.Range(0,xlimit+1);
+            int y = UnityEngine.Random.Range(0,ylimit+1);
             if (j == 1 || j == 2) {
                 x *= -1;
             }
@@ -185,7 +186,7 @@ public class EnemySpawner : MonoBehaviour
             if (waveCounter > 2) {
                 i = 2;
             }
-            int tipoEnemigo = Random.Range(0,i+1);
+            int tipoEnemigo = UnityEngine.Random.Range(0,i+1);
             UnityEngine.Vector3 pos = new UnityEngine.Vector3(x,y,0);
             GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, UnityEngine.Quaternion.identity);
             enemy.transform.localScale = new UnityEngine.Vector3(3,3,3);
@@ -297,30 +298,31 @@ public class EnemySpawner : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public IEnumerator CartelTutorial(int fase){
-        Text txt = TextoTutorial.GetComponent<Text>();
-        txt.color = Color.white;
+    public void CartelTutorial(int fase){
+        String texto;
         switch(fase){
             case 0:{
-                txt.text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
+                texto = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
+                tutorial.UpdateText(texto);
                 break;
             }
             case 1:{
-                txt.text = "Parece que vas a tener que derrotar a esos enemigos, para ello, necesitarás una longitud mínima de 3 para derrotar a los lagartos y una longitud mínima de 5 para derrotar a los fennecs.";
+                texto = "Parece que vas a tener que derrotar a esos enemigos, para ello, necesitarás una longitud mínima de 3 para derrotar a los lagartos y una longitud mínima de 5 para derrotar a los fennecs.";
+                tutorial.UpdateText(texto);
                 break;
             }
             case 2:{
-                txt.text = "¡Uh Oh! Enemigos más peligrosos se acercan. Deberás beber la famosa GreenKaa que va apareciendo y además necesitas tener una longitud mínima de 10 para derrotarlas. Ten cuidado porque si tienes longitud 10 pero no has bebido el GreenKaa, las águilas te matarán.";
+                texto = "¡Uh Oh! Enemigos más peligrosos se acercan. Deberás beber la famosa GreenKaa que va apareciendo y además necesitas tener una longitud mínima de 10 para derrotarlas. Ten cuidado porque si tienes longitud 10 pero no has bebido el GreenKaa, las águilas te matarán.";
+                tutorial.UpdateText(texto);
                 break;
             }
             case 3:{
-                txt.text = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo";
+                texto = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo";
+                tutorial.UpdateText(texto);
                 break;
             }
         }
-        TextoTutorial.SetActive(true);
-        yield return new WaitUntil(() => Input.anyKeyDown);
-        TextoTutorial.SetActive(false);
+        tutorial.ShowCanvas();
     }
 
     private IEnumerator GestionarTiempo() {
