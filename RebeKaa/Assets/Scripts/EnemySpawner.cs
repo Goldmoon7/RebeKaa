@@ -7,8 +7,6 @@ using System.Threading;
 using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 using UnityEditor;
-using System.Numerics;
-using System;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -176,21 +174,21 @@ public class EnemySpawner : MonoBehaviour
         for (int j = 0; j < enemyCounter; j++) {
             if(waveCounter != 6){
                 int x = UnityEngine.Random.Range(0,xlimit+1);
-                int y = UnityEngine.Random.Range(0,ylimit+1);
-                if (j == 1 || j == 2) {
-                    x *= -1;
-                }
-                if (j == 2 || j == 3) {
-                    y *= -1;
-                }
-                if (waveCounter > 2) {
-                    i = 2;
-                }
-                int tipoEnemigo = UnityEngine.Random.Range(0,i+1);
-                UnityEngine.Vector3 pos = new UnityEngine.Vector3(x,y,0);
-                GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, UnityEngine.Quaternion.identity);
-                enemy.transform.localScale = new UnityEngine.Vector3(3,3,3);
-                }
+            int y = UnityEngine.Random.Range(0,ylimit+1);
+            if (j == 1 || j == 2) {
+                x *= -1;
+            }
+            if (j == 2 || j == 3) {
+                y *= -1;
+            }
+            if (waveCounter > 2) {
+                i = 2;
+            }
+            int tipoEnemigo = UnityEngine.Random.Range(0,i+1);
+            UnityEngine.Vector3 pos = new UnityEngine.Vector3(x,y,0);
+            GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, UnityEngine.Quaternion.identity);
+            enemy.transform.localScale = new UnityEngine.Vector3(3,3,3);
+            }
             else{
                 enemyCounter = 1;
                 UnityEngine.Vector3 pos = new UnityEngine.Vector3(25, 0, 0);
@@ -200,9 +198,9 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private IEnumerator GestorOleadas() {
-        CartelTutorial(0);
+        //CartelTutorial(0);
         yield return new WaitUntil(() => Snake.frutasComidas == 1);
-        CartelTutorial(1);
+        //CartelTutorial(1);
         //Time.fixedDeltaTime += 0.011f;
         waveCounter = 1;
         SiguienteOleada();
@@ -300,30 +298,24 @@ public class EnemySpawner : MonoBehaviour
 
     public IEnumerator CartelTutorial(int fase){
         GameObject go = GameObject.FindGameObjectWithTag("Tutorial"); // Busca el objeto con la etiqueta "Stats"
-        String texto = "";
         switch(fase){
             case 0:{
-                texto = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
-                tutorial.UpdateText(texto);
+                go.GetComponent<Text>().text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
                 break;
             }
             case 1:{
-                texto = "Parece que vas a tener que derrotar a esos enemigos, para ello, necesitarás una longitud mínima de 3 para derrotar a los lagartos y una longitud mínima de 5 para derrotar a los fennecs.";
-                tutorial.UpdateText(texto);
+                go.GetComponent<Text>().text = "Parece que vas a tener que derrotar a esos enemigos, para ello, necesitarás una longitud mínima de 3 para derrotar a los lagartos y una longitud mínima de 5 para derrotar a los fennecs.";
                 break;
             }
             case 2:{
-                texto = "¡Uh Oh! Enemigos más peligrosos se acercan. Deberás beber la famosa GreenKaa que va apareciendo y además necesitas tener una longitud mínima de 10 para derrotarlas. Ten cuidado porque si tienes longitud 10 pero no has bebido el GreenKaa, las águilas te matarán.";
-                tutorial.UpdateText(texto);
+                go.GetComponent<Text>().text = "¡Uh Oh! Enemigos más peligrosos se acercan. Deberás beber la famosa GreenKaa que va apareciendo y además necesitas tener una longitud mínima de 10 para derrotarlas. Ten cuidado porque si tienes longitud 10 pero no has bebido el GreenKaa, las águilas te matarán.";
                 break;
             }
             case 3:{
-                texto = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo";
-                tutorial.UpdateText(texto);
+                go.GetComponent<Text>().text = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo";
                 break;
             }
         }
-        go.GetComponent<Text>().text = texto;
         go.SetActive(true);
         yield return new WaitUntil(() => Input.anyKeyDown);
         go.SetActive(false);
