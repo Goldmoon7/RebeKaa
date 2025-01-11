@@ -69,10 +69,10 @@ public class Snake : MonoBehaviour
         currentVertDir = 0;
         SCORE = 0;
         frutasComidas = 0;
-        UpdateFruitsText(); //para que se muestre desde el inicio
+        //UpdateFruitsText(); //para que se muestre desde el inicio
         longitud = 0;
         enemigosDerrotados = 0;
-        UpdateEnemiesText(); //para que se muestre desde el inicio
+        //UpdateEnemiesText(); //para que se muestre desde el inicio
         tiempo = Time.time;
         VIDAS = 3;
         nvidas = VIDAS;
@@ -239,7 +239,7 @@ public class Snake : MonoBehaviour
                 Destroy(collider.gameObject);
                 makeBiggerTrigger = 1;
                 frutasComidas++;
-                UpdateFruitsText(); //actualiza frutasComidas
+                //UpdateFruitsText(); //actualiza frutasComidas
             } else if (collider.gameObject.CompareTag("GreenKaa")) {
                 greenkaaBebidas++;
                 ControlAudio.Instance.EjecutarSonidoGreenKaa(bebergreenkaa);
@@ -267,7 +267,7 @@ public class Snake : MonoBehaviour
                     //UpdateScoreText();
                     enemigosDerrotados++;
                     nlagartosmuertos++;
-                    UpdateEnemiesText(); //actualiza enemigosDerrotados
+                    //UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Fenec")) {
                 Enemy3 enemy = collider.GetComponent<Enemy3>();
@@ -287,7 +287,7 @@ public class Snake : MonoBehaviour
                     //UpdateScoreText();
                     enemigosDerrotados++;
                     nfenecmuertos++;
-                    UpdateEnemiesText(); //actualiza enemigosDerrotados
+                    //UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Aguila")) {
                 Enemy2 enemy = collider.GetComponent<Enemy2>();
@@ -307,7 +307,7 @@ public class Snake : MonoBehaviour
                     //UpdateScoreText();
                     enemigosDerrotados++;
                     naguilasmuertas++;
-                    UpdateEnemiesText(); //actualiza enemigosDerrotados
+                    //UpdateEnemiesText(); //actualiza enemigosDerrotados
                 }
             } else if (collider.gameObject.CompareTag("Boss")) {
                 Boss enemy = collider.GetComponent<Boss>();
@@ -328,7 +328,7 @@ public class Snake : MonoBehaviour
                         SCORE = SCORE + 100;
                         //UpdateScoreText();
                         enemigosDerrotados++;
-                        UpdateEnemiesText(); //actualiza enemigosDerrotados
+                        //UpdateEnemiesText(); //actualiza enemigosDerrotados
                     }
                 }
             }
@@ -411,15 +411,15 @@ public class Snake : MonoBehaviour
         GameObject go = GameObject.FindGameObjectWithTag("Longitud");
         go.GetComponent<Text>().text = "Longitud: " + longitud;
     }
-    private void UpdateEnemiesText() {
+    /*private void UpdateEnemiesText() {
         GameObject go = GameObject.FindGameObjectWithTag("Enemies"); // Busca el objeto con la etiqueta "Enemies"
         go.GetComponent<Text>().text = "ENEMIGOS DERROTADOS: " + enemigosDerrotados; // Actualiza el texto
-    }
+    }*/
 
-    private void UpdateFruitsText() {
+    /*private void UpdateFruitsText() {
         GameObject go = GameObject.FindGameObjectWithTag("Fruits"); // Busca el objeto con la etiqueta "Fruits"
         go.GetComponent<Text>().text = "FRUTAS COMIDAS: " + frutasComidas; // Actualiza el texto
-    }
+    }*/
     static public void UpdateTiempoText(int minutos, int segundos) {
         GameObject go = GameObject.FindGameObjectWithTag("Tiempo");
         float tempAct = Time.time -tiempo;
