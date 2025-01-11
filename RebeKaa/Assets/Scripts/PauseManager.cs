@@ -100,7 +100,13 @@ public class PauseManager : MonoBehaviour
 
     public void SalirTrasFinDePartida() {
         Debug.Log("el boton ha sido pulsado");
+        ControlAudio.Instance.EjecutarSonido(darboton);
         SceneManager.LoadScene("MenuInicio");
+    }
+
+    public void VolveraJugar(){
+        ControlAudio.Instance.EjecutarSonido(darboton);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

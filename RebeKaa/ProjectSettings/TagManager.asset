@@ -30,6 +30,7 @@ TagManager:
   - Boss
   - TOTAL
   - Proyectil
+  - alas
   layers:
   - Default
   - TransparentFX
