@@ -19,7 +19,6 @@ public class EnemySpawner : MonoBehaviour
     public GameObject cartelOleada;
     public GameObject boss;
     public GameObject TextoOleada;
-    public Tutorial tutorial;
     public GameObject EndMenu;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
@@ -214,9 +213,9 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private IEnumerator GestorOleadas() {
-        //CartelTutorial(0);
+        StartCoroutine(CartelTutorial(0));
         yield return new WaitUntil(() => Snake.frutasComidas == 1);
-        //CartelTutorial(1);
+        StartCoroutine(CartelTutorial(1));
         modificarVelocidad = true;
         waveCounter = 1;
         SiguienteOleada();
@@ -250,7 +249,7 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitUntil(() => fin == false);
         modificarVelocidad = true;
         waveCounter++;
-        CartelTutorial(2);
+        StartCoroutine(CartelTutorial(2));
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
         if (PlayerPrefs.GetInt("nivelActual") == 4) {
@@ -270,7 +269,7 @@ public class EnemySpawner : MonoBehaviour
         }
         yield return new WaitUntil(() => fin == false);
         waveCounter++;
-        CartelTutorial(3);
+        StartCoroutine(CartelTutorial(3));
         SiguienteOleada();
         yield return new WaitUntil(() => enemyCounter == 0);
         fin = true;
@@ -320,7 +319,8 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public IEnumerator CartelTutorial(int fase){
-        GameObject go = GameObject.FindGameObjectWithTag("Tutorial"); // Busca el objeto con la etiqueta "Stats"
+        GameObject go = GameObject.Find("Tutorial/Panel/Texto_tutorial");
+        GameObject panel = GameObject.Find("Tutorial/Panel");
         switch(fase){
             case 0:{
                 go.GetComponent<Text>().text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
@@ -341,7 +341,7 @@ public class EnemySpawner : MonoBehaviour
         }
         go.SetActive(true);
         yield return new WaitUntil(() => Input.anyKeyDown);
-        go.SetActive(false);
+        panel.SetActive(false);
     }
 
     private IEnumerator GestionarTiempo() {
