@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
         } else {
             PlayerPrefs.SetInt("nivelActual",0);
         }
+        menuAjustes.SetActive(false);
+        menuNiveles.SetActive(false);
+        menuPrincipal.SetActive(true);
+        /*
         if (PlayerPrefs.GetInt("nivelActual") == 0) {
             menuAjustes.SetActive(false);
             menuNiveles.SetActive(false);
@@ -29,6 +33,7 @@ public class GameManager : MonoBehaviour
             menuNiveles.SetActive(true);
             PonerBotones();
         }
+        */
     }
     public void Settings()
     {
@@ -41,6 +46,7 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.GetInt("nivelActual") == 0) {
             PlayerPrefs.SetInt("nivelActual",1);
         }
+        PonerBotones();
     }
 
     public void Nivel(int i) {
