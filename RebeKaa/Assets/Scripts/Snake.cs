@@ -12,7 +12,8 @@ using UnityEngine.Video;
 
 public class Snake : MonoBehaviour
 {
-
+    private Coroutine resetCoroutine;
+    private int minutos, segundos;
     private Vector3 position;
     private int rotationTrigger;
     private int makeBiggerTrigger;
@@ -128,7 +129,7 @@ public class Snake : MonoBehaviour
         }
 
         if(VIDAS > 0)
-            UpdateTiempoText();
+            UpdateTiempoText(minutos,segundos);
     }
     void FixedUpdate()
     {
@@ -385,16 +386,18 @@ public class Snake : MonoBehaviour
         if (VIDAS > 0) {
             makeSmallerTrigger = 1;
         } else {
-            ReiniciarTiempo();
+            EndGame();
             //EndGame();
             //StartCoroutine(FindDelJuego());
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
     public void EndGame()
     {
         EndMenu.SetActive(true);  // Mostrar el menú de pausa
+        UpdateStatsText();
+        UpdateTotalPoints();
         Time.timeScale = 0f;   // Detener el tiempo en el juego
 
     }
@@ -417,11 +420,11 @@ public class Snake : MonoBehaviour
         GameObject go = GameObject.FindGameObjectWithTag("Fruits"); // Busca el objeto con la etiqueta "Fruits"
         go.GetComponent<Text>().text = "FRUTAS COMIDAS: " + frutasComidas; // Actualiza el texto
     }
-    static public void UpdateTiempoText() {
+    static public void UpdateTiempoText(int minutos, int segundos) {
         GameObject go = GameObject.FindGameObjectWithTag("Tiempo");
         float tempAct = Time.time -tiempo;
-        int minutos= Mathf.FloorToInt(tempAct / 60f);
-        int segundos = Mathf.FloorToInt(tempAct % 60);
+        minutos= Mathf.FloorToInt(tempAct / 60f);
+        segundos = Mathf.FloorToInt(tempAct % 60);
         go.GetComponent<Text>().text = "Tiempo: " + minutos + ":" + segundos;
     }
     static public void ReiniciarTiempo(){
@@ -474,9 +477,11 @@ public void ActivarAlas() {
     // Activar el objeto
     GameObject alas = alasTransform.gameObject;
     alas.SetActive(true);
-
+    if(resetCoroutine != null){
+        StopCoroutine(resetCoroutine);
+    }
     // Iniciar la corrutina
-    StartCoroutine(ResetSprite(20));
+    resetCoroutine=StartCoroutine(ResetSprite(20));
 }
 public void DesactivarAlas(){
     // Buscar en los hijos del objeto "Head" un objeto con la etiqueta "alas".
@@ -566,6 +571,32 @@ public void DesactivarAlas(){
 
     public int getVidas(){
         return this.VIDAS;
+    }
+
+    private void UpdateStatsText() {
+        GameObject go = GameObject.FindGameObjectWithTag("Stats"); // Busca el objeto con la etiqueta "Stats"
+        float tempAct = Time.time -tiempo;
+        minutos= Mathf.FloorToInt(tempAct / 60f);
+        segundos = Mathf.FloorToInt(tempAct % 60);
+        go.GetComponent<Text>().text = "Frutas Comidas.................... " + frutasComidas + 
+        "\n\nEnemigos Derrotados............... " + enemigosDerrotados + 
+        "\n\n\tLagartos Derrotados.................... "+ nlagartosmuertos +
+        "\n\n\tFenecs Derrotados.................... "+ nfenecmuertos +
+        "\n\n\tAguilas Derrotadas.................... " + naguilasmuertas +
+        "\n\n\tBoss Derrotado......................... " + EnemySpawner.bossMuerto +
+        "\n\nGreenKaa Bebidos.................. " + greenkaaBebidas + 
+        "\n\nLongitud.......................... " + longitud +
+        "\n\nTiempo............................ " + minutos + ":" + segundos +
+        "\n\nVidas Restantes............................ " + VIDAS; // Actualiza el texto
+    }
+
+    private void UpdateTotalPoints(){
+        GameObject go = GameObject.FindGameObjectWithTag("TOTAL");
+        double total;
+        total = frutasComidas * 5 + nlagartosmuertos * 10 + nfenecmuertos*20 + naguilasmuertas*40 + 
+                EnemySpawner.bossMuerto*100 + longitud + (segundos + minutos*60f) * (-0.2) + VIDAS*10;
+        go.GetComponent<Text>().text = "TOTAL: " + total;
+
     }
 }
 

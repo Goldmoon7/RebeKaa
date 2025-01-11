@@ -149,6 +149,7 @@ public class Boss : MonoBehaviour
             this.tag = "Muerto";
             speed = 0f;
             Destroy(gameObject,3f);
+            EnemySpawner.bossMuerto++;
         }
     }
 }

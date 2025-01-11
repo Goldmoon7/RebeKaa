@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
     public static int enemyCounter;
     private int xlimit = 32;
     private int ylimit = 14;
+    public static int bossMuerto = 0;
 
     private int minutos;
     private int segundos;
@@ -341,7 +342,7 @@ public class EnemySpawner : MonoBehaviour
         "\n\n\tLagartos Derrotados.................... "+ Snake.nlagartosmuertos +
         "\n\n\tFenecs Derrotados.................... "+ Snake.nfenecmuertos +
         "\n\n\tAguilas Derrotadas.................... " + Snake.naguilasmuertas +
-        "\n\n\tBoss Derrotado......................... " + 1 +
+        "\n\n\tBoss Derrotado......................... " + bossMuerto +
         "\n\nGreenKaa Bebidos.................. " + Snake.greenkaaBebidas + 
         "\n\nLongitud.......................... " + Snake.longitud +
         "\n\nTiempo............................ " + minutos + ":" + segundos +
@@ -352,7 +353,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject go = GameObject.FindGameObjectWithTag("TOTAL");
         double total;
         total = Snake.frutasComidas * 5 + Snake.nlagartosmuertos * 10 + Snake.nfenecmuertos*20 + Snake.naguilasmuertas*40 + 
-                100 + Snake.longitud + (segundos + minutos*60f) * (-0.2) + Snake.nvidas*10;
+                bossMuerto*100 + Snake.longitud + (segundos + minutos*60f) * (-0.2) + Snake.nvidas*10;
         go.GetComponent<Text>().text = "TOTAL: " + total;
 
     }
