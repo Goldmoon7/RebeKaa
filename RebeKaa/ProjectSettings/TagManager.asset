@@ -31,6 +31,8 @@ TagManager:
   - TOTAL
   - Proyectil
   - alas
+  - Undefined
+  - Tutorial
   layers:
   - Default
   - TransparentFX

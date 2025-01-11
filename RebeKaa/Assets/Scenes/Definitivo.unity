@@ -156,8 +156,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -143, y: 138.00003}
-  m_SizeDelta: {x: 527.03, y: 101.370605}
+  m_AnchoredPosition: {x: -205.08644, y: 138.00003}
+  m_SizeDelta: {x: 651.2029, y: 101.3706}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &27166386
 MonoBehaviour:
@@ -180,7 +180,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 14a6c28f22ba6d74f85f979102476494, type: 3}
     m_FontSize: 80
     m_FontStyle: 1
     m_BestFit: 0
@@ -1046,10 +1046,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs: []
   cartelesOleada: []
-  cartelOleada: {fileID: 0}
+  cartelOleada: {fileID: 1493835041}
   boss: {fileID: 1806890084751466686, guid: 293c2596f046cac4f896bf867306410d, type: 3}
   TextoOleada: {fileID: 0}
-  TextoTutorial: {fileID: 0}
+  tutorial: {fileID: 1232302695}
   EndMenu: {fileID: 0}
   numeroOleada: 0
 --- !u!4 &375028571
@@ -1484,7 +1484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &508095806
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -36357,11 +36357,11 @@ GameObject:
   - component: {fileID: 1232302695}
   m_Layer: 5
   m_Name: Tutorial
-  m_TagString: Untagged
+  m_TagString: Tutorial
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1232302695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36374,7 +36374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305a33eb5c6cef843a2e91b43c7587c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
+  canvas: {fileID: 1232302698}
   texto: {fileID: 1696020249}
 --- !u!114 &1232302696
 MonoBehaviour:
@@ -36651,8 +36651,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -143.00008, y: -97.99992}
-  m_SizeDelta: {x: 527.03, y: 101.370605}
+  m_AnchoredPosition: {x: -205.09, y: -97.99992}
+  m_SizeDelta: {x: 651.2, y: 101.3706}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283301620
 MonoBehaviour:
@@ -36675,7 +36675,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 14a6c28f22ba6d74f85f979102476494, type: 3}
     m_FontSize: 80
     m_FontStyle: 1
     m_BestFit: 0
@@ -37172,7 +37172,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 14a6c28f22ba6d74f85f979102476494, type: 3}
     m_FontSize: 80
     m_FontStyle: 1
     m_BestFit: 0
@@ -37686,8 +37686,11 @@ MonoBehaviour:
   - {fileID: 2934634487366033990, guid: 392148974e925e04fb9ebadf54b3de07, type: 3}
   - {fileID: 7648598455505191281, guid: cdf0d38e462529d4783dd9a1b5d7e3fb, type: 3}
   - {fileID: 4217264886846421689, guid: cefe41b7371cdac4a8bf85b4da270c19, type: 3}
+  cartelesOleada: []
+  cartelOleada: {fileID: 0}
   boss: {fileID: 0}
   TextoOleada: {fileID: 886006553}
+  tutorial: {fileID: 0}
   EndMenu: {fileID: 665663981}
   numeroOleada: 0
 --- !u!114 &1424998966
@@ -38113,12 +38116,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 14a6c28f22ba6d74f85f979102476494, type: 3}
+    m_FontSize: 55
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -38150,8 +38153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 126, y: -165}
+  m_SizeDelta: {x: 639.0859, y: 385.9214}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1723582521
 GameObject:
@@ -71043,6 +71046,7 @@ MonoBehaviour:
   cartelOleada: {fileID: 0}
   boss: {fileID: 0}
   TextoOleada: {fileID: 886006553}
+  tutorial: {fileID: 0}
   EndMenu: {fileID: 665663981}
   numeroOleada: 0
 --- !u!114 &1925019939
@@ -71092,8 +71096,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 253}
-  m_SizeDelta: {x: 1460.1052, y: 281.0008}
+  m_AnchoredPosition: {x: 0, y: 226.15}
+  m_SizeDelta: {x: 1517.5742, y: 281.0008}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1948618311
 MonoBehaviour:
@@ -71116,8 +71120,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 100
+    m_Font: {fileID: 12800000, guid: 14a6c28f22ba6d74f85f979102476494, type: 3}
+    m_FontSize: 85
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0

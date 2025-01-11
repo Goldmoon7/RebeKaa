@@ -175,22 +175,22 @@ public class EnemySpawner : MonoBehaviour
         enemyCounter = i + 4;
         for (int j = 0; j < enemyCounter; j++) {
             if(waveCounter != 6){
-            int x = UnityEngine.Random.Range(0,xlimit+1);
-            int y = UnityEngine.Random.Range(0,ylimit+1);
-            if (j == 1 || j == 2) {
-                x *= -1;
-            }
-            if (j == 2 || j == 3) {
-                y *= -1;
-            }
-            if (waveCounter > 2) {
-                i = 2;
-            }
-            int tipoEnemigo = UnityEngine.Random.Range(0,i+1);
-            UnityEngine.Vector3 pos = new UnityEngine.Vector3(x,y,0);
-            GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, UnityEngine.Quaternion.identity);
-            enemy.transform.localScale = new UnityEngine.Vector3(3,3,3);
-            }
+                int x = UnityEngine.Random.Range(0,xlimit+1);
+                int y = UnityEngine.Random.Range(0,ylimit+1);
+                if (j == 1 || j == 2) {
+                    x *= -1;
+                }
+                if (j == 2 || j == 3) {
+                    y *= -1;
+                }
+                if (waveCounter > 2) {
+                    i = 2;
+                }
+                int tipoEnemigo = UnityEngine.Random.Range(0,i+1);
+                UnityEngine.Vector3 pos = new UnityEngine.Vector3(x,y,0);
+                GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, UnityEngine.Quaternion.identity);
+                enemy.transform.localScale = new UnityEngine.Vector3(3,3,3);
+                }
             else{
                 enemyCounter = 1;
                 UnityEngine.Vector3 pos = new UnityEngine.Vector3(25, 0, 0);
@@ -298,8 +298,9 @@ public class EnemySpawner : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void CartelTutorial(int fase){
-        String texto;
+    public IEnumerator CartelTutorial(int fase){
+        GameObject go = GameObject.FindGameObjectWithTag("Tutorial"); // Busca el objeto con la etiqueta "Stats"
+        String texto = "";
         switch(fase){
             case 0:{
                 texto = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
@@ -322,7 +323,10 @@ public class EnemySpawner : MonoBehaviour
                 break;
             }
         }
-        tutorial.ShowCanvas();
+        go.GetComponent<Text>().text = texto;
+        go.SetActive(true);
+        yield return new WaitUntil(() => Input.anyKeyDown);
+        go.SetActive(false);
     }
 
     private IEnumerator GestionarTiempo() {
