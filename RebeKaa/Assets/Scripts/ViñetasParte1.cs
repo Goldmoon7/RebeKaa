@@ -9,7 +9,7 @@ public class ViñetasParte1 : MonoBehaviour
     public Sprite[] sprites;  // Array para las imágenes (sprites)
     public Text textUI;  // Referencia al componente Text
     public string[] texts;  // Array de textos
-    public Animator imageAnimator;
+    // public Animator imageAnimator;
 
     private int currentIndex = 0;  // Índice de la imagen actual
 
@@ -45,9 +45,9 @@ public class ViñetasParte1 : MonoBehaviour
     {
         if (imageUI != null && sprites.Length > 0)
         {
-            if(currentIndex == 1){
-                imageAnimator.SetTrigger("FadeIn");
-            }
+            // if(currentIndex == 1){
+            //     imageAnimator.SetTrigger("FadeIn");
+            // }
             imageUI.sprite = sprites[currentIndex];  // Cambia la imagen del UI
         }
     }
