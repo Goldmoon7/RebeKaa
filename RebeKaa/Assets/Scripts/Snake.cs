@@ -385,6 +385,7 @@ public class Snake : MonoBehaviour
     }
 
     public void ShouldIDie()  {
+        Debug.Log("VIDAS en ShouldIDie " + VIDAS);
         if (VIDAS > 0) {
             makeSmallerTrigger = 1;
         } else {

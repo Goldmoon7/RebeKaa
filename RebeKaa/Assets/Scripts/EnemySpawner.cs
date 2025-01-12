@@ -346,7 +346,9 @@ public class EnemySpawner : MonoBehaviour
 
     public void SiguienteOleada() {
         Time.timeScale = 0f;
-        StartCoroutine(CartelOleada());
+        if(waveCounter < 6) {
+            StartCoroutine(CartelOleada());
+        }
         SpawnWave();
     }
 
@@ -413,7 +415,7 @@ public class EnemySpawner : MonoBehaviour
         SpriteRenderer sr = ImagenVineta.GetComponent<SpriteRenderer>();
         sr.sprite = imagenVinetas[fase];
         ImagenVineta.SetActive(true);
-        yield return new WaitUntil(() => Input.anyKeyDown);
+        yield return new WaitForSecondsRealtime(3);
         panelVineta.SetActive(false);
         Time.timeScale = 1f;
         fin = false;
