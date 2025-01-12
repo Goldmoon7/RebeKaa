@@ -311,7 +311,7 @@ public class Snake : MonoBehaviour
                 }
             } else if (collider.gameObject.CompareTag("Boss")) {
                 Boss enemy = collider.GetComponent<Boss>();
-                if (enemy.enLlamas) {
+                if (enemy.enLlamas || longitud < 20) {
                     if(ModoInfinito.noMorir == false){
                         VIDAS--;
                         nvidas = VIDAS;

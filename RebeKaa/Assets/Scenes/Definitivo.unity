@@ -36319,7 +36319,6 @@ GameObject:
   - component: {fileID: 1232302698}
   - component: {fileID: 1232302697}
   - component: {fileID: 1232302696}
-  - component: {fileID: 1232302695}
   m_Layer: 5
   m_Name: Tutorial
   m_TagString: Tutorial
@@ -36327,20 +36326,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1232302695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232302694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 305a33eb5c6cef843a2e91b43c7587c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
-  texto: {fileID: 1696020249}
 --- !u!114 &1232302696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37656,6 +37641,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ee2c21b535263c84b908c9ccd1000b79, type: 3}
   - {fileID: 21300000, guid: e3f94c69a232a044d99584546d09231d, type: 3}
   - {fileID: 21300000, guid: bd6d87796b2465841a22d11e956c91f2, type: 3}
+  - {fileID: 21300000, guid: dc7450dc03224d74fa1e001da0b1b3f5, type: 3}
   - {fileID: 21300000, guid: dc7450dc03224d74fa1e001da0b1b3f5, type: 3}
   cartelOleada: {fileID: 1493835041}
   boss: {fileID: 1806890084751466686, guid: 293c2596f046cac4f896bf867306410d, type: 3}

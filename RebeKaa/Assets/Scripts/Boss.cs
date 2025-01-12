@@ -96,6 +96,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(1f); // Adjust this duration as needed
 
         animator.SetBool("isAttacking", false);
+        enLlamas = false;
     }
 
     public void RotateEnemy(int spt)
