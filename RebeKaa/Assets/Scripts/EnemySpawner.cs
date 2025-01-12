@@ -20,6 +20,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject boss;
     public GameObject TextoOleada;
     public GameObject EndMenu;
+    private GameObject texto_tutorial;
+    private GameObject panel;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
     public static int enemyCounter;
@@ -39,12 +41,15 @@ public class EnemySpawner : MonoBehaviour
         enemyCounter = 0;
         Texto_y_Waves();
         */
+        texto_tutorial = GameObject.Find("Tutorial/Panel/Texto_tutorial");
+        panel = GameObject.Find("Tutorial/Panel");
         waveCounter = 0;
         cartelOleada.SetActive(false);
         Time.fixedDeltaTime = 0.125f;
         modificarVelocidad = false;
         fin = false;
         StartCoroutine(GestorOleadas());
+        
     }
     void Update(){
         /*
@@ -319,27 +324,26 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public IEnumerator CartelTutorial(int fase){
-        GameObject go = GameObject.Find("Tutorial/Panel/Texto_tutorial");
-        GameObject panel = GameObject.Find("Tutorial/Panel");
+        
         switch(fase){
             case 0:{
-                go.GetComponent<Text>().text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
+                texto_tutorial.GetComponent<Text>().text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
                 break;
             }
             case 1:{
-                go.GetComponent<Text>().text = "Parece que vas a tener que derrotar a esos enemigos, para ello, necesitarás una longitud mínima de 3 para derrotar a los lagartos y una longitud mínima de 5 para derrotar a los fennecs.";
+                texto_tutorial.GetComponent<Text>().text = "Parece que vas a tener que derrotar a esos enemigos, para ello, necesitarás una longitud mínima de 3 para derrotar a los lagartos y una longitud mínima de 5 para derrotar a los fennecs.";
                 break;
             }
             case 2:{
-                go.GetComponent<Text>().text = "¡Uh Oh! Enemigos más peligrosos se acercan. Deberás beber la famosa GreenKaa que va apareciendo y además necesitas tener una longitud mínima de 10 para derrotarlas. Ten cuidado porque si tienes longitud 10 pero no has bebido el GreenKaa, las águilas te matarán.";
+                texto_tutorial.GetComponent<Text>().text = "¡Uh Oh! Enemigos más peligrosos se acercan. Deberás beber la famosa GreenKaa que va apareciendo y además necesitas tener una longitud mínima de 10 para derrotarlas. Ten cuidado porque si tienes longitud 10 pero no has bebido el GreenKaa, las águilas te matarán.";
                 break;
             }
             case 3:{
-                go.GetComponent<Text>().text = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo";
+                texto_tutorial.GetComponent<Text>().text = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo";
                 break;
             }
         }
-        go.SetActive(true);
+        panel.SetActive(true);
         yield return new WaitUntil(() => Input.anyKeyDown);
         panel.SetActive(false);
     }
