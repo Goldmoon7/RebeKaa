@@ -17,7 +17,7 @@ public class Snake : MonoBehaviour
     private Vector3 position;
     private int rotationTrigger;
     private int makeBiggerTrigger;
-    public GameObject bodyPrefab, tail, heartPrefab, head;
+    public GameObject bodyPrefab, tail, heartPrefab, head,textovidaboss;
     public GameObject EndMenu;
     public Sprite conVida, sinVida;
     [SerializeField] public AudioClip comerfruta;
@@ -59,6 +59,7 @@ public class Snake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        textovidaboss.SetActive(false);
         spriteRenderer = GetComponent<SpriteRenderer>();
         this.transform.position = new Vector3(0.5f,0.5f,0);
         tail.transform.position = new Vector3(this.transform.position.x-1,0.5f,0);
@@ -319,8 +320,9 @@ public class Snake : MonoBehaviour
                         ShouldIDie();
                     }
                 } else {
-                    enemy.toques--;
-                    if(enemy.toques==0){
+                    Boss.toques--;
+                    UpdateVidaBoss();
+                    if(Boss.toques==0){
                         ControlAudio.Instance.EjecutarSonidoEnemigo(enemigoderrotado);
                         enemy.SetMuerteBoss(true);
                         //Destroy(collider.gameObject);
@@ -597,6 +599,9 @@ public void DesactivarAlas(){
                 EnemySpawner.bossMuerto*100 + longitud + (segundos + minutos*60f) * (-0.2) + VIDAS*10;
         go.GetComponent<Text>().text = "TOTAL: " + total;
 
+    }
+    private void UpdateVidaBoss(){
+        textovidaboss.GetComponent<Text>().text = "VIDA DEL BOSS: " + Boss.toques;
     }
 }
 

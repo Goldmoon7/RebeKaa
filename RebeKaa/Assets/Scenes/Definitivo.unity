@@ -35711,12 +35711,12 @@ GameObject:
   - component: {fileID: 896229953}
   - component: {fileID: 896229952}
   m_Layer: 5
-  m_Name: FrutasComidas
-  m_TagString: Fruits
+  m_Name: VIDA DEL BOSS
+  m_TagString: VIDA DEL BOSS
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &896229951
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35733,7 +35733,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200.43, y: -211.91}
+  m_AnchoredPosition: {x: 0, y: -211.91}
   m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896229952
@@ -35769,7 +35769,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'FRUTAS COMIDAS: 0'
+  m_Text: 'VIDA DEL BOSS: 10'
 --- !u!222 &896229953
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -36325,7 +36325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1232302696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37644,9 +37644,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dc7450dc03224d74fa1e001da0b1b3f5, type: 3}
   - {fileID: 21300000, guid: dc7450dc03224d74fa1e001da0b1b3f5, type: 3}
   cartelOleada: {fileID: 1493835041}
+  textovidasboss: {fileID: 896229950}
   boss: {fileID: 1806890084751466686, guid: 293c2596f046cac4f896bf867306410d, type: 3}
   TextoOleada: {fileID: 886006553}
   EndMenu: {fileID: 665663981}
+  texto_tutorial: {fileID: 1696020248}
+  panelTutorial: {fileID: 1232302694}
   numeroOleada: 0
 --- !u!114 &1424998966
 MonoBehaviour:
@@ -70925,9 +70928,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bd6d87796b2465841a22d11e956c91f2, type: 3}
   - {fileID: 21300000, guid: dc7450dc03224d74fa1e001da0b1b3f5, type: 3}
   cartelOleada: {fileID: 1493835041}
+  textovidasboss: {fileID: 896229950}
   boss: {fileID: 1806890084751466686, guid: 293c2596f046cac4f896bf867306410d, type: 3}
   TextoOleada: {fileID: 886006553}
   EndMenu: {fileID: 665663981}
+  texto_tutorial: {fileID: 0}
+  panelTutorial: {fileID: 0}
   numeroOleada: 0
 --- !u!114 &1925019939
 MonoBehaviour:
@@ -104178,6 +104184,7 @@ MonoBehaviour:
   tail: {fileID: 70051892}
   heartPrefab: {fileID: 3389580642988880678, guid: 2e4d8a6c29345834f917088a8f30e85b, type: 3}
   head: {fileID: 2053260052}
+  textovidaboss: {fileID: 896229950}
   EndMenu: {fileID: 665663981}
   conVida: {fileID: 21300000, guid: fdcfa8bcbb39710469faea8f1a516338, type: 3}
   sinVida: {fileID: 21300000, guid: 92e07c9968436ae4db37e0a564ea8594, type: 3}

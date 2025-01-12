@@ -16,12 +16,12 @@ public class EnemySpawner : MonoBehaviour
     */
     public List<GameObject> enemyPrefabs; //0 = largato, 1 = fenec, 2 = aguila
     public List<Sprite> cartelesOleada;
-    public GameObject cartelOleada;
+    public GameObject cartelOleada, textovidasboss;
     public GameObject boss;
     public GameObject TextoOleada;
     public GameObject EndMenu;
-    private GameObject texto_tutorial;
-    private GameObject panel;
+    public GameObject texto_tutorial;
+    public GameObject panelTutorial;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
     public static int enemyCounter;
@@ -41,10 +41,13 @@ public class EnemySpawner : MonoBehaviour
         enemyCounter = 0;
         Texto_y_Waves();
         */
+        /*
         texto_tutorial = GameObject.Find("Tutorial/Panel/Texto_tutorial");
         panel = GameObject.Find("Tutorial/Panel");
+        */
         waveCounter = 0;
         cartelOleada.SetActive(false);
+        panelTutorial.SetActive(false);
         Time.fixedDeltaTime = 0.125f;
         modificarVelocidad = false;
         fin = false;
@@ -52,17 +55,6 @@ public class EnemySpawner : MonoBehaviour
         
     }
     void Update(){
-        /*
-        if(enemyCounter == 0 && numeroOleada < 4){
-           Texto_y_Waves();
-        }
-        */
-        //Falta poner que hacer cuando se acaban todas las ronda
-
-        if (Input.GetKeyDown(KeyCode.P)) {
-            PlayerPrefs.SetInt("nivelActual",1);
-            Debug.Log("jelousssssws" + PlayerPrefs.GetInt("nivelActual"));
-        }
     }
 
     void FixedUpdate() {
@@ -218,13 +210,18 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private IEnumerator GestorOleadas() {
-        StartCoroutine(CartelTutorial(0));
+        if (PlayerPrefs.GetInt("nivelActual") == 1) {
+            StartCoroutine(CartelTutorial(0));
+        }
         yield return new WaitUntil(() => Snake.frutasComidas == 1);
-        StartCoroutine(CartelTutorial(1));
+        if (PlayerPrefs.GetInt("nivelActual") == 1) {
+            fin = true;
+            StartCoroutine(CartelTutorial(1));
+        }
+        yield return new WaitUntil(() => fin == false);
         modificarVelocidad = true;
         waveCounter = 1;
-        SiguienteOleada();
-        //SpawnWave();
+        SiguienteOleada(); //oleada 1
         yield return new WaitUntil(() => enemyCounter == 0);
         if (PlayerPrefs.GetInt("nivelActual") == 1) {
             fin = true;
@@ -234,17 +231,21 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitUntil(() => fin == false);
         modificarVelocidad = true;
         waveCounter++;
-        SiguienteOleada();
+        SiguienteOleada(); // oleada 2
         yield return new WaitUntil(() => enemyCounter == 0);
         if (PlayerPrefs.GetInt("nivelActual") == 2) {
             fin = true;
             PlayerPrefs.SetInt("nivelActual",3);
             EndGame();
         }
+        if (PlayerPrefs.GetInt("nivelActual") == 3) {
+            fin = true;
+            StartCoroutine(CartelTutorial(2));
+        }
         yield return new WaitUntil(() => fin == false);
         modificarVelocidad = true;
         waveCounter++;
-        SiguienteOleada();
+        SiguienteOleada(); //oleada 3
         yield return new WaitUntil(() => enemyCounter == 0);
         if (PlayerPrefs.GetInt("nivelActual") == 3) {
             fin = true;
@@ -254,8 +255,7 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitUntil(() => fin == false);
         modificarVelocidad = true;
         waveCounter++;
-        StartCoroutine(CartelTutorial(2));
-        SiguienteOleada();
+        SiguienteOleada(); // oleada 4
         yield return new WaitUntil(() => enemyCounter == 0);
         if (PlayerPrefs.GetInt("nivelActual") == 4) {
             fin = true;
@@ -265,7 +265,7 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitUntil(() => fin == false);
         modificarVelocidad = true;
         waveCounter++;
-        SiguienteOleada();
+        SiguienteOleada(); // oleada 5
         yield return new WaitUntil(() => enemyCounter == 0);
         if (PlayerPrefs.GetInt("nivelActual") == 5) {
             fin = true;
@@ -275,7 +275,9 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitUntil(() => fin == false);
         waveCounter++;
         StartCoroutine(CartelTutorial(3));
-        SiguienteOleada();
+        SiguienteOleada(); // oleada 6????
+        // aqui tambien va el boss
+        textovidasboss.SetActive(true);
         yield return new WaitUntil(() => enemyCounter == 0);
         fin = true;
         EndGame();
@@ -286,7 +288,6 @@ public class EnemySpawner : MonoBehaviour
     {
         StopAllCoroutines();
         Time.timeScale = 0f;   // Detener el tiempo en el juego
-        //StopAllCoroutines();
         EndMenu.SetActive(true);  // Mostrar el menú de pausa
         UpdateStatsText();
         UpdateTotalPoints();
@@ -299,11 +300,6 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public IEnumerator CartelOleada() {
-        /*
-        Text txt = TextoOleada.GetComponent<Text>();
-        txt.text = "OLEADA: " + waveCounter;
-        TextoOleada.SetActive(true);
-        */
         SpriteRenderer sr = cartelOleada.GetComponent<SpriteRenderer>();
         sr.sprite = cartelesOleada[waveCounter-1];
         cartelOleada.SetActive(true);
@@ -311,20 +307,17 @@ public class EnemySpawner : MonoBehaviour
         Color transp = original;
         transp.a = 0.25f;
         for (int i = 0; i < 5; i++) {
-            //txt.color = transp;
             sr.color = transp;
             yield return new WaitForSecondsRealtime(0.2f);
-            //txt.color = original;
             sr.color = original;
             yield return new WaitForSecondsRealtime(0.2f);
         }
-        //TextoOleada.SetActive(false);
         cartelOleada.SetActive(false);
         Time.timeScale = 1f;
     }
 
     public IEnumerator CartelTutorial(int fase){
-        
+        Time.timeScale = 0f;
         switch(fase){
             case 0:{
                 texto_tutorial.GetComponent<Text>().text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
@@ -339,20 +332,15 @@ public class EnemySpawner : MonoBehaviour
                 break;
             }
             case 3:{
-                texto_tutorial.GetComponent<Text>().text = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo";
+                texto_tutorial.GetComponent<Text>().text = "¡Por fin has alcanzado al mequetrefe que se llevó a Rebe! Esquiva los proyectiles de fuego para no recibir daño y atácalo golpeándole el cuerpo para derrotarlo, recuerda tener minimo 20 de longitud o el ataque habra sido en vano";
                 break;
             }
         }
-        panel.SetActive(true);
+        panelTutorial.SetActive(true);
         yield return new WaitUntil(() => Input.anyKeyDown);
-        panel.SetActive(false);
-    }
-
-    private IEnumerator GestionarTiempo() {
-        //0.125
-        //0.07
-        //Time.fixedDeltaTime += 0.011f;
-        yield break;
+        Time.timeScale = 1f;
+        panelTutorial.SetActive(false);
+        fin = false;
     }
     private void UpdateStatsText() {
         GameObject go = GameObject.FindGameObjectWithTag("Stats"); // Busca el objeto con la etiqueta "Stats"

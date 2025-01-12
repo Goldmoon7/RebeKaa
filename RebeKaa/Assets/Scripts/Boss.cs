@@ -16,7 +16,7 @@ public class Boss : MonoBehaviour
     private float timeSinceLastRotation;
     private float timeSinceLastAttack;
 
-    public int toques = 8; // Toques necesarios para derrotar al boss
+    public static int toques = 10; // Toques necesarios para derrotar al boss
     public Animator animator;
     public bool enLlamas = false;
 

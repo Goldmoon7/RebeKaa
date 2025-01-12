@@ -132,7 +132,7 @@ MonoBehaviour:
   rotationSpeed: 90
   rotationInterval: 4
   attackInterval: 8
-  toques: 8
+  toques: 10
   animator: {fileID: 6199189389095860525}
   enLlamas: 0
   bolaFuegoPrefab: {fileID: 7439814736314006458, guid: e85f4f1c2e5b40048b122ddea3eb55dc, type: 3}

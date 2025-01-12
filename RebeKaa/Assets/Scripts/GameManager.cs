@@ -14,11 +14,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> botones;
 
     public void Start() {
-        if (PlayerPrefs.HasKey("nivelActual")) {
-            nivel = PlayerPrefs.GetInt("nivelActual");
-        } else {
-            PlayerPrefs.SetInt("nivelActual",0);
-        }
         menuAjustes.SetActive(false);
         menuNiveles.SetActive(false);
         menuPrincipal.SetActive(true);
@@ -51,7 +46,8 @@ public class GameManager : MonoBehaviour
 
     public void Nivel(int i) {
         Debug.Log("entrar a nivel: " + i + " estando en nivel: " + PlayerPrefs.GetInt("nivelActual"));
-        if (i <= nivel) {
+        if (i <= PlayerPrefs.GetInt("nivelActual")) {
+            Debug.Log("helooooo");
             SceneManager.LoadScene("Definitivo");
         }
     }
