@@ -48,10 +48,19 @@ public class EnemySpawner : MonoBehaviour
         waveCounter = 0;
         cartelOleada.SetActive(false);
         panelTutorial.SetActive(false);
-        Time.fixedDeltaTime = 0.125f;
+        //Time.fixedDeltaTime = 0.125f;
         modificarVelocidad = false;
         fin = false;
-        StartCoroutine(GestorOleadas());
+        if (PlayerPrefs.GetInt("nivelActual") < 6) {
+            Time.fixedDeltaTime = 0.125f;
+            StartCoroutine(GestorOleadas());
+        } else if (PlayerPrefs.GetInt("nivelActual") == 6) {
+            Time.fixedDeltaTime = 0.07f;
+            StartCoroutine(Boss());
+        } else {
+            Time.fixedDeltaTime = 0.07f;
+            StartCoroutine(End());
+        }
         
     }
     void Update(){
@@ -181,31 +190,37 @@ public class EnemySpawner : MonoBehaviour
     */
 
     private void SpawnWave() {
-        int i = waveCounter-1;
-        enemyCounter = i + 4;
-        for (int j = 0; j < enemyCounter; j++) {
-            if(waveCounter != 6){
-                int x = UnityEngine.Random.Range(0,xlimit+1);
-            int y = UnityEngine.Random.Range(0,ylimit+1);
-            if (j == 1 || j == 2) {
-                x *= -1;
+        if (waveCounter != 6) {
+            int i = waveCounter-1;
+            enemyCounter = i + 4;
+            for (int j = 0; j < enemyCounter; j++) {
+                if(waveCounter != 6){
+                    int x = UnityEngine.Random.Range(0,xlimit+1);
+                    int y = UnityEngine.Random.Range(0,ylimit+1);
+                    if (j == 1 || j == 2) {
+                        x *= -1;
+                    }
+                    if (j == 2 || j == 3) {
+                        y *= -1;
+                    }
+                    if (waveCounter > 2) {
+                        i = 2;
+                    }
+                    int tipoEnemigo = UnityEngine.Random.Range(0,i+1);
+                    UnityEngine.Vector3 pos = new UnityEngine.Vector3(x,y,0);
+                    GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, UnityEngine.Quaternion.identity);
+                    enemy.transform.localScale = new UnityEngine.Vector3(3,3,3);
+                    }
+                else {
+                    enemyCounter = 1;
+                    UnityEngine.Vector3 pos = new UnityEngine.Vector3(25, 0, 0);
+                    GameObject enemy = Instantiate(boss, pos, UnityEngine.Quaternion.identity);
+                }
             }
-            if (j == 2 || j == 3) {
-                y *= -1;
-            }
-            if (waveCounter > 2) {
-                i = 2;
-            }
-            int tipoEnemigo = UnityEngine.Random.Range(0,i+1);
-            UnityEngine.Vector3 pos = new UnityEngine.Vector3(x,y,0);
-            GameObject enemy = Instantiate(enemyPrefabs[tipoEnemigo], pos, UnityEngine.Quaternion.identity);
-            enemy.transform.localScale = new UnityEngine.Vector3(3,3,3);
-            }
-            else{
-                enemyCounter = 1;
-                UnityEngine.Vector3 pos = new UnityEngine.Vector3(25, 0, 0);
-                GameObject enemy = Instantiate(boss, pos, UnityEngine.Quaternion.identity);
-            }
+        } else {
+            enemyCounter = 1;
+            UnityEngine.Vector3 pos = new UnityEngine.Vector3(25, 0, 0);
+            GameObject enemy = Instantiate(boss, pos, UnityEngine.Quaternion.identity);
         }
     }
 
@@ -238,6 +253,7 @@ public class EnemySpawner : MonoBehaviour
             PlayerPrefs.SetInt("nivelActual",3);
             EndGame();
         }
+        yield return new WaitUntil(() => fin == false);
         if (PlayerPrefs.GetInt("nivelActual") == 3) {
             fin = true;
             StartCoroutine(CartelTutorial(2));
@@ -270,15 +286,32 @@ public class EnemySpawner : MonoBehaviour
         if (PlayerPrefs.GetInt("nivelActual") == 5) {
             fin = true;
             PlayerPrefs.SetInt("nivelActual",6);
-            EndGame();
+            //EndGame();
+            SceneManager.LoadScene("ViñetasP2");
         }
         yield return new WaitUntil(() => fin == false);
-        waveCounter++;
-        StartCoroutine(CartelTutorial(3));
-        SiguienteOleada(); // oleada 6????
-        // aqui tambien va el boss
+    }
+
+    public IEnumerator Boss() {
+        if (PlayerPrefs.GetInt("nivelActual") == 6) {
+            fin = true;
+            StartCoroutine(CartelTutorial(3));
+        }
+        yield return new WaitUntil(() => fin == false);
+        waveCounter = 6;
+        SiguienteOleada(); // oleada 6 (boss)
         textovidasboss.SetActive(true);
         yield return new WaitUntil(() => enemyCounter == 0);
+        PlayerPrefs.SetInt("nivelActual",7);
+        SceneManager.LoadScene("ViñetaP3");
+        /*
+        fin = true;
+        EndGame();
+        yield return new WaitUntil(() => fin == false);
+        */
+    }
+
+    public IEnumerator End() {
         fin = true;
         EndGame();
         yield return new WaitUntil(() => fin == false);
