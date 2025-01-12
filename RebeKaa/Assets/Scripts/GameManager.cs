@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
     public void Nivel(int i) {
         Debug.Log("entrar a nivel: " + i + " estando en nivel: " + PlayerPrefs.GetInt("nivelActual"));
         if (i <= PlayerPrefs.GetInt("nivelActual")) {
+            if (i == 1 && PlayerPrefs.GetInt("nivelActual") == 1) {
+                SceneManager.LoadScene("ViñetasP1");
+            }
             Debug.Log("helooooo");
             SceneManager.LoadScene("Definitivo");
         }

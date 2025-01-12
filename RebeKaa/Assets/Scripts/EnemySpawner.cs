@@ -303,7 +303,7 @@ public class EnemySpawner : MonoBehaviour
         textovidasboss.SetActive(true);
         yield return new WaitUntil(() => enemyCounter == 0);
         PlayerPrefs.SetInt("nivelActual",7);
-        SceneManager.LoadScene("ViñetaP3");
+        SceneManager.LoadScene("ViñetasP3");
         /*
         fin = true;
         EndGame();
