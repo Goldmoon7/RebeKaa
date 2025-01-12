@@ -117,12 +117,12 @@ public class Snake : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && makeBiggerTrigger == 0) {
-            makeBiggerTrigger = 1;
+            // makeBiggerTrigger = 1;
         }
 
         if (Input.GetKeyDown(KeyCode.L) && makeSmallerTrigger == 0) {
-            makeSmallerTrigger = 1;
-            cheat = 1;
+            // makeSmallerTrigger = 1;
+            // cheat = 1;
         }
 
         if (Input.GetKeyDown(KeyCode.I)) {
