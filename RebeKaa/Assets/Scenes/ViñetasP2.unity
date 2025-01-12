@@ -475,6 +475,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2005592429}
   - {fileID: 955545788}
   - {fileID: 2125504887}
   m_Father: {fileID: 0}
@@ -495,7 +496,7 @@ GameObject:
   - component: {fileID: 2005592429}
   - component: {fileID: 2005592428}
   m_Layer: 0
-  m_Name: 11565290294_0c4423c9fb_b
+  m_Name: fondo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -561,12 +562,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005592427}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.05, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960, y: -540.05, z: 0}
   m_LocalScale: {x: 5.719383, y: 5.719383, z: 5.719383}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1945392545}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2125504886
 GameObject:
@@ -654,4 +655,3 @@ SceneRoots:
   - {fileID: 940615033}
   - {fileID: 1945392545}
   - {fileID: 407564140}
-  - {fileID: 2005592429}

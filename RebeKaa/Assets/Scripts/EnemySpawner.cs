@@ -22,6 +22,10 @@ public class EnemySpawner : MonoBehaviour
     public GameObject EndMenu;
     public GameObject texto_tutorial;
     public GameObject panelTutorial;
+    public GameObject panelVineta;
+    public GameObject textoVineta;
+    public List<Sprite> imagenVinetas;
+    public GameObject ImagenVineta;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
     public static int enemyCounter;
@@ -48,9 +52,13 @@ public class EnemySpawner : MonoBehaviour
         waveCounter = 0;
         cartelOleada.SetActive(false);
         panelTutorial.SetActive(false);
+        panelVineta.SetActive(false);
         //Time.fixedDeltaTime = 0.125f;
         modificarVelocidad = false;
         fin = false;
+        Time.fixedDeltaTime = 0.125f;
+        StartCoroutine(GestorOleadas());
+        /*
         if (PlayerPrefs.GetInt("nivelActual") < 6) {
             Time.fixedDeltaTime = 0.125f;
             StartCoroutine(GestorOleadas());
@@ -61,6 +69,7 @@ public class EnemySpawner : MonoBehaviour
             Time.fixedDeltaTime = 0.07f;
             StartCoroutine(End());
         }
+        */
         
     }
     void Update(){
@@ -283,12 +292,21 @@ public class EnemySpawner : MonoBehaviour
         waveCounter++;
         SiguienteOleada(); // oleada 5
         yield return new WaitUntil(() => enemyCounter == 0);
-        if (PlayerPrefs.GetInt("nivelActual") == 5) {
-            fin = true;
-            PlayerPrefs.SetInt("nivelActual",6);
-            //EndGame();
-            SceneManager.LoadScene("ViñetasP2");
-        }
+        fin = true;
+        StartCoroutine(CartelVineta(0));
+        yield return new WaitUntil(() => fin == false);
+        fin = true;
+        StartCoroutine(CartelTutorial(3));
+        yield return new WaitUntil(() => fin == false);
+        waveCounter = 6;
+        SiguienteOleada(); // oleada 6 (boss)
+        textovidasboss.SetActive(true);
+        yield return new WaitUntil(() => enemyCounter == 0);
+        fin = true;
+        StartCoroutine(CartelVineta(1));
+        yield return new WaitUntil(() => fin == false);
+        fin = true;
+        EndGame();
         yield return new WaitUntil(() => fin == false);
     }
 
@@ -373,6 +391,31 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitUntil(() => Input.anyKeyDown);
         Time.timeScale = 1f;
         panelTutorial.SetActive(false);
+        fin = false;
+    }
+
+    public IEnumerator CartelVineta(int fase) {
+        Time.timeScale = 0f;
+        switch(fase){
+            case 0:{
+                textoVineta.GetComponent<Text>().text = "Kaa consigue derrotar a los animales que se interpusieron en su camino hacia Rebe y sigue avanzando por el desierto, hasta que se topa con una cueva de aspecto sospechoso en la que se vislumbran dos ojos que la miran fijamente y los gritos de Rebe pidiendo ayuda!";
+                break;
+            }
+            case 1:{
+                textoVineta.GetComponent<Text>().text = "Tras derrotar al malvado Monstruo del desierto, Kaa y Rebe se dirigen a casa, felices de volver a estar juntas.";
+                break;
+            }
+        }
+        panelVineta.SetActive(true);
+        ImagenVineta.SetActive(false);
+        yield return new WaitUntil(() => Input.anyKeyDown);
+        textoVineta.SetActive(false);
+        SpriteRenderer sr = ImagenVineta.GetComponent<SpriteRenderer>();
+        sr.sprite = imagenVinetas[fase];
+        ImagenVineta.SetActive(true);
+        yield return new WaitUntil(() => Input.anyKeyDown);
+        panelVineta.SetActive(false);
+        Time.timeScale = 1f;
         fin = false;
     }
     private void UpdateStatsText() {
