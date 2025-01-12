@@ -50,8 +50,9 @@ public class GameManager : MonoBehaviour
             if (i == 1 && PlayerPrefs.GetInt("nivelActual") == 1) {
                 SceneManager.LoadScene("ViñetasP1");
             }
-            Debug.Log("helooooo");
-            SceneManager.LoadScene("Definitivo");
+            else{
+                SceneManager.LoadScene("Definitivo");
+            }
         }
     }
     public void Volver(int i) {

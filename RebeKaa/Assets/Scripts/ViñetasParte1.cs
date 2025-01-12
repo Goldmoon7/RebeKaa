@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;  // Para usar el componente Image
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ViñetasParte1 : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class ViñetasParte1 : MonoBehaviour
             currentIndex = (currentIndex + 1);  // Cicla a través de las imágenes
             UpdateImage();
             UpdateText();
+        }
+        else if (Input.GetMouseButtonDown(0) && currentIndex == sprites.Length-1){
+            SceneManager.LoadScene("Definitivo");
         }
     }
 
