@@ -27,7 +27,7 @@ public class PauseManager : MonoBehaviour
     {
         // Detectar si se presiona la tecla Escape
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (!FinDePartida) {
                 if (EndMenu.activeSelf) {
