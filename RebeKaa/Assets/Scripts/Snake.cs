@@ -83,6 +83,11 @@ public class Snake : MonoBehaviour
         detectarColisiones = true;
         colisionesCuerpo = true;
         CreateLives();
+        nlagartosmuertos = 0;
+        nfenecmuertos = 0;
+         naguilasmuertas= 0;
+         greenkaaBebidas=0;
+        //UpdateStatsText();
     }
 
     // Update is called once per frame

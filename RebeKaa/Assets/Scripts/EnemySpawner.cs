@@ -340,8 +340,8 @@ public class EnemySpawner : MonoBehaviour
         StopAllCoroutines();
         Time.timeScale = 0f;   // Detener el tiempo en el juego
         EndMenu.SetActive(true);  // Mostrar el menú de pausa
-        UpdateStatsText();
-        UpdateTotalPoints();
+        //UpdateStatsText();
+        //UpdateTotalPoints();
     }
 
     public void SiguienteOleada() {
@@ -420,7 +420,7 @@ public class EnemySpawner : MonoBehaviour
         Time.timeScale = 1f;
         fin = false;
     }
-    private void UpdateStatsText() {
+    /*private void UpdateStatsText() {
         GameObject go = GameObject.FindGameObjectWithTag("Stats"); // Busca el objeto con la etiqueta "Stats"
         float tempAct = Time.time -Snake.tiempo;
         minutos= Mathf.FloorToInt(tempAct / 60f);
@@ -444,5 +444,5 @@ public class EnemySpawner : MonoBehaviour
                 bossMuerto*100 + Snake.longitud + (segundos + minutos*60f) * (-0.2) + Snake.nvidas*10;
         go.GetComponent<Text>().text = "TOTAL: " + total;
 
-    }
+    }*/
 }
