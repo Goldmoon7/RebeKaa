@@ -22,13 +22,15 @@ public class EnemySpawner : MonoBehaviour
     public GameObject EndMenu;
     public GameObject texto_tutorial;
     public GameObject panelTutorial;
-    public GameObject panelVineta;
+    // public GameObject panelVineta;
     public GameObject textoVineta;
     public List<Sprite> imagenVinetas;
-    public GameObject ImagenVineta;
+    public Image ImagenVineta;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
     public static int enemyCounter;
+
+    public Image fondoTextoViñeta;
     private int xlimit = 32;
     private int ylimit = 14;
     public static int bossMuerto = 0;
@@ -52,7 +54,12 @@ public class EnemySpawner : MonoBehaviour
         waveCounter = 0;
         cartelOleada.SetActive(false);
         panelTutorial.SetActive(false);
-        panelVineta.SetActive(false);
+        // panelVineta.SetActive(false);
+
+        ImagenVineta.color = new Color(ImagenVineta.color.r, ImagenVineta.color.g, ImagenVineta.color.b, 0f);
+        fondoTextoViñeta.color = new Color(fondoTextoViñeta.color.r, fondoTextoViñeta.color.g, fondoTextoViñeta.color.b, 0f);
+        textoVineta.GetComponent<Text>().text = " ";
+
         //Time.fixedDeltaTime = 0.125f;
         modificarVelocidad = false;
         fin = false;
@@ -373,7 +380,7 @@ public class EnemySpawner : MonoBehaviour
         Time.timeScale = 0f;
         switch(fase){
             case 0:{
-                texto_tutorial.GetComponent<Text>().text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.";
+                texto_tutorial.GetComponent<Text>().text = "Muévete utilizando las teclas A W S D o las teclas de dirección ←  ↑  ↓  →\nCome frutas para aumentar la longitud de Kaa y evita chocarte con las paredes.\n Pulsa la P para pausar o reanudar el juego.";
                 break;
             }
             case 1:{
@@ -390,7 +397,7 @@ public class EnemySpawner : MonoBehaviour
             }
         }
         panelTutorial.SetActive(true);
-        yield return new WaitUntil(() => Input.anyKeyDown);
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         Time.timeScale = 1f;
         panelTutorial.SetActive(false);
         fin = false;
@@ -398,6 +405,9 @@ public class EnemySpawner : MonoBehaviour
 
     public IEnumerator CartelVineta(int fase) {
         Time.timeScale = 0f;
+        // panelVineta.SetActive(true);
+        // ImagenVineta.color = new Color(ImagenVineta.color.r, ImagenVineta.color.g, ImagenVineta.color.b, 0f);
+        fondoTextoViñeta.color = new Color(fondoTextoViñeta.color.r, fondoTextoViñeta.color.g, fondoTextoViñeta.color.b, 1f);
         switch(fase){
             case 0:{
                 textoVineta.GetComponent<Text>().text = "Kaa consigue derrotar a los animales que se interpusieron en su camino hacia Rebe y sigue avanzando por el desierto, hasta que se topa con una cueva de aspecto sospechoso en la que se vislumbran dos ojos que la miran fijamente y los gritos de Rebe pidiendo ayuda!";
@@ -408,16 +418,21 @@ public class EnemySpawner : MonoBehaviour
                 break;
             }
         }
-        panelVineta.SetActive(true);
-        ImagenVineta.SetActive(false);
-        yield return new WaitUntil(() => Input.anyKeyDown);
-        textoVineta.SetActive(false);
-        SpriteRenderer sr = ImagenVineta.GetComponent<SpriteRenderer>();
-        sr.sprite = imagenVinetas[fase];
-        ImagenVineta.SetActive(true);
-        yield return new WaitForSecondsRealtime(3);
-        panelVineta.SetActive(false);
+        
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        textoVineta.GetComponent<Text>().text = " ";
+        fondoTextoViñeta.color = new Color(fondoTextoViñeta.color.r, fondoTextoViñeta.color.g, fondoTextoViñeta.color.b, 0f);
+        // SpriteRenderer sr = ImagenVineta.GetComponent<SpriteRenderer>();
+        ImagenVineta.sprite = imagenVinetas[fase];
+        ImagenVineta.color = new Color(ImagenVineta.color.r, ImagenVineta.color.g, ImagenVineta.color.b, 1f);
+        yield return new WaitForSeconds(0.5f);
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        ImagenVineta.color = new Color(ImagenVineta.color.r, ImagenVineta.color.g, ImagenVineta.color.b, 0f);
+        yield return new WaitForSeconds(0.5f);
+        //AQUI HAY QUE REANUDAR EL JUEGO AL IGUAL QUE LO HACE PAUSAR Y DESPAUSAR
         Time.timeScale = 1f;
+        // PauseManager.PauseGame();
+        // PauseManager.ResumeGame();
         fin = false;
     }
     /*private void UpdateStatsText() {
@@ -437,12 +452,12 @@ public class EnemySpawner : MonoBehaviour
         "\n\nVidas Restantes............................ " + Snake.nvidas; // Actualiza el texto
     }
 
-    private void UpdateTotalPoints(){
-        GameObject go = GameObject.FindGameObjectWithTag("TOTAL");
-        double total;
-        total = Snake.frutasComidas * 5 + Snake.nlagartosmuertos * 10 + Snake.nfenecmuertos*20 + Snake.naguilasmuertas*40 + 
-                bossMuerto*100 + Snake.longitud + (segundos + minutos*60f) * (-0.2) + Snake.nvidas*10;
-        go.GetComponent<Text>().text = "TOTAL: " + total;
+    // private void UpdateTotalPoints(){
+    //     GameObject go = GameObject.FindGameObjectWithTag("TOTAL");
+    //     double total;
+    //     total = Snake.frutasComidas * 5 + Snake.nlagartosmuertos * 10 + Snake.nfenecmuertos*20 + Snake.naguilasmuertas*40 + 
+    //             bossMuerto*100 + Snake.longitud + (segundos + minutos*60f) * (-0.2) + Snake.nvidas*10;
+    //     go.GetComponent<Text>().text = "TOTAL: " + total;
 
     }*/
 }

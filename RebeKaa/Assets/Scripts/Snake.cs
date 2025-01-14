@@ -59,6 +59,7 @@ public class Snake : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ControlAudio.Instance.sonidoAmbiente.Play();
         textovidaboss.SetActive(false);
         spriteRenderer = GetComponent<SpriteRenderer>();
         this.transform.position = new Vector3(0.5f,0.5f,0);
@@ -121,8 +122,8 @@ public class Snake : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && makeBiggerTrigger == 0) {
-            // makeBiggerTrigger = 1;
+        if (Input.GetKeyDown(KeyCode.M) && makeBiggerTrigger == 0) {
+            makeBiggerTrigger = 1;
         }
 
         if (Input.GetKeyDown(KeyCode.L) && makeSmallerTrigger == 0) {

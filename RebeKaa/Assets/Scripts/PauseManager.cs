@@ -27,7 +27,7 @@ public class PauseManager : MonoBehaviour
     {
         // Detectar si se presiona la tecla Escape
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (!FinDePartida) {
                 if (EndMenu.activeSelf) {
@@ -100,6 +100,7 @@ public class PauseManager : MonoBehaviour
 
     public void SalirTrasFinDePartida() {
         ControlAudio.Instance.EjecutarSonido(darboton);
+        ControlAudio.Instance.sonidoAmbiente.Stop();
         EndMenu.SetActive(false);
         Time.timeScale = 1f;
         SceneManager.LoadScene("MenuInicio");
