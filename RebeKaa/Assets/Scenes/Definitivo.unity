@@ -1589,7 +1589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &508095806
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2471,7 +2471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &665663982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38201,7 +38201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1547196843
 RectTransform:
   m_ObjectHideFlags: 0
@@ -71271,11 +71271,11 @@ MonoBehaviour:
   boss: {fileID: 1806890084751466686, guid: 293c2596f046cac4f896bf867306410d, type: 3}
   TextoOleada: {fileID: 886006553}
   EndMenu: {fileID: 665663981}
-  texto_tutorial: {fileID: 0}
-  panelTutorial: {fileID: 0}
-  textoVineta: {fileID: 0}
+  texto_tutorial: {fileID: 1696020248}
+  panelTutorial: {fileID: 482585797}
+  textoVineta: {fileID: 336412821}
   imagenVinetas: []
-  ImagenVineta: {fileID: 0}
+  ImagenVineta: {fileID: 107672602}
   numeroOleada: 0
   "fondoTextoVi\xF1eta": {fileID: 0}
 --- !u!114 &1925019939
@@ -71350,7 +71350,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 14a6c28f22ba6d74f85f979102476494, type: 3}
-    m_FontSize: 85
+    m_FontSize: 81
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0

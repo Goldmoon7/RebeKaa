@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
     public Image fondoTextoViñeta;
     private int xlimit = 32;
     private int ylimit = 14;
-    public static int bossMuerto = 0;
+    public static int bossMuerto;
     private bool modificarVelocidad;
     private bool fin;
     private int minutos;
@@ -51,6 +51,7 @@ public class EnemySpawner : MonoBehaviour
         texto_tutorial = GameObject.Find("Tutorial/Panel/Texto_tutorial");
         panel = GameObject.Find("Tutorial/Panel");
         */
+        bossMuerto = 0;
         waveCounter = 0;
         cartelOleada.SetActive(false);
         panelTutorial.SetActive(false);
