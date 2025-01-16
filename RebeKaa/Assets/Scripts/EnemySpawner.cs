@@ -24,12 +24,13 @@ public class EnemySpawner : MonoBehaviour
     public GameObject panelTutorial;
     // public GameObject panelVineta;
     public GameObject textoVineta;
+    public GameObject TextStats;
     public List<Sprite> imagenVinetas;
     public Image ImagenVineta;
     public static int waveCounter; //contador de oleadas
     public int numeroOleada;
     public static int enemyCounter;
-
+    public GameObject Total;
     public Image fondoTextoViñeta;
     private int xlimit = 32;
     private int ylimit = 14;
@@ -310,9 +311,9 @@ public class EnemySpawner : MonoBehaviour
         SiguienteOleada(); // oleada 6 (boss)
         textovidasboss.SetActive(true);
         yield return new WaitUntil(() => enemyCounter == 0);
-        fin = true;
-        StartCoroutine(CartelVineta(1));
-        yield return new WaitUntil(() => fin == false);
+        //fin = true;
+        //StartCoroutine(CartelVineta(1));
+        //yield return new WaitUntil(() => fin == false);
         fin = true;
         EndGame();
         yield return new WaitUntil(() => fin == false);
@@ -345,11 +346,11 @@ public class EnemySpawner : MonoBehaviour
 
     public void EndGame()
     {
+        UpdateStatsText();
+        UpdateTotalPoints();
         StopAllCoroutines();
         Time.timeScale = 0f;   // Detener el tiempo en el juego
         EndMenu.SetActive(true);  // Mostrar el menú de pausa
-        //UpdateStatsText();
-        //UpdateTotalPoints();
     }
 
     public void SiguienteOleada() {
@@ -436,12 +437,11 @@ public class EnemySpawner : MonoBehaviour
         // PauseManager.ResumeGame();
         fin = false;
     }
-    /*private void UpdateStatsText() {
-        GameObject go = GameObject.FindGameObjectWithTag("Stats"); // Busca el objeto con la etiqueta "Stats"
+    private void UpdateStatsText() {
         float tempAct = Time.time -Snake.tiempo;
         minutos= Mathf.FloorToInt(tempAct / 60f);
         segundos = Mathf.FloorToInt(tempAct % 60);
-        go.GetComponent<Text>().text = "Frutas Comidas.................... " + Snake.frutasComidas + 
+        TextStats.GetComponent<Text>().text = "Frutas Comidas.................... " + Snake.frutasComidas + 
         "\n\nEnemigos Derrotados............... " + Snake.enemigosDerrotados + 
         "\n\n\tLagartos Derrotados.................... "+ Snake.nlagartosmuertos +
         "\n\n\tFenecs Derrotados.................... "+ Snake.nfenecmuertos +
@@ -453,12 +453,11 @@ public class EnemySpawner : MonoBehaviour
         "\n\nVidas Restantes............................ " + Snake.nvidas; // Actualiza el texto
     }
 
-    // private void UpdateTotalPoints(){
-    //     GameObject go = GameObject.FindGameObjectWithTag("TOTAL");
-    //     double total;
-    //     total = Snake.frutasComidas * 5 + Snake.nlagartosmuertos * 10 + Snake.nfenecmuertos*20 + Snake.naguilasmuertas*40 + 
-    //             bossMuerto*100 + Snake.longitud + (segundos + minutos*60f) * (-0.2) + Snake.nvidas*10;
-    //     go.GetComponent<Text>().text = "TOTAL: " + total;
+     private void UpdateTotalPoints(){       
+         double total;
+         total = Snake.frutasComidas * 5 + Snake.nlagartosmuertos * 10 + Snake.nfenecmuertos*20 + Snake.naguilasmuertas*40 + 
+                    bossMuerto*100 + Snake.longitud + (segundos + minutos*60f) * (-0.2) + Snake.nvidas*10;
+         Total.GetComponent<Text>().text = "TOTAL: " + total;
 
-    }*/
+    }
 }

@@ -26,6 +26,8 @@ public class Snake : MonoBehaviour
     [SerializeField] public AudioClip dañorecibido;
     List<GameObject> body;
     public static GameObject[] hearts;
+    public GameObject TextoStats;
+    public GameObject Total;
     private int currentHorizDir;
     private int currentVertDir;
     private int SCORE;
@@ -404,9 +406,9 @@ public class Snake : MonoBehaviour
 
     public void EndGame()
     {
-        EndMenu.SetActive(true);  // Mostrar el menú de pausa
         UpdateStatsText();
         UpdateTotalPoints();
+        EndMenu.SetActive(true);  // Mostrar el menú de pausa
         Time.timeScale = 0f;   // Detener el tiempo en el juego
 
     }
@@ -583,11 +585,10 @@ public void DesactivarAlas(){
     }
 
     private void UpdateStatsText() {
-        GameObject go = GameObject.FindGameObjectWithTag("Stats"); // Busca el objeto con la etiqueta "Stats"
         float tempAct = Time.time -tiempo;
         minutos= Mathf.FloorToInt(tempAct / 60f);
         segundos = Mathf.FloorToInt(tempAct % 60);
-        go.GetComponent<Text>().text = "Frutas Comidas.................... " + frutasComidas + 
+        TextoStats.GetComponent<Text>().text = "Frutas Comidas.................... " + frutasComidas + 
         "\n\nEnemigos Derrotados............... " + enemigosDerrotados + 
         "\n\n\tLagartos Derrotados.................... "+ nlagartosmuertos +
         "\n\n\tFenecs Derrotados.................... "+ nfenecmuertos +
@@ -600,11 +601,10 @@ public void DesactivarAlas(){
     }
 
     private void UpdateTotalPoints(){
-        GameObject go = GameObject.FindGameObjectWithTag("TOTAL");
         double total;
         total = frutasComidas * 5 + nlagartosmuertos * 10 + nfenecmuertos*20 + naguilasmuertas*40 + 
                 EnemySpawner.bossMuerto*100 + longitud + (segundos + minutos*60f) * (-0.2) + VIDAS*10;
-        go.GetComponent<Text>().text = "TOTAL: " + total;
+        Total.GetComponent<Text>().text = "TOTAL: " + total;
 
     }
     private void UpdateVidaBoss(){

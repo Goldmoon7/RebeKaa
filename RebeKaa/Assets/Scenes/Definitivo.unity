@@ -37984,11 +37984,13 @@ MonoBehaviour:
   texto_tutorial: {fileID: 1696020248}
   panelTutorial: {fileID: 1232302694}
   textoVineta: {fileID: 336412821}
+  TextStats: {fileID: 690274466}
   imagenVinetas:
   - {fileID: 21300000, guid: eb442d891a55cfb4d809fb7faa9e9d51, type: 3}
   - {fileID: 21300000, guid: 25258a3d5543430419d7a1b6749ebccf, type: 3}
   ImagenVineta: {fileID: 107672602}
   numeroOleada: 0
+  Total: {fileID: 564366338}
   "fondoTextoVi\xF1eta": {fileID: 1349289358}
 --- !u!114 &1424998966
 MonoBehaviour:
@@ -71274,9 +71276,11 @@ MonoBehaviour:
   texto_tutorial: {fileID: 1696020248}
   panelTutorial: {fileID: 482585797}
   textoVineta: {fileID: 336412821}
+  TextStats: {fileID: 690274466}
   imagenVinetas: []
   ImagenVineta: {fileID: 107672602}
   numeroOleada: 0
+  Total: {fileID: 564366338}
   "fondoTextoVi\xF1eta": {fileID: 0}
 --- !u!114 &1925019939
 MonoBehaviour:
@@ -104535,6 +104539,8 @@ MonoBehaviour:
   bebergreenkaa: {fileID: 8300000, guid: 1b78425f80355244aac802f737a7ed37, type: 3}
   enemigoderrotado: {fileID: 8300000, guid: c961b54639f0bd445925659ab5dd53c7, type: 3}
   "da\xF1orecibido": {fileID: 8300000, guid: cb19f744e4981ba44a0830f6b20afeea, type: 3}
+  TextoStats: {fileID: 690274466}
+  Total: {fileID: 564366338}
   kaaAlas: {fileID: 21300000, guid: b70fd1044e30e7c4e83bc19491fd5c32, type: 3}
   kaaNormal: {fileID: 21300000, guid: 05c70e2901d693d45b2afe5c554c3b98, type: 3}
 --- !u!61 &2053260057
